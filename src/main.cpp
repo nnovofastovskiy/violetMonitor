@@ -8,8 +8,12 @@
 #include <esp8266wifi.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
+#include "main.h"
+
+#define TICK_PIN 2
 
 #define TRIGGER_PIN 0
+#define TIM_PERIOD 10
 
 // wifimanager can run in a blocking mode or a non blocking mode
 // Be sure to know how to process loops with no delay() if using non blocking
@@ -24,8 +28,40 @@ HTTPClient http;
 byte id = 1;
 char *sid;
 
+static os_timer_t os_timer01;
+static uint8_t tick_state = 1;
+uint16_t tick_cnt = 0;
+
+// static ETSTimer os_timer01;
+//------------------------------------------------------
+static void ICACHE_FLASH_ATTR timer_func_user(void *arg)
+{
+  if (tick_cnt < 1000)
+  {
+    GPIO_OUTPUT_SET(TICK_PIN, 1);
+  }
+  else if (tick_cnt < 1010)
+  {
+    GPIO_OUTPUT_SET(TICK_PIN, 0);
+  }
+  else
+  {
+    tick_cnt = 0;
+  }
+  tick_cnt++;
+  // GPIO_OUTPUT_SET(TICK_PIN, tick_state);
+  // tick_state = (tick_state == 0) ? 1 : 0;
+}
+//------------------------------------------------------
+bool res;
+
 void setup()
 {
+  gpio_output_set(0, 0, (1 << TICK_PIN), 0);
+  os_timer_disarm(&os_timer01);
+  os_timer_setfn(&os_timer01, (os_timer_func_t *)timer_func_user, NULL);
+  os_timer_arm(&os_timer01, TIM_PERIOD, 1);
+
   WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
   Serial.begin(115200);
   Serial.setDebugOutput(true);
@@ -34,6 +70,7 @@ void setup()
   Serial.println("\n Starting");
 
   pinMode(TRIGGER_PIN, INPUT);
+  pinMode(TICK_PIN, OUTPUT);
 
   // wm.resetSettings(); // wipe settings
 
@@ -84,7 +121,7 @@ void setup()
 
   // wm.setBreakAfterConfig(true);   // always exit configportal even if wifi save fails
 
-  bool res;
+  // bool res;
   // res = wm.autoConnect(); // auto generated AP name from chipid
   // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
   res = wm.autoConnect("AutoConnectAP", "password"); // password protected ap
@@ -99,9 +136,24 @@ void setup()
     // if you get here you have connected to the WiFi
     Serial.println("connected...yeey!!! WOW :)");
     //    delay(1000);
+    // Serial.print("ID = ");
+    // Serial.println(id);
+    // //    sid = String(id);
+    // //    Serial.print("SID = ");
+    // Serial.println(sid);
+    // http.begin(client, "http://jsonplaceholder.typicode.com/users/1"); // Укажите адрес назначения запроса
+    // int httpCode = http.GET();                                         // Отправьте запрос
 
-    //    ESP.deepSleep(1e6);
-    //    Serial.println("Wake up !!");
+    // if (httpCode > 0)
+    // { // Проверьте код возврата
+
+    //   String payload = http.getString(); // Получите полезную нагрузку для ответа на запрос
+    //   Serial.println(payload);           // Распечатайте полезную нагрузку ответа
+    // }
+
+    // http.end(); // Закрыть соединение
+    // ESP.deepSleep(3e6);
+    // Serial.println("Wake up !!");
   }
 }
 
@@ -166,28 +218,33 @@ void loop()
   if (wm_nonblocking)
     wm.process(); // avoid delays() in loop when non-blocking and other long running code
   checkButton();
-  Serial.print("ID = ");
-  Serial.println(id);
-  //    sid = String(id);
-  //    Serial.print("SID = ");
-  Serial.println(sid);
-  http.begin(client, "http://jsonplaceholder.typicode.com/users/1"); // Укажите адрес назначения запроса
-  int httpCode = http.GET();                                         // Отправьте запрос
+  res = wm.autoConnect("AutoConnectAP", "password");
+  if (res)
+  {
+    Serial.print("ID = ");
+    Serial.println(id);
+    //    sid = String(id);
+    //    Serial.print("SID = ");
+    Serial.println(sid);
+    http.begin(client, "http://jsonplaceholder.typicode.com/users/1"); // Укажите адрес назначения запроса
+    int httpCode = http.GET();                                         // Отправьте запрос
 
-  if (httpCode > 0)
-  { // Проверьте код возврата
+    if (httpCode > 0)
+    { // Проверьте код возврата
 
-    String payload = http.getString(); // Получите полезную нагрузку для ответа на запрос
-    Serial.println(payload);           // Распечатайте полезную нагрузку ответа
+      String payload = http.getString(); // Получите полезную нагрузку для ответа на запрос
+      Serial.println(payload);           // Распечатайте полезную нагрузку ответа
+    }
+
+    http.end(); // Закрыть соединение
+    id++;
+    wifi_set_sleep_type(LIGHT_SLEEP_T);
+    delay(5000);
+    wifi_set_sleep_type(NONE_SLEEP_T);
+    // delay(2000);
+    // ESP.deepSleep(3e6);
+    // Serial.println("Wake up !!");
   }
 
-  http.end(); // Закрыть соединение
-  id++;
-  wifi_set_sleep_type(LIGHT_SLEEP_T);
-  delay(5000);
-  wifi_set_sleep_type(NONE_SLEEP_T);
-  //  delay(2000);
-  //  ESP.deepSleep(1e6);
-  //  Serial.println("Wake up !!");
   // put your main code here, to run repeatedly:
 }
