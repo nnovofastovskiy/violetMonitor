@@ -8,7 +8,7 @@
 #include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
 #include <HTTPClient.h>
 // #include <SPIFFS.h>
-#include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
+#include <ArduinoJson.h> //https://github.com/bblanchon/ArduinoJson
 #include <Preferences.h>
 
 #define TRIGGER_PIN 0
@@ -21,10 +21,12 @@ bool wm_nonblocking = false; // change to true to use non blocking
 
 WiFiManager wm;                    // global wm instance
 WiFiManagerParameter custom_field; // global param ( for non blocking w params )
+HTTPClient http;
 
 Preferences preferences;
 
 String url;
+String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
 
 void setup()
 {
@@ -57,7 +59,7 @@ void setup()
 
   // test custom html(radio)
   // const char *custom_radio_str = "<br/><label for='customfieldid'>Custom Field Label</label><input type='radio' name='customfieldid' value='1' checked> One<br><input type='radio' name='customfieldid' value='2'> Two<br><input type='radio' name='customfieldid' value='3'> Three";
-  const char *custom_radio_str = "<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url' name='custom_url'/>";
+  const char *custom_radio_str = "<script>console.log('hello')</script>";
   new (&custom_field) WiFiManagerParameter(custom_radio_str); // custom html input
 
   wm.addParameter(&custom_field);
@@ -68,7 +70,7 @@ void setup()
   // menu tokens, "wifi","wifinoscan","info","param","close","sep","erase","restart","exit" (sep is seperator) (if param is in menu, params will not show up in wifi page!)
   // const char* menu[] = {"wifi","info","param","sep","restart","exit"};
   // wm.setMenu(menu,6);
-  std::vector<const char *> menu = {"wifi", "param", "sep", "restart", "exit"};
+  std::vector<const char *> menu = {"wifi", "param", "sep", "restart", "exit", "custom"};
   wm.setMenu(menu);
 
   // set dark theme
@@ -107,7 +109,7 @@ void setup()
     // if you get here you have connected to the WiFi
     Serial.println("connected...yeey :)");
     // Serial.println(url);
-    HTTPClient http;
+
     http.begin(url);
 
     int httpResponseCode = http.GET();
