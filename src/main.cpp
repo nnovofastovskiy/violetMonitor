@@ -1,19 +1,19 @@
-
-
 /**
  * WiFiManager advanced demo, contains advanced configurartion options
  * Implements TRIGGEN_PIN button press, press for ondemand configportal, hold for 3 seconds for reset settings.
  */
-#include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
-#include <esp8266wifi.h>
-#include <ESP8266HTTPClient.h>
-#include <WiFiClient.h>
-#include "main.h"
 
-#define TICK_PIN 2
+// #include <FS.h>
+#include <main.h>
+#include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
+#include <HTTPClient.h>
+// #include <SPIFFS.h>
+#include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
+#include <Preferences.h>
 
 #define TRIGGER_PIN 0
-#define TIM_PERIOD 10
+
+bool shouldSaveConfig = false;
 
 // wifimanager can run in a blocking mode or a non blocking mode
 // Be sure to know how to process loops with no delay() if using non blocking
@@ -22,55 +22,25 @@ bool wm_nonblocking = false; // change to true to use non blocking
 WiFiManager wm;                    // global wm instance
 WiFiManagerParameter custom_field; // global param ( for non blocking w params )
 
-WiFiClient client;
-HTTPClient http;
+Preferences preferences;
 
-byte id = 1;
-char *sid;
-
-static os_timer_t os_timer01;
-static uint8_t tick_state = 1;
-uint16_t tick_cnt = 0;
-
-// static ETSTimer os_timer01;
-//------------------------------------------------------
-static void ICACHE_FLASH_ATTR timer_func_user(void *arg)
-{
-  if (tick_cnt < 1000)
-  {
-    GPIO_OUTPUT_SET(TICK_PIN, 1);
-  }
-  else if (tick_cnt < 1010)
-  {
-    GPIO_OUTPUT_SET(TICK_PIN, 0);
-  }
-  else
-  {
-    tick_cnt = 0;
-  }
-  tick_cnt++;
-  // GPIO_OUTPUT_SET(TICK_PIN, tick_state);
-  // tick_state = (tick_state == 0) ? 1 : 0;
-}
-//------------------------------------------------------
-bool res;
+String url;
 
 void setup()
 {
-  gpio_output_set(0, 0, (1 << TICK_PIN), 0);
-  os_timer_disarm(&os_timer01);
-  os_timer_setfn(&os_timer01, (os_timer_func_t *)timer_func_user, NULL);
-  os_timer_arm(&os_timer01, TIM_PERIOD, 1);
-
-  WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
   Serial.begin(115200);
-  Serial.setDebugOutput(true);
   delay(3000);
-
   Serial.println("\n Starting");
+  preferences.begin("preferences", false);
+  url = preferences.getString("url");
+  preferences.end();
+  Serial.println("URL = " + url);
+  wm.setTitle("Violet monitor");
+  // wm.setCustomMenuHTML("<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url'/>");
+  WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
+  Serial.setDebugOutput(true);
 
   pinMode(TRIGGER_PIN, INPUT);
-  pinMode(TICK_PIN, OUTPUT);
 
   // wm.resetSettings(); // wipe settings
 
@@ -86,7 +56,8 @@ void setup()
   // new (&custom_field) WiFiManagerParameter("customfieldid", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\" type=\"checkbox\""); // custom html type
 
   // test custom html(radio)
-  const char *custom_radio_str = "<br/><label for='customfieldid'>Custom Field Label</label><input type='radio' name='customfieldid' value='1' checked> One<br><input type='radio' name='customfieldid' value='2'> Two<br><input type='radio' name='customfieldid' value='3'> Three";
+  // const char *custom_radio_str = "<br/><label for='customfieldid'>Custom Field Label</label><input type='radio' name='customfieldid' value='1' checked> One<br><input type='radio' name='customfieldid' value='2'> Two<br><input type='radio' name='customfieldid' value='3'> Three";
+  const char *custom_radio_str = "<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url' name='custom_url'/>";
   new (&custom_field) WiFiManagerParameter(custom_radio_str); // custom html input
 
   wm.addParameter(&custom_field);
@@ -97,7 +68,7 @@ void setup()
   // menu tokens, "wifi","wifinoscan","info","param","close","sep","erase","restart","exit" (sep is seperator) (if param is in menu, params will not show up in wifi page!)
   // const char* menu[] = {"wifi","info","param","sep","restart","exit"};
   // wm.setMenu(menu,6);
-  std::vector<const char *> menu = {"wifi", "info", "param", "sep", "restart", "exit"};
+  std::vector<const char *> menu = {"wifi", "param", "sep", "restart", "exit"};
   wm.setMenu(menu);
 
   // set dark theme
@@ -109,7 +80,7 @@ void setup()
   //  wm.setShowDnsFields(true);    // force show dns field always
 
   // wm.setConnectTimeout(20); // how long to try to connect for before continuing
-  wm.setConfigPortalTimeout(30); // auto close configportal after n seconds
+  wm.setConfigPortalTimeout(90); // auto close configportal after n seconds
   // wm.setCaptivePortalEnable(false); // disable captive portal redirection
   // wm.setAPClientCheck(true); // avoid timeout if client connected to softap
 
@@ -121,10 +92,10 @@ void setup()
 
   // wm.setBreakAfterConfig(true);   // always exit configportal even if wifi save fails
 
-  // bool res;
+  bool res;
   // res = wm.autoConnect(); // auto generated AP name from chipid
   // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
-  res = wm.autoConnect("AutoConnectAP", "password"); // password protected ap
+  res = wm.autoConnect("VioletMonitor", ""); // password protected ap
 
   if (!res)
   {
@@ -134,26 +105,26 @@ void setup()
   else
   {
     // if you get here you have connected to the WiFi
-    Serial.println("connected...yeey!!! WOW :)");
-    //    delay(1000);
-    // Serial.print("ID = ");
-    // Serial.println(id);
-    // //    sid = String(id);
-    // //    Serial.print("SID = ");
-    // Serial.println(sid);
-    // http.begin(client, "http://jsonplaceholder.typicode.com/users/1"); // Укажите адрес назначения запроса
-    // int httpCode = http.GET();                                         // Отправьте запрос
+    Serial.println("connected...yeey :)");
+    // Serial.println(url);
+    HTTPClient http;
+    http.begin(url);
 
-    // if (httpCode > 0)
-    // { // Проверьте код возврата
-
-    //   String payload = http.getString(); // Получите полезную нагрузку для ответа на запрос
-    //   Serial.println(payload);           // Распечатайте полезную нагрузку ответа
-    // }
-
-    // http.end(); // Закрыть соединение
-    // ESP.deepSleep(3e6);
-    // Serial.println("Wake up !!");
+    int httpResponseCode = http.GET();
+    if (httpResponseCode > 0)
+    {
+      Serial.print("HTTP ");
+      Serial.println(httpResponseCode);
+      String payload = http.getString();
+      Serial.println();
+      Serial.println(payload);
+    }
+    else
+    {
+      Serial.print("Error code: ");
+      Serial.println(httpResponseCode);
+      Serial.println(":-(");
+    }
   }
 }
 
@@ -209,8 +180,12 @@ String getParam(String name)
 
 void saveParamCallback()
 {
+  url = getParam("custom_url");
   Serial.println("[CALLBACK] saveParamCallback fired");
-  Serial.println("PARAM customfieldid = " + getParam("customfieldid"));
+  Serial.println("PARAM custom_url = " + url);
+  preferences.begin("preferences", false);
+  preferences.putString("url", url);
+  preferences.end();
 }
 
 void loop()
@@ -218,33 +193,5 @@ void loop()
   if (wm_nonblocking)
     wm.process(); // avoid delays() in loop when non-blocking and other long running code
   checkButton();
-  res = wm.autoConnect("AutoConnectAP", "password");
-  if (res)
-  {
-    Serial.print("ID = ");
-    Serial.println(id);
-    //    sid = String(id);
-    //    Serial.print("SID = ");
-    Serial.println(sid);
-    http.begin(client, "http://jsonplaceholder.typicode.com/users/1"); // Укажите адрес назначения запроса
-    int httpCode = http.GET();                                         // Отправьте запрос
-
-    if (httpCode > 0)
-    { // Проверьте код возврата
-
-      String payload = http.getString(); // Получите полезную нагрузку для ответа на запрос
-      Serial.println(payload);           // Распечатайте полезную нагрузку ответа
-    }
-
-    http.end(); // Закрыть соединение
-    id++;
-    wifi_set_sleep_type(LIGHT_SLEEP_T);
-    delay(5000);
-    wifi_set_sleep_type(NONE_SLEEP_T);
-    // delay(2000);
-    // ESP.deepSleep(3e6);
-    // Serial.println("Wake up !!");
-  }
-
   // put your main code here, to run repeatedly:
 }

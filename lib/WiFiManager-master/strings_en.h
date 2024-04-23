@@ -10,6 +10,7 @@
 #define _STRINGS_EN_H_
 
 // strings files must include a consts file!
-#include "wm_strings_en.h" // include constants, tokens, routes
+// #include "wm_strings_en.h" // include constants, tokens, routes
+#include "wm_strings_ru.h" // include constants, tokens, routes
 
 #endif
