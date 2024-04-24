@@ -4,6 +4,7 @@
  */
 
 // #include <FS.h>
+#include <Arduino.h>
 #include <main.h>
 #include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
 #include <HTTPClient.h>
@@ -12,6 +13,7 @@
 #include <Preferences.h>
 
 #define TRIGGER_PIN 0
+#define WAKE_UP_PIN GPIO_NUM_33
 
 bool shouldSaveConfig = false;
 
@@ -30,8 +32,16 @@ String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
 
 void setup()
 {
+  pinMode(GPIO_NUM_33, INPUT_PULLDOWN);
+  // pinMode(TRIGGER_PIN, INPUT_PULLUP);
+
+  esp_sleep_enable_timer_wakeup(5e6);
+  esp_sleep_enable_ext0_wakeup(WAKE_UP_PIN, 1); //1 = High, 0 = Low
+
   Serial.begin(115200);
   delay(3000);
+  check_wakeup_reason();
+
   Serial.println("\n Starting");
   preferences.begin("preferences", false);
   url = preferences.getString("url");
@@ -58,9 +68,12 @@ void setup()
   // new (&custom_field) WiFiManagerParameter("customfieldid", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\" type=\"checkbox\""); // custom html type
 
   // test custom html(radio)
-  // const char *custom_radio_str = "<br/><label for='customfieldid'>Custom Field Label</label><input type='radio' name='customfieldid' value='1' checked> One<br><input type='radio' name='customfieldid' value='2'> Two<br><input type='radio' name='customfieldid' value='3'> Three";
-  const char *custom_radio_str = "<script>console.log('hello')</script>";
-  new (&custom_field) WiFiManagerParameter(custom_radio_str); // custom html input
+  // const char *custom_input_str = "<br/><label for='customfieldid'>Custom Field Label</label><input type='radio' name='customfieldid' value='1' checked> One<br><input type='radio' name='customfieldid' value='2'> Two<br><input type='radio' name='customfieldid' value='3'> Three";
+  const String input_html = "<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url' name='custom_url' value='" + (url ? url : "") + "'/>";
+  unsigned int l = input_html.length();
+  char *custom_input_str = new char[l + 1];
+  strcpy(custom_input_str, input_html.c_str());
+  new (&custom_field) WiFiManagerParameter(custom_input_str); // custom html input
 
   wm.addParameter(&custom_field);
   wm.setSaveParamsCallback(saveParamCallback);
@@ -127,26 +140,30 @@ void setup()
       Serial.println(httpResponseCode);
       Serial.println(":-(");
     }
+    esp_deep_sleep_start();
   }
 }
 
 void checkButton()
 {
   // check for button press
-  if (digitalRead(TRIGGER_PIN) == LOW)
+  if (digitalRead(WAKE_UP_PIN) == HIGH)
   {
     // poor mans debounce/press-hold, code not ideal for production
     delay(50);
-    if (digitalRead(TRIGGER_PIN) == LOW)
+    if (digitalRead(WAKE_UP_PIN) == HIGH)
     {
       Serial.println("Button Pressed");
       // still holding button for 3000 ms, reset settings, code not ideaa for production
       delay(3000); // reset delay hold
-      if (digitalRead(TRIGGER_PIN) == LOW)
+      if (digitalRead(WAKE_UP_PIN) == HIGH)
       {
         Serial.println("Button Held");
         Serial.println("Erasing Config, restarting");
         wm.resetSettings();
+        preferences.begin("preferences", false);
+        preferences.putString("url", "");
+        preferences.end();
         ESP.restart();
       }
 
@@ -154,7 +171,7 @@ void checkButton()
       Serial.println("Starting config portal");
       wm.setConfigPortalTimeout(120);
 
-      if (!wm.startConfigPortal("OnDemandAP", "password"))
+      if (!wm.autoConnect("VioletMonitor", ""))
       {
         Serial.println("failed to connect or hit timeout");
         delay(3000);
@@ -196,4 +213,24 @@ void loop()
     wm.process(); // avoid delays() in loop when non-blocking and other long running code
   checkButton();
   // put your main code here, to run repeatedly:
+}
+
+void check_wakeup_reason(){
+  esp_sleep_wakeup_cause_t wakeup_reason;
+
+  wakeup_reason = esp_sleep_get_wakeup_cause();
+
+  switch(wakeup_reason)
+  {
+    case ESP_SLEEP_WAKEUP_EXT0 : {
+      Serial.println("Wakeup caused by external signal using RTC_IO");
+      checkButton();
+      break;
+    }
+    case ESP_SLEEP_WAKEUP_EXT1 : Serial.println("Wakeup caused by external signal using RTC_CNTL"); break;
+    case ESP_SLEEP_WAKEUP_TIMER : Serial.println("Wakeup caused by timer"); break;
+    case ESP_SLEEP_WAKEUP_TOUCHPAD : Serial.println("Wakeup caused by touchpad"); break;
+    case ESP_SLEEP_WAKEUP_ULP : Serial.println("Wakeup caused by ULP program"); break;
+    default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
+  }
 }
