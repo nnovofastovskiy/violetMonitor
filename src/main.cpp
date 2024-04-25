@@ -12,7 +12,7 @@
 #include <ArduinoJson.h> //https://github.com/bblanchon/ArduinoJson
 #include <Preferences.h>
 
-#define TRIGGER_PIN 0
+// #define TRIGGER_PIN 0
 #define WAKE_UP_PIN GPIO_NUM_33
 
 bool shouldSaveConfig = false;
@@ -30,9 +30,15 @@ Preferences preferences;
 String url;
 String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
 
+bool btnPressed = false;
+
+void IRAM_ATTR isr() {
+ btnPressed = true;
+}
+
 void setup()
 {
-  pinMode(GPIO_NUM_33, INPUT_PULLDOWN);
+  pinMode(WAKE_UP_PIN, INPUT_PULLDOWN);
   // pinMode(TRIGGER_PIN, INPUT_PULLUP);
 
   esp_sleep_enable_timer_wakeup(5e6);
@@ -40,6 +46,7 @@ void setup()
 
   Serial.begin(115200);
   delay(3000);
+  attachInterrupt(WAKE_UP_PIN, isr, RISING);
   check_wakeup_reason();
 
   Serial.println("\n Starting");
@@ -52,7 +59,7 @@ void setup()
   WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
   Serial.setDebugOutput(true);
 
-  pinMode(TRIGGER_PIN, INPUT);
+  // pinMode(TRIGGER_PIN, INPUT);
 
   // wm.resetSettings(); // wipe settings
 
@@ -89,15 +96,10 @@ void setup()
   // set dark theme
   wm.setClass("invert");
 
-  // set static ip
-  //  wm.setSTAStaticIPConfig(IPAddress(10,0,1,99), IPAddress(10,0,1,1), IPAddress(255,255,255,0)); // set static ip,gw,sn
-  //  wm.setShowStaticFields(true); // force show static ip fields
-  //  wm.setShowDnsFields(true);    // force show dns field always
-
   // wm.setConnectTimeout(20); // how long to try to connect for before continuing
   wm.setConfigPortalTimeout(90); // auto close configportal after n seconds
   // wm.setCaptivePortalEnable(false); // disable captive portal redirection
-  // wm.setAPClientCheck(true); // avoid timeout if client connected to softap
+  wm.setAPClientCheck(true); // avoid timeout if client connected to softap
 
   // wifi scan settings
   // wm.setRemoveDuplicateAPs(false); // do not remove duplicate ap names (true)
@@ -140,8 +142,30 @@ void setup()
       Serial.println(httpResponseCode);
       Serial.println(":-(");
     }
-    esp_deep_sleep_start();
+    // esp_deep_sleep_start();
   }
+}
+
+
+String getParam(String name)
+{
+  // read parameter from server, for customhmtl input
+  String value;
+  if (wm.server->hasArg(name))
+  {
+    value = wm.server->arg(name);
+  }
+  return value;
+}
+
+void saveParamCallback()
+{
+  url = getParam("custom_url");
+  Serial.println("[CALLBACK] saveParamCallback fired");
+  Serial.println("PARAM custom_url = " + url);
+  preferences.begin("preferences", false);
+  preferences.putString("url", url);
+  preferences.end();
 }
 
 void checkButton()
@@ -171,10 +195,14 @@ void checkButton()
       Serial.println("Starting config portal");
       wm.setConfigPortalTimeout(120);
 
-      if (!wm.autoConnect("VioletMonitor", ""))
+      bool res;
+      // res = wm.autoConnect(); // auto generated AP name from chipid
+      // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
+      res = wm.startConfigPortal("VioletMonitor","");
+
+      if (!res)
       {
-        Serial.println("failed to connect or hit timeout");
-        delay(3000);
+        Serial.println("Failed to connect or hit timeout");
         // ESP.restart();
       }
       else
@@ -186,32 +214,15 @@ void checkButton()
   }
 }
 
-String getParam(String name)
-{
-  // read parameter from server, for customhmtl input
-  String value;
-  if (wm.server->hasArg(name))
-  {
-    value = wm.server->arg(name);
-  }
-  return value;
-}
-
-void saveParamCallback()
-{
-  url = getParam("custom_url");
-  Serial.println("[CALLBACK] saveParamCallback fired");
-  Serial.println("PARAM custom_url = " + url);
-  preferences.begin("preferences", false);
-  preferences.putString("url", url);
-  preferences.end();
-}
 
 void loop()
 {
   if (wm_nonblocking)
     wm.process(); // avoid delays() in loop when non-blocking and other long running code
-  checkButton();
+    if (btnPressed) {
+      checkButton();
+      btnPressed = false;
+    }
   // put your main code here, to run repeatedly:
 }
 
