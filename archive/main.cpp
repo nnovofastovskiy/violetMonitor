@@ -35,7 +35,7 @@ bool btnPressed = false;
 void IRAM_ATTR isr() {
  http.end();
  btnPressed = true;
- uint32_t num = 0;
+ int num = 0;
  for (int i = 0; i < 1e6; i++)
  {
   if (digitalRead(WAKE_UP_PIN))
@@ -47,6 +47,7 @@ void IRAM_ATTR isr() {
     num--;
   }
  }
+  goto checkButtonLabel;
 //  checkButton();
 }
 
@@ -157,7 +158,6 @@ void setup()
       Serial.println(":-(");
     }
     http.end();
-    
     // esp_deep_sleep_start();
   }
 }
@@ -185,6 +185,7 @@ void saveParamCallback()
 }
 
 void checkButton()
+checkButtonLabel:
 {
   // check for button press
   if (digitalRead(WAKE_UP_PIN) == HIGH)
