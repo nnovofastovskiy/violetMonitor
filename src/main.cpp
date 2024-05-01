@@ -11,9 +11,32 @@
 // #include <SPIFFS.h>
 #include <ArduinoJson.h> //https://github.com/bblanchon/ArduinoJson
 #include <Preferences.h>
+// #include <display.h>
+#include <GxEPD.h>
+// #include <display.h>
+
+#include <GxDEPG0290BS/GxDEPG0290BS.h> // 2.9" b/w Waveshare variant, TTGO T5 V2.4.1 2.9"
+
+#include GxEPD_BitmapExamples
+
+// FreeFonts from Adafruit_GFX
+// #include <Fonts/FreeMonoBold9pt7b.h>
+// #include <Fonts/FreeMonoBold12pt7b.h>
+// #include <Fonts/FreeMonoBold18pt7b.h>
+// #include <Fonts/FreeMonoBold24pt7b.h>
+// #include <Fonts/FreeMono9pt7b.h>
+// #include <Fonts/FreeSerif9pt7b.h>
+#include <FontsRus/FreeMonoBold18.h>
+#include <FontsRus/FreeSerif10.h>
+
+#include <GxIO/GxIO_SPI/GxIO_SPI.h>
+#include <GxIO/GxIO.h>
 
 // #define TRIGGER_PIN 0
 #define WAKE_UP_PIN GPIO_NUM_33
+
+#define ASIDE_WIDTH 100
+#define DISPLAY_PADDING 4
 
 bool shouldSaveConfig = false;
 
@@ -30,25 +53,32 @@ Preferences preferences;
 String url;
 String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
 
+// Allocate the JSON document
+JsonDocument doc;
+
 bool btnPressed = false;
 
-void IRAM_ATTR isr() {
- http.end();
- btnPressed = true;
- uint32_t num = 0;
- for (int i = 0; i < 1e6; i++)
- {
-  if (digitalRead(WAKE_UP_PIN))
+void IRAM_ATTR isr()
+{
+  http.end();
+  btnPressed = true;
+  uint32_t num = 0;
+  for (int i = 0; i < 1e6; i++)
   {
-    num++;
+    if (digitalRead(WAKE_UP_PIN))
+    {
+      num++;
+    }
+    else
+    {
+      num--;
+    }
   }
-  else
-  {
-    num--;
-  }
- }
-//  checkButton();
+  //  checkButton();
 }
+
+GxIO_Class io(SPI, /*CS=5*/ SS, /*DC=*/17, /*RST=*/16); // arbitrary selection of 17, 16
+GxEPD_Class display(io, /*RST=*/16, /*BUSY=*/4);        // arbitrary selection of (16), 4
 
 void setup()
 {
@@ -56,7 +86,7 @@ void setup()
   // pinMode(TRIGGER_PIN, INPUT_PULLUP);
 
   esp_sleep_enable_timer_wakeup(5e6);
-  esp_sleep_enable_ext0_wakeup(WAKE_UP_PIN, 1); //1 = High, 0 = Low
+  esp_sleep_enable_ext0_wakeup(WAKE_UP_PIN, 1); // 1 = High, 0 = Low
 
   Serial.begin(115200);
   delay(3000);
@@ -149,6 +179,28 @@ void setup()
       String payload = http.getString();
       Serial.println();
       Serial.println(payload);
+      display.init(115200); // enable diagnostic output on Serial
+      display.flush();
+
+      DeserializationError error = deserializeJson(doc, payload);
+
+      // Test if parsing succeeds
+      if (error)
+      {
+        Serial.print(F("deserializeJson() failed: "));
+        Serial.println(error.f_str());
+        return;
+      }
+      const char *timeString = doc["timeString"];
+      const char *aside = doc["aside"];
+      const char *line1 = doc["line1"];
+      const char *line2 = doc["line2"];
+      drawAsideText(aside);
+      drawTimeText(timeString);
+      drawLine1(line1);
+      drawLine2(line2);
+      display.update();
+      display.powerDown();
     }
     else
     {
@@ -157,11 +209,10 @@ void setup()
       Serial.println(":-(");
     }
     http.end();
-    
+
     // esp_deep_sleep_start();
   }
 }
-
 
 String getParam(String name)
 {
@@ -214,7 +265,7 @@ void checkButton()
       bool res;
       // res = wm.autoConnect(); // auto generated AP name from chipid
       // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
-      res = wm.startConfigPortal("VioletMonitor","");
+      res = wm.startConfigPortal("VioletMonitor", "");
 
       if (!res)
       {
@@ -230,35 +281,129 @@ void checkButton()
   }
 }
 
-
 void loop()
 {
   if (wm_nonblocking)
     wm.process(); // avoid delays() in loop when non-blocking and other long running code
-    if (btnPressed) {
-      Serial.println("FROM LOOP BUTTON PRESSED");
-      checkButton();
-      btnPressed = false;
-    }
+  if (btnPressed)
+  {
+    Serial.println("FROM LOOP BUTTON PRESSED");
+    checkButton();
+    btnPressed = false;
+  }
   // put your main code here, to run repeatedly:
 }
 
-void check_wakeup_reason(){
+void check_wakeup_reason()
+{
   esp_sleep_wakeup_cause_t wakeup_reason;
 
   wakeup_reason = esp_sleep_get_wakeup_cause();
 
-  switch(wakeup_reason)
+  switch (wakeup_reason)
   {
-    case ESP_SLEEP_WAKEUP_EXT0 : {
-      Serial.println("Wakeup caused by external signal using RTC_IO");
-      checkButton();
-      break;
-    }
-    case ESP_SLEEP_WAKEUP_EXT1 : Serial.println("Wakeup caused by external signal using RTC_CNTL"); break;
-    case ESP_SLEEP_WAKEUP_TIMER : Serial.println("Wakeup caused by timer"); break;
-    case ESP_SLEEP_WAKEUP_TOUCHPAD : Serial.println("Wakeup caused by touchpad"); break;
-    case ESP_SLEEP_WAKEUP_ULP : Serial.println("Wakeup caused by ULP program"); break;
-    default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
+  case ESP_SLEEP_WAKEUP_EXT0:
+  {
+    Serial.println("Wakeup caused by external signal using RTC_IO");
+    checkButton();
+    break;
   }
+  case ESP_SLEEP_WAKEUP_EXT1:
+    Serial.println("Wakeup caused by external signal using RTC_CNTL");
+    break;
+  case ESP_SLEEP_WAKEUP_TIMER:
+    Serial.println("Wakeup caused by timer");
+    break;
+  case ESP_SLEEP_WAKEUP_TOUCHPAD:
+    Serial.println("Wakeup caused by touchpad");
+    break;
+  case ESP_SLEEP_WAKEUP_ULP:
+    Serial.println("Wakeup caused by ULP program");
+    break;
+  default:
+    Serial.printf("Wakeup was not caused by deep sleep: %d\n", wakeup_reason);
+    break;
+  }
+}
+
+void drawAsideText(const char *string)
+{
+  // Serial.println("drawHelloWorld");
+  display.setRotation(1);
+  display.setFont(&FreeMonoBold18pt8b);
+  display.setTextColor(GxEPD_WHITE);
+  int16_t tbx, tby;
+  uint16_t tbw, tbh;
+  display.getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
+  // center bounding box by transposition of origin:
+  // uint16_t x = 10;
+  uint16_t x = ((ASIDE_WIDTH - tbw) / 2) - tbx;
+  uint16_t y = ((display.height() - tbh) / 2) - tby;
+  // display.fillScreen(GxEPD_WHITE);
+  // display.drawRect(0, 0, 100, display.height());
+  display.fillRect(0, 0, ASIDE_WIDTH, display.height(), GxEPD_BLACK);
+  display.setCursor(x, y);
+  display.print(string);
+  // Serial.println("drawHelloWorld done");
+}
+void drawTimeText(const char *string)
+{
+  // Serial.println("drawHelloWorld");
+  display.setRotation(1);
+  // display.setFont(&FreeMono10pt8b);
+  display.setFont(&FreeSerif10pt8b);
+  display.setTextColor(GxEPD_BLACK);
+  int16_t tbx, tby;
+  uint16_t tbw, tbh;
+  display.getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
+  // center bounding box by transposition of origin:
+  // uint16_t x = 10;
+  uint16_t x = display.width() - tbw - DISPLAY_PADDING;
+  uint16_t y = tbh + DISPLAY_PADDING;
+  // display.fillScreen(GxEPD_WHITE);
+  // display.drawRect(0, 0, 100, display.height());
+  // display.fillRect(0, 0, ASIDE_WIDTH, display.height(), GxEPD_BLACK);
+  display.setCursor(x, y);
+  display.print(string);
+  // Serial.println("drawHelloWorld done");
+}
+void drawLine1(const char *string)
+{
+  // Serial.println("drawHelloWorld");
+  display.setRotation(1);
+  display.setFont(&FreeSerif10pt8b);
+  display.setTextColor(GxEPD_BLACK);
+  int16_t tbx, tby;
+  uint16_t tbw, tbh;
+  display.getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
+  // center bounding box by transposition of origin:
+  // uint16_t x = 10;
+  uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
+  uint16_t y = ((display.height() - tbh) / 2) - tby;
+  // display.fillScreen(GxEPD_WHITE);
+  // display.drawRect(0, 0, 100, display.height());
+  // display.fillRect(0, 0, ASIDE_WIDTH, display.height(), GxEPD_BLACK);
+  display.setCursor(x, y);
+  display.print(string);
+  // Serial.println("drawHelloWorld done");
+}
+void drawLine2(const char *string)
+{
+  // Serial.println("drawHelloWorld");
+  display.setRotation(1);
+  display.setFont(&FreeSerif10pt8b);
+  display.setTextColor(GxEPD_BLACK);
+  int16_t tbx, tby;
+  uint16_t tbw, tbh;
+  display.getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
+  // center bounding box by transposition of origin:
+  // uint16_t x = 10;
+  uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
+  uint16_t y = display.height() - tbh - DISPLAY_PADDING;
+  // display.fillScreen(GxEPD_WHITE);
+  // display.drawRect(0, 0, 100, display.height());
+  // display.fillRect(0, 0, ASIDE_WIDTH, display.height(), GxEPD_BLACK);
+  display.setCursor(x, y);
+  display.print(string);
+  // Serial.println("drawHelloWorld done");
 }
