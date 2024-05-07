@@ -85,7 +85,7 @@ void setup()
   pinMode(WAKE_UP_PIN, INPUT_PULLDOWN);
   // pinMode(TRIGGER_PIN, INPUT_PULLUP);
 
-  esp_sleep_enable_timer_wakeup(5e6);
+  esp_sleep_enable_timer_wakeup(15e6);
   esp_sleep_enable_ext0_wakeup(WAKE_UP_PIN, 1); // 1 = High, 0 = Low
 
   Serial.begin(115200);
@@ -210,7 +210,7 @@ void setup()
     }
     http.end();
 
-    // esp_deep_sleep_start();
+    esp_deep_sleep_start();
   }
 }
 
