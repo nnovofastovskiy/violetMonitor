@@ -6,7 +6,9 @@
         "new": "cpp",
         "string": "cpp",
         "string_view": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "cstring": "cpp",
+        "typeinfo": "cpp"
     },
     "cmake.sourceDirectory": "C:/Users/Никита/Documents/github/violetMonitor/.pio/libdeps/esp32/Adafruit BusIO"
 }

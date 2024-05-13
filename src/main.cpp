@@ -13,6 +13,7 @@
 #include <Preferences.h>
 // #include <display.h>
 #include <GxEPD.h>
+#include <Adafruit_NeoPixel.h>
 // #include <display.h>
 
 #include <GxDEPG0290BS/GxDEPG0290BS.h> // 2.9" b/w Waveshare variant, TTGO T5 V2.4.1 2.9"
@@ -37,6 +38,9 @@
 
 #define ASIDE_WIDTH 100
 #define DISPLAY_PADDING 4
+
+#define LED_PIN 23
+#define BRIGHTNESS 40
 
 bool shouldSaveConfig = false;
 
@@ -80,12 +84,17 @@ void IRAM_ATTR isr()
 GxIO_Class io(SPI, /*CS=5*/ SS, /*DC=*/17, /*RST=*/16); // arbitrary selection of 17, 16
 GxEPD_Class display(io, /*RST=*/16, /*BUSY=*/4);        // arbitrary selection of (16), 4
 
+Adafruit_NeoPixel pixels(1, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+
 void setup()
 {
+  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+  // pixels.clear(); // Set all pixel colors to 'off'
   pinMode(WAKE_UP_PIN, INPUT_PULLDOWN);
   // pinMode(TRIGGER_PIN, INPUT_PULLUP);
 
-  esp_sleep_enable_timer_wakeup(15e6);
+  esp_sleep_enable_timer_wakeup(120e6);
   esp_sleep_enable_ext0_wakeup(WAKE_UP_PIN, 1); // 1 = High, 0 = Low
 
   Serial.begin(115200);
@@ -100,6 +109,7 @@ void setup()
   Serial.println("URL = " + url);
   wm.setTitle("Violet monitor");
   // wm.setCustomMenuHTML("<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url'/>");
+
   WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
   Serial.setDebugOutput(true);
 
@@ -161,6 +171,7 @@ void setup()
   if (!res)
   {
     Serial.println("Failed to connect or hit timeout");
+
     // ESP.restart();
   }
   else
@@ -172,7 +183,7 @@ void setup()
     http.begin(url);
 
     int httpResponseCode = http.GET();
-    if (httpResponseCode > 0)
+    if (httpResponseCode == 200)
     {
       Serial.print("HTTP ");
       Serial.println(httpResponseCode);
@@ -195,6 +206,30 @@ void setup()
       const char *aside = doc["aside"];
       const char *line1 = doc["line1"];
       const char *line2 = doc["line2"];
+      const char *status = doc["status"];
+      Serial.print("timeString = ");
+      Serial.println(timeString);
+      Serial.print("asise = ");
+      Serial.println(aside);
+      Serial.print("line1 = ");
+      Serial.println(line1);
+      Serial.print("line2 = ");
+      Serial.println(line2);
+      Serial.print("status = ");
+      Serial.println(status);
+
+      if (!strcmp(status, "good"))
+      {
+        pixels.setPixelColor(0, pixels.Color(0, BRIGHTNESS, 0));
+      } else if (!strcmp(status, "bad"))
+      {
+        pixels.setPixelColor(0, pixels.Color(BRIGHTNESS, 0, 0));
+      } else if (!strcmp(status, "neutral"))
+      {
+        pixels.setPixelColor(0, pixels.Color(0, 0, BRIGHTNESS));
+      }
+      pixels.show(); // Send the updated pixel colors to the hardware.
+
       drawAsideText(aside);
       drawTimeText(timeString);
       drawLine1(line1);
@@ -291,7 +326,25 @@ void loop()
     checkButton();
     btnPressed = false;
   }
-  // put your main code here, to run repeatedly:
+  // for (int i = 0; i < 3; i++)
+  // {
+  //   Serial.println("i = " + i);
+  //   switch (i)
+  //   {
+  //   case 0:
+  //     pixels.setPixelColor(0, pixels.Color(40, 0, 0));
+  //     break;
+  //   case 1:
+  //     pixels.setPixelColor(0, pixels.Color(0, 40, 0));
+  //     break;
+  //   case 2:
+  //     pixels.setPixelColor(0, pixels.Color(0, 0, 40));
+  //     break;
+  //   }
+  //   pixels.show(); // Send the updated pixel colors to the hardware.
+  //   delay(2000);
+  // }
+  // esp_deep_sleep_start();
 }
 
 void check_wakeup_reason()
