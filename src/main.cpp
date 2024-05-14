@@ -34,13 +34,16 @@
 #include <GxIO/GxIO.h>
 
 // #define TRIGGER_PIN 0
-#define WAKE_UP_PIN GPIO_NUM_33
+#define OPTIONS_PIN GPIO_NUM_33
+#define POWER_PIN GPIO_NUM_32
 
 #define ASIDE_WIDTH 100
 #define DISPLAY_PADDING 4
 
 #define LED_PIN 23
 #define BRIGHTNESS 40
+
+#define WAKEUP_PINS_BITMAP 0x300000000
 
 bool shouldSaveConfig = false;
 
@@ -60,25 +63,13 @@ String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
 // Allocate the JSON document
 JsonDocument doc;
 
-bool btnPressed = false;
+bool optionsBtnPressed = false;
+RTC_DATA_ATTR bool powerBtnPressed = false;
 
-void IRAM_ATTR isr()
+void IRAM_ATTR optionsIsr()
 {
   http.end();
-  btnPressed = true;
-  uint32_t num = 0;
-  for (int i = 0; i < 1e6; i++)
-  {
-    if (digitalRead(WAKE_UP_PIN))
-    {
-      num++;
-    }
-    else
-    {
-      num--;
-    }
-  }
-  //  checkButton();
+  optionsBtnPressed = true;
 }
 
 GxIO_Class io(SPI, /*CS=5*/ SS, /*DC=*/17, /*RST=*/16); // arbitrary selection of 17, 16
@@ -89,18 +80,27 @@ Adafruit_NeoPixel pixels(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 void setup()
 {
-  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
   // pixels.clear(); // Set all pixel colors to 'off'
-  pinMode(WAKE_UP_PIN, INPUT_PULLDOWN);
   // pinMode(TRIGGER_PIN, INPUT_PULLUP);
-
-  esp_sleep_enable_timer_wakeup(120e6);
-  esp_sleep_enable_ext0_wakeup(WAKE_UP_PIN, 1); // 1 = High, 0 = Low
+  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+  
+  // esp_sleep_enable_ext0_wakeup(OPTIONS_PIN, 1); // 1 = High, 0 = Low
 
   Serial.begin(115200);
   delay(3000);
-  attachInterrupt(WAKE_UP_PIN, isr, RISING);
+  attachInterrupt(OPTIONS_PIN, optionsIsr, RISING);
   check_wakeup_reason();
+
+  if (powerBtnPressed)
+  {
+    pixels.clear();
+    pixels.show();
+    esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
+    esp_deep_sleep_start();
+  }
+
+  esp_sleep_enable_ext1_wakeup(WAKEUP_PINS_BITMAP, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
+  esp_sleep_enable_timer_wakeup(15e6);
 
   Serial.println("\n Starting");
   preferences.begin("preferences", false);
@@ -273,16 +273,16 @@ void saveParamCallback()
 void checkButton()
 {
   // check for button press
-  if (digitalRead(WAKE_UP_PIN) == HIGH)
+  if (digitalRead(OPTIONS_PIN) == HIGH)
   {
     // poor mans debounce/press-hold, code not ideal for production
     delayMicroseconds(50e3);
-    if (digitalRead(WAKE_UP_PIN) == HIGH)
+    if (digitalRead(OPTIONS_PIN) == HIGH)
     {
       Serial.println("Button Pressed");
       // still holding button for 3000 ms, reset settings, code not ideaa for production
       // delayMicroseconds(3000e3); // reset delay hold
-      // if (digitalRead(WAKE_UP_PIN) == HIGH)
+      // if (digitalRead(OPTIONS_PIN) == HIGH)
       // {
       //   Serial.println("Button Held");
       //   Serial.println("Erasing Config, restarting");
@@ -320,11 +320,11 @@ void loop()
 {
   if (wm_nonblocking)
     wm.process(); // avoid delays() in loop when non-blocking and other long running code
-  if (btnPressed)
+  if (optionsBtnPressed)
   {
     Serial.println("FROM LOOP BUTTON PRESSED");
     checkButton();
-    btnPressed = false;
+    optionsBtnPressed = false;
   }
   // for (int i = 0; i < 3; i++)
   // {
@@ -350,7 +350,7 @@ void loop()
 void check_wakeup_reason()
 {
   esp_sleep_wakeup_cause_t wakeup_reason;
-
+  uint64_t wake_pin;
   wakeup_reason = esp_sleep_get_wakeup_cause();
 
   switch (wakeup_reason)
@@ -362,7 +362,17 @@ void check_wakeup_reason()
     break;
   }
   case ESP_SLEEP_WAKEUP_EXT1:
+    wake_pin = esp_sleep_get_ext1_wakeup_status();
+    wake_pin = log(wake_pin)/log(2);
+    Serial.print("GPIO ");
+    Serial.println(wake_pin);
     Serial.println("Wakeup caused by external signal using RTC_CNTL");
+    if (wake_pin == 32)
+    {
+      powerBtnPressed = !powerBtnPressed;
+      Serial.print("powerBtnPressed ");
+      Serial.println(powerBtnPressed);
+    }
     break;
   case ESP_SLEEP_WAKEUP_TIMER:
     Serial.println("Wakeup caused by timer");
