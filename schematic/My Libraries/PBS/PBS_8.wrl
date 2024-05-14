@@ -1,0 +1,6599 @@
+#VRML V2.0 utf8
+
+
+Shape {
+	appearance DEF A1987873689 Appearance {
+		material Material {
+			diffuseColor 0.338824 0.338824 0.338824
+			specularColor 0.451765 0.451765 0.451765
+			emissiveColor 0.282353 0.282353 0.282353
+			ambientIntensity 0.5
+			shininess 0.8
+			transparency 0
+		}
+	}
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-9.33439 -0.774833 2.61472,
+				-6.79439 -0.774833 2.61472,
+				-6.79439 -0.774833 3.40589,
+				-9.33439 -0.774833 3.40589
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-9.33439 -0.774833 3.40589,
+				-6.79439 -0.774833 3.40589,
+				-6.79439 7.62517 3.40589,
+				-9.33439 7.62517 3.40589
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79439 -0.774833 0.865889,
+				-9.33439 -0.774833 0.865889,
+				-9.33439 7.62517 0.865889,
+				-6.79439 7.62517 0.865889
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79439 -0.774833 2.61472,
+				-6.79439 -0.274833 2.61472,
+				-6.79439 -0.274833 1.65771,
+				-6.79439 -0.774833 1.65771,
+				-6.79439 -0.774833 0.865889,
+				-6.79439 7.62517 0.865889,
+				-6.79439 7.62517 3.40589,
+				-6.79439 -0.774833 3.40589
+			]
+		}
+		normal Normal {
+			vector [
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0
+			]
+		}
+		coordIndex [
+			7,	0,	6,	-1,
+			6,	0,	1,	-1,
+			6,	1,	5,	-1,
+			5,	1,	2,	-1,
+			5,	2,	4,	-1,
+			4,	2,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79439 -0.774833 1.65771,
+				-9.33439 -0.774833 1.65771,
+				-9.33439 -0.774833 0.865889,
+				-6.79439 -0.774833 0.865889
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-9.33439 -0.274833 2.61472,
+				-9.33439 -0.774833 2.61472,
+				-9.33439 -0.774833 3.40589,
+				-9.33439 7.62517 3.40589,
+				-9.33439 7.62517 0.865889,
+				-9.33439 -0.774833 0.865889,
+				-9.33439 -0.774833 1.65771,
+				-9.33439 -0.274833 1.65771
+			]
+		}
+		normal Normal {
+			vector [
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0
+			]
+		}
+		coordIndex [
+			1,	2,	0,	-1,
+			0,	2,	3,	-1,
+			0,	3,	7,	-1,
+			7,	3,	4,	-1,
+			7,	4,	6,	-1,
+			6,	4,	5,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79439 7.62517 0.865889,
+				-9.33439 7.62517 0.865889,
+				-9.33439 7.62517 3.40589,
+				-6.79439 7.62517 3.40589,
+				-8.86154 7.62517 1.33853,
+				-7.26154 7.62517 1.33853,
+				-7.26154 7.62517 2.93853,
+				-8.86154 7.62517 2.93853
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			6,	7,	2,	-1,
+			2,	7,	1,	-1,
+			1,	7,	4,	-1,
+			1,	4,	0,	-1,
+			0,	4,	5,	-1,
+			0,	5,	3,	-1,
+			3,	5,	6,	-1,
+			3,	6,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.26154 7.62517 1.33853,
+				-8.86154 7.62517 1.33853,
+				-8.53763 7.22517 1.66245,
+				-7.58546 7.22517 1.66245
+			]
+		}
+		normal Normal {
+			vector [
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-8.86154 7.62517 2.93853,
+				-7.26154 7.62517 2.93853,
+				-7.58546 7.22517 2.61462,
+				-8.53763 7.22517 2.61462
+			]
+		}
+		normal Normal {
+			vector [
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.58546 7.22517 1.66245,
+				-8.53763 7.22517 1.66245,
+				-8.53763 7.22517 2.61462,
+				-7.58546 7.22517 2.61462,
+				-7.74439 7.22517 2.45239,
+				-8.38439 7.22517 2.45239,
+				-8.38439 7.22517 1.81239,
+				-7.74439 7.22517 1.81239
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			4,	5,	2,	-1,
+			2,	5,	1,	-1,
+			1,	5,	6,	-1,
+			1,	6,	0,	-1,
+			0,	6,	7,	-1,
+			0,	7,	3,	-1,
+			3,	7,	4,	-1,
+			3,	4,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-8.86154 7.62517 1.33853,
+				-8.86154 7.62517 2.93853,
+				-8.53763 7.22517 2.61462,
+				-8.53763 7.22517 1.66245
+			]
+		}
+		normal Normal {
+			vector [
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.26154 7.62517 2.93853,
+				-7.26154 7.62517 1.33853,
+				-7.58546 7.22517 1.66245,
+				-7.58546 7.22517 2.61462
+			]
+		}
+		normal Normal {
+			vector [
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-8.38439 2.72517 1.81239,
+				-7.74439 2.72517 1.81239,
+				-7.74439 7.22517 1.81239,
+				-8.38439 7.22517 1.81239
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.74439 2.72517 2.45239,
+				-8.38439 2.72517 2.45239,
+				-8.38439 7.22517 2.45239,
+				-7.74439 7.22517 2.45239
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.74439 2.72517 1.81239,
+				-7.74439 2.72517 2.45239,
+				-7.74439 7.22517 2.45239,
+				-7.74439 7.22517 1.81239
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-8.38439 2.72517 2.45239,
+				-8.38439 2.72517 1.81239,
+				-8.38439 7.22517 1.81239,
+				-8.38439 7.22517 2.45239
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 0,
+				1 0 0,
+				1 0 0,
+				1 0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-9.33439 -0.774833 1.65771,
+				-6.79439 -0.774833 1.65771,
+				-6.79439 -0.274833 1.65771,
+				-9.33439 -0.274833 1.65771
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79439 -0.274833 1.65771,
+				-6.79439 -0.274833 2.61472,
+				-9.33439 -0.274833 2.61472,
+				-9.33439 -0.274833 1.65771,
+				-8.38439 -0.274833 2.45239,
+				-7.74439 -0.274833 2.45239,
+				-7.74439 -0.274833 1.81239,
+				-8.38439 -0.274833 1.81239
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			6,	7,	3,	-1,
+			3,	7,	2,	-1,
+			2,	7,	4,	-1,
+			2,	4,	1,	-1,
+			1,	4,	5,	-1,
+			1,	5,	0,	-1,
+			0,	5,	6,	-1,
+			0,	6,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79439 -0.774833 2.61472,
+				-9.33439 -0.774833 2.61472,
+				-9.33439 -0.274833 2.61472,
+				-6.79439 -0.274833 2.61472
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance DEF A2080865081 Appearance {
+		material Material {
+			diffuseColor 0.6 0.597647 0.36
+			specularColor 0.8 0.796863 0.48
+			emissiveColor 0.5 0.498039 0.3
+			ambientIntensity 0.5
+			shininess 0.8
+			transparency 0
+		}
+	}
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-8.38439 2.72517 2.45239,
+				-7.74439 2.72517 2.45239,
+				-7.74439 2.72517 1.81239,
+				-8.38439 2.72517 1.81239
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-8.38439 -2.97483 1.81239,
+				-8.38439 -2.97483 2.45239,
+				-8.38439 -0.274833 2.45239,
+				-8.38439 -0.274833 1.81239
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.74439 -2.97483 1.81239,
+				-8.38439 -2.97483 1.81239,
+				-8.38439 -0.274833 1.81239,
+				-7.74439 -0.274833 1.81239
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.83255 -3.47483 1.90055,
+				-7.83255 -3.47483 2.36423,
+				-8.29623 -3.47483 2.36423,
+				-8.29623 -3.47483 1.90055
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.74439 -2.97483 2.45239,
+				-7.74439 -2.97483 1.81239,
+				-7.74439 -0.274833 1.81239,
+				-7.74439 -0.274833 2.45239
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 -0,
+				1 0 -0,
+				1 0 -0,
+				1 0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-8.38439 -2.97483 2.45239,
+				-7.74439 -2.97483 2.45239,
+				-7.74439 -0.274833 2.45239,
+				-8.38439 -0.274833 2.45239
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.83255 -3.47483 2.36423,
+				-7.74439 -2.97483 2.45239,
+				-8.38439 -2.97483 2.45239,
+				-8.29623 -3.47483 2.36423
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-8.38439 -2.97483 1.81239,
+				-8.29623 -3.47483 1.90055,
+				-8.29623 -3.47483 2.36423,
+				-8.38439 -2.97483 2.45239
+			]
+		}
+		normal Normal {
+			vector [
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.74439 -2.97483 1.81239,
+				-7.83255 -3.47483 1.90055,
+				-8.29623 -3.47483 1.90055,
+				-8.38439 -2.97483 1.81239
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-7.74439 -2.97483 1.81239,
+				-7.74439 -2.97483 2.45239,
+				-7.83255 -3.47483 2.36423,
+				-7.83255 -3.47483 1.90055
+			]
+		}
+		normal Normal {
+			vector [
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79329 -0.775427 2.61436,
+				-4.25329 -0.775427 2.61436,
+				-4.25329 -0.775427 3.40553,
+				-6.79329 -0.775427 3.40553
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79329 -0.775427 3.40553,
+				-4.25329 -0.775427 3.40553,
+				-4.25329 7.62457 3.40553,
+				-6.79329 7.62457 3.40553
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25329 -0.775427 0.86553,
+				-6.79329 -0.775427 0.86553,
+				-6.79329 7.62457 0.86553,
+				-4.25329 7.62457 0.86553
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25329 -0.775427 2.61436,
+				-4.25329 -0.275427 2.61436,
+				-4.25329 -0.275427 1.65735,
+				-4.25329 -0.775427 1.65735,
+				-4.25329 -0.775427 0.86553,
+				-4.25329 7.62457 0.86553,
+				-4.25329 7.62457 3.40553,
+				-4.25329 -0.775427 3.40553
+			]
+		}
+		normal Normal {
+			vector [
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0
+			]
+		}
+		coordIndex [
+			7,	0,	6,	-1,
+			6,	0,	1,	-1,
+			6,	1,	5,	-1,
+			5,	1,	2,	-1,
+			5,	2,	4,	-1,
+			4,	2,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25329 -0.775427 1.65735,
+				-6.79329 -0.775427 1.65735,
+				-6.79329 -0.775427 0.86553,
+				-4.25329 -0.775427 0.86553
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79329 -0.275427 2.61436,
+				-6.79329 -0.775427 2.61436,
+				-6.79329 -0.775427 3.40553,
+				-6.79329 7.62457 3.40553,
+				-6.79329 7.62457 0.86553,
+				-6.79329 -0.775427 0.86553,
+				-6.79329 -0.775427 1.65735,
+				-6.79329 -0.275427 1.65735
+			]
+		}
+		normal Normal {
+			vector [
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0
+			]
+		}
+		coordIndex [
+			1,	2,	0,	-1,
+			0,	2,	3,	-1,
+			0,	3,	7,	-1,
+			7,	3,	4,	-1,
+			7,	4,	6,	-1,
+			6,	4,	5,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25329 7.62457 0.86553,
+				-6.79329 7.62457 0.86553,
+				-6.79329 7.62457 3.40553,
+				-4.25329 7.62457 3.40553,
+				-6.32045 7.62457 1.33817,
+				-4.72045 7.62457 1.33817,
+				-4.72045 7.62457 2.93817,
+				-6.32045 7.62457 2.93817
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			6,	7,	2,	-1,
+			2,	7,	1,	-1,
+			1,	7,	4,	-1,
+			1,	4,	0,	-1,
+			0,	4,	5,	-1,
+			0,	5,	3,	-1,
+			3,	5,	6,	-1,
+			3,	6,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.72045 7.62457 1.33817,
+				-6.32045 7.62457 1.33817,
+				-5.99654 7.22457 1.66209,
+				-5.04436 7.22457 1.66209
+			]
+		}
+		normal Normal {
+			vector [
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.32045 7.62457 2.93817,
+				-4.72045 7.62457 2.93817,
+				-5.04436 7.22457 2.61426,
+				-5.99654 7.22457 2.61426
+			]
+		}
+		normal Normal {
+			vector [
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.04436 7.22457 1.66209,
+				-5.99654 7.22457 1.66209,
+				-5.99654 7.22457 2.61426,
+				-5.04436 7.22457 2.61426,
+				-5.20329 7.22457 2.45203,
+				-5.84329 7.22457 2.45203,
+				-5.84329 7.22457 1.81203,
+				-5.20329 7.22457 1.81203
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			4,	5,	2,	-1,
+			2,	5,	1,	-1,
+			1,	5,	6,	-1,
+			1,	6,	0,	-1,
+			0,	6,	7,	-1,
+			0,	7,	3,	-1,
+			3,	7,	4,	-1,
+			3,	4,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.32045 7.62457 1.33817,
+				-6.32045 7.62457 2.93817,
+				-5.99654 7.22457 2.61426,
+				-5.99654 7.22457 1.66209
+			]
+		}
+		normal Normal {
+			vector [
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.72045 7.62457 2.93817,
+				-4.72045 7.62457 1.33817,
+				-5.04436 7.22457 1.66209,
+				-5.04436 7.22457 2.61426
+			]
+		}
+		normal Normal {
+			vector [
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.84329 2.72457 1.81203,
+				-5.20329 2.72457 1.81203,
+				-5.20329 7.22457 1.81203,
+				-5.84329 7.22457 1.81203
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.20329 2.72457 2.45203,
+				-5.84329 2.72457 2.45203,
+				-5.84329 7.22457 2.45203,
+				-5.20329 7.22457 2.45203
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.20329 2.72457 1.81203,
+				-5.20329 2.72457 2.45203,
+				-5.20329 7.22457 2.45203,
+				-5.20329 7.22457 1.81203
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.84329 2.72457 2.45203,
+				-5.84329 2.72457 1.81203,
+				-5.84329 7.22457 1.81203,
+				-5.84329 7.22457 2.45203
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 0,
+				1 0 0,
+				1 0 0,
+				1 0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-6.79329 -0.775427 1.65735,
+				-4.25329 -0.775427 1.65735,
+				-4.25329 -0.275427 1.65735,
+				-6.79329 -0.275427 1.65735
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25329 -0.275427 1.65735,
+				-4.25329 -0.275427 2.61436,
+				-6.79329 -0.275427 2.61436,
+				-6.79329 -0.275427 1.65735,
+				-5.84329 -0.275427 2.45203,
+				-5.20329 -0.275427 2.45203,
+				-5.20329 -0.275427 1.81203,
+				-5.84329 -0.275427 1.81203
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			6,	7,	3,	-1,
+			3,	7,	2,	-1,
+			2,	7,	4,	-1,
+			2,	4,	1,	-1,
+			1,	4,	5,	-1,
+			1,	5,	0,	-1,
+			0,	5,	6,	-1,
+			0,	6,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25329 -0.775427 2.61436,
+				-6.79329 -0.775427 2.61436,
+				-6.79329 -0.275427 2.61436,
+				-4.25329 -0.275427 2.61436
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.84329 2.72457 2.45203,
+				-5.20329 2.72457 2.45203,
+				-5.20329 2.72457 1.81203,
+				-5.84329 2.72457 1.81203
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.84329 -2.97543 1.81203,
+				-5.84329 -2.97543 2.45203,
+				-5.84329 -0.275427 2.45203,
+				-5.84329 -0.275427 1.81203
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.20329 -2.97543 1.81203,
+				-5.84329 -2.97543 1.81203,
+				-5.84329 -0.275427 1.81203,
+				-5.20329 -0.275427 1.81203
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.29146 -3.47543 1.90019,
+				-5.29146 -3.47543 2.36387,
+				-5.75513 -3.47543 2.36387,
+				-5.75513 -3.47543 1.90019
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.20329 -2.97543 2.45203,
+				-5.20329 -2.97543 1.81203,
+				-5.20329 -0.275427 1.81203,
+				-5.20329 -0.275427 2.45203
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 -0,
+				1 0 -0,
+				1 0 -0,
+				1 0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.84329 -2.97543 2.45203,
+				-5.20329 -2.97543 2.45203,
+				-5.20329 -0.275427 2.45203,
+				-5.84329 -0.275427 2.45203
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.29146 -3.47543 2.36387,
+				-5.20329 -2.97543 2.45203,
+				-5.84329 -2.97543 2.45203,
+				-5.75513 -3.47543 2.36387
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.84329 -2.97543 1.81203,
+				-5.75513 -3.47543 1.90019,
+				-5.75513 -3.47543 2.36387,
+				-5.84329 -2.97543 2.45203
+			]
+		}
+		normal Normal {
+			vector [
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.20329 -2.97543 1.81203,
+				-5.29146 -3.47543 1.90019,
+				-5.75513 -3.47543 1.90019,
+				-5.84329 -2.97543 1.81203
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-5.20329 -2.97543 1.81203,
+				-5.20329 -2.97543 2.45203,
+				-5.29146 -3.47543 2.36387,
+				-5.29146 -3.47543 1.90019
+			]
+		}
+		normal Normal {
+			vector [
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25302 -0.775449 2.61434,
+				-1.71302 -0.775449 2.61434,
+				-1.71302 -0.775449 3.4055,
+				-4.25302 -0.775449 3.4055
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25302 -0.775449 3.4055,
+				-1.71302 -0.775449 3.4055,
+				-1.71302 7.62455 3.4055,
+				-4.25302 7.62455 3.4055
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71302 -0.775449 0.865504,
+				-4.25302 -0.775449 0.865504,
+				-4.25302 7.62455 0.865504,
+				-1.71302 7.62455 0.865504
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71302 -0.775449 2.61434,
+				-1.71302 -0.275449 2.61434,
+				-1.71302 -0.275449 1.65733,
+				-1.71302 -0.775449 1.65733,
+				-1.71302 -0.775449 0.865504,
+				-1.71302 7.62455 0.865504,
+				-1.71302 7.62455 3.4055,
+				-1.71302 -0.775449 3.4055
+			]
+		}
+		normal Normal {
+			vector [
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0
+			]
+		}
+		coordIndex [
+			7,	0,	6,	-1,
+			6,	0,	1,	-1,
+			6,	1,	5,	-1,
+			5,	1,	2,	-1,
+			5,	2,	4,	-1,
+			4,	2,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71302 -0.775449 1.65733,
+				-4.25302 -0.775449 1.65733,
+				-4.25302 -0.775449 0.865504,
+				-1.71302 -0.775449 0.865504
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25302 -0.275449 2.61434,
+				-4.25302 -0.775449 2.61434,
+				-4.25302 -0.775449 3.4055,
+				-4.25302 7.62455 3.4055,
+				-4.25302 7.62455 0.865504,
+				-4.25302 -0.775449 0.865504,
+				-4.25302 -0.775449 1.65733,
+				-4.25302 -0.275449 1.65733
+			]
+		}
+		normal Normal {
+			vector [
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0
+			]
+		}
+		coordIndex [
+			1,	2,	0,	-1,
+			0,	2,	3,	-1,
+			0,	3,	7,	-1,
+			7,	3,	4,	-1,
+			7,	4,	6,	-1,
+			6,	4,	5,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71302 7.62455 0.865504,
+				-4.25302 7.62455 0.865504,
+				-4.25302 7.62455 3.4055,
+				-1.71302 7.62455 3.4055,
+				-3.78017 7.62455 1.33815,
+				-2.18017 7.62455 1.33815,
+				-2.18017 7.62455 2.93815,
+				-3.78017 7.62455 2.93815
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			6,	7,	2,	-1,
+			2,	7,	1,	-1,
+			1,	7,	4,	-1,
+			1,	4,	0,	-1,
+			0,	4,	5,	-1,
+			0,	5,	3,	-1,
+			3,	5,	6,	-1,
+			3,	6,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.18017 7.62455 1.33815,
+				-3.78017 7.62455 1.33815,
+				-3.45626 7.22455 1.66206,
+				-2.50409 7.22455 1.66206
+			]
+		}
+		normal Normal {
+			vector [
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-3.78017 7.62455 2.93815,
+				-2.18017 7.62455 2.93815,
+				-2.50409 7.22455 2.61423,
+				-3.45626 7.22455 2.61423
+			]
+		}
+		normal Normal {
+			vector [
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.50409 7.22455 1.66206,
+				-3.45626 7.22455 1.66206,
+				-3.45626 7.22455 2.61423,
+				-2.50409 7.22455 2.61423,
+				-2.66302 7.22455 2.452,
+				-3.30302 7.22455 2.452,
+				-3.30302 7.22455 1.812,
+				-2.66302 7.22455 1.812
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			4,	5,	2,	-1,
+			2,	5,	1,	-1,
+			1,	5,	6,	-1,
+			1,	6,	0,	-1,
+			0,	6,	7,	-1,
+			0,	7,	3,	-1,
+			3,	7,	4,	-1,
+			3,	4,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-3.78017 7.62455 1.33815,
+				-3.78017 7.62455 2.93815,
+				-3.45626 7.22455 2.61423,
+				-3.45626 7.22455 1.66206
+			]
+		}
+		normal Normal {
+			vector [
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.18017 7.62455 2.93815,
+				-2.18017 7.62455 1.33815,
+				-2.50409 7.22455 1.66206,
+				-2.50409 7.22455 2.61423
+			]
+		}
+		normal Normal {
+			vector [
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-3.30302 2.72455 1.812,
+				-2.66302 2.72455 1.812,
+				-2.66302 7.22455 1.812,
+				-3.30302 7.22455 1.812
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.66302 2.72455 2.452,
+				-3.30302 2.72455 2.452,
+				-3.30302 7.22455 2.452,
+				-2.66302 7.22455 2.452
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.66302 2.72455 1.812,
+				-2.66302 2.72455 2.452,
+				-2.66302 7.22455 2.452,
+				-2.66302 7.22455 1.812
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-3.30302 2.72455 2.452,
+				-3.30302 2.72455 1.812,
+				-3.30302 7.22455 1.812,
+				-3.30302 7.22455 2.452
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 0,
+				1 0 0,
+				1 0 0,
+				1 0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-4.25302 -0.775449 1.65733,
+				-1.71302 -0.775449 1.65733,
+				-1.71302 -0.275449 1.65733,
+				-4.25302 -0.275449 1.65733
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71302 -0.275449 1.65733,
+				-1.71302 -0.275449 2.61434,
+				-4.25302 -0.275449 2.61434,
+				-4.25302 -0.275449 1.65733,
+				-3.30302 -0.275449 2.452,
+				-2.66302 -0.275449 2.452,
+				-2.66302 -0.275449 1.812,
+				-3.30302 -0.275449 1.812
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			6,	7,	3,	-1,
+			3,	7,	2,	-1,
+			2,	7,	4,	-1,
+			2,	4,	1,	-1,
+			1,	4,	5,	-1,
+			1,	5,	0,	-1,
+			0,	5,	6,	-1,
+			0,	6,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71302 -0.775449 2.61434,
+				-4.25302 -0.775449 2.61434,
+				-4.25302 -0.275449 2.61434,
+				-1.71302 -0.275449 2.61434
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-3.30302 2.72455 2.452,
+				-2.66302 2.72455 2.452,
+				-2.66302 2.72455 1.812,
+				-3.30302 2.72455 1.812
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-3.30302 -2.97545 1.812,
+				-3.30302 -2.97545 2.452,
+				-3.30302 -0.275449 2.452,
+				-3.30302 -0.275449 1.812
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.66302 -2.97545 1.812,
+				-3.30302 -2.97545 1.812,
+				-3.30302 -0.275449 1.812,
+				-2.66302 -0.275449 1.812
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.75118 -3.47545 1.90017,
+				-2.75118 -3.47545 2.36384,
+				-3.21485 -3.47545 2.36384,
+				-3.21485 -3.47545 1.90017
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.66302 -2.97545 2.452,
+				-2.66302 -2.97545 1.812,
+				-2.66302 -0.275449 1.812,
+				-2.66302 -0.275449 2.452
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 -0,
+				1 0 -0,
+				1 0 -0,
+				1 0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-3.30302 -2.97545 2.452,
+				-2.66302 -2.97545 2.452,
+				-2.66302 -0.275449 2.452,
+				-3.30302 -0.275449 2.452
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.75118 -3.47545 2.36384,
+				-2.66302 -2.97545 2.452,
+				-3.30302 -2.97545 2.452,
+				-3.21485 -3.47545 2.36384
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-3.30302 -2.97545 1.812,
+				-3.21485 -3.47545 1.90017,
+				-3.21485 -3.47545 2.36384,
+				-3.30302 -2.97545 2.452
+			]
+		}
+		normal Normal {
+			vector [
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.66302 -2.97545 1.812,
+				-2.75118 -3.47545 1.90017,
+				-3.21485 -3.47545 1.90017,
+				-3.30302 -2.97545 1.812
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-2.66302 -2.97545 1.812,
+				-2.66302 -2.97545 2.452,
+				-2.75118 -3.47545 2.36384,
+				-2.75118 -3.47545 1.90017
+			]
+		}
+		normal Normal {
+			vector [
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance DEF A3514637472 Appearance {
+		material Material {
+			diffuseColor 0.338824 0.338824 0.338824
+			specularColor 0.451765 0.451765 0.451765
+			emissiveColor 0.282353 0.282353 0.282353
+			ambientIntensity 0.5
+			shininess 0.8
+			transparency 0
+		}
+	}
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71301 -0.775163 2.61434,
+				0.826993 -0.775163 2.61434,
+				0.826993 -0.775163 3.40551,
+				-1.71301 -0.775163 3.40551
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71301 -0.775163 3.40551,
+				0.826993 -0.775163 3.40551,
+				0.826993 7.62484 3.40551,
+				-1.71301 7.62484 3.40551
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.826993 -0.775163 0.865507,
+				-1.71301 -0.775163 0.865507,
+				-1.71301 7.62484 0.865507,
+				0.826993 7.62484 0.865507
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.826993 -0.775163 2.61434,
+				0.826993 -0.275163 2.61434,
+				0.826993 -0.275163 1.65733,
+				0.826993 -0.775163 1.65733,
+				0.826993 -0.775163 0.865507,
+				0.826993 7.62484 0.865507,
+				0.826993 7.62484 3.40551,
+				0.826993 -0.775163 3.40551
+			]
+		}
+		normal Normal {
+			vector [
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0
+			]
+		}
+		coordIndex [
+			7,	0,	6,	-1,
+			6,	0,	1,	-1,
+			6,	1,	5,	-1,
+			5,	1,	2,	-1,
+			5,	2,	4,	-1,
+			4,	2,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.826993 -0.775163 1.65733,
+				-1.71301 -0.775163 1.65733,
+				-1.71301 -0.775163 0.865507,
+				0.826993 -0.775163 0.865507
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71301 -0.275163 2.61434,
+				-1.71301 -0.775163 2.61434,
+				-1.71301 -0.775163 3.40551,
+				-1.71301 7.62484 3.40551,
+				-1.71301 7.62484 0.865507,
+				-1.71301 -0.775163 0.865507,
+				-1.71301 -0.775163 1.65733,
+				-1.71301 -0.275163 1.65733
+			]
+		}
+		normal Normal {
+			vector [
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0
+			]
+		}
+		coordIndex [
+			1,	2,	0,	-1,
+			0,	2,	3,	-1,
+			0,	3,	7,	-1,
+			7,	3,	4,	-1,
+			7,	4,	6,	-1,
+			6,	4,	5,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.826993 7.62484 0.865507,
+				-1.71301 7.62484 0.865507,
+				-1.71301 7.62484 3.40551,
+				0.826993 7.62484 3.40551,
+				-1.24016 7.62484 1.33815,
+				0.359838 7.62484 1.33815,
+				0.359838 7.62484 2.93815,
+				-1.24016 7.62484 2.93815
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			6,	7,	2,	-1,
+			2,	7,	1,	-1,
+			1,	7,	4,	-1,
+			1,	4,	0,	-1,
+			0,	4,	5,	-1,
+			0,	5,	3,	-1,
+			3,	5,	6,	-1,
+			3,	6,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.359838 7.62484 1.33815,
+				-1.24016 7.62484 1.33815,
+				-0.916249 7.22484 1.66206,
+				0.035924 7.22484 1.66206
+			]
+		}
+		normal Normal {
+			vector [
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.24016 7.62484 2.93815,
+				0.359838 7.62484 2.93815,
+				0.035924 7.22484 2.61424,
+				-0.916249 7.22484 2.61424
+			]
+		}
+		normal Normal {
+			vector [
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.035924 7.22484 1.66206,
+				-0.916249 7.22484 1.66206,
+				-0.916249 7.22484 2.61424,
+				0.035924 7.22484 2.61424,
+				-0.123007 7.22484 2.45201,
+				-0.763007 7.22484 2.45201,
+				-0.763007 7.22484 1.81201,
+				-0.123007 7.22484 1.81201
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			4,	5,	2,	-1,
+			2,	5,	1,	-1,
+			1,	5,	6,	-1,
+			1,	6,	0,	-1,
+			0,	6,	7,	-1,
+			0,	7,	3,	-1,
+			3,	7,	4,	-1,
+			3,	4,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.24016 7.62484 1.33815,
+				-1.24016 7.62484 2.93815,
+				-0.916249 7.22484 2.61424,
+				-0.916249 7.22484 1.66206
+			]
+		}
+		normal Normal {
+			vector [
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.359838 7.62484 2.93815,
+				0.359838 7.62484 1.33815,
+				0.035924 7.22484 1.66206,
+				0.035924 7.22484 2.61424
+			]
+		}
+		normal Normal {
+			vector [
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.763007 2.72484 1.81201,
+				-0.123007 2.72484 1.81201,
+				-0.123007 7.22484 1.81201,
+				-0.763007 7.22484 1.81201
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.123007 2.72484 2.45201,
+				-0.763007 2.72484 2.45201,
+				-0.763007 7.22484 2.45201,
+				-0.123007 7.22484 2.45201
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.123007 2.72484 1.81201,
+				-0.123007 2.72484 2.45201,
+				-0.123007 7.22484 2.45201,
+				-0.123007 7.22484 1.81201
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.763007 2.72484 2.45201,
+				-0.763007 2.72484 1.81201,
+				-0.763007 7.22484 1.81201,
+				-0.763007 7.22484 2.45201
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 0,
+				1 0 0,
+				1 0 0,
+				1 0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-1.71301 -0.775163 1.65733,
+				0.826993 -0.775163 1.65733,
+				0.826993 -0.275163 1.65733,
+				-1.71301 -0.275163 1.65733
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.826993 -0.275163 1.65733,
+				0.826993 -0.275163 2.61434,
+				-1.71301 -0.275163 2.61434,
+				-1.71301 -0.275163 1.65733,
+				-0.763007 -0.275163 2.45201,
+				-0.123007 -0.275163 2.45201,
+				-0.123007 -0.275163 1.81201,
+				-0.763007 -0.275163 1.81201
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			6,	7,	3,	-1,
+			3,	7,	2,	-1,
+			2,	7,	4,	-1,
+			2,	4,	1,	-1,
+			1,	4,	5,	-1,
+			1,	5,	0,	-1,
+			0,	5,	6,	-1,
+			0,	6,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.826993 -0.775163 2.61434,
+				-1.71301 -0.775163 2.61434,
+				-1.71301 -0.275163 2.61434,
+				0.826993 -0.275163 2.61434
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance DEF A1422001343 Appearance {
+		material Material {
+			diffuseColor 0.6 0.597647 0.36
+			specularColor 0.8 0.796863 0.48
+			emissiveColor 0.5 0.498039 0.3
+			ambientIntensity 0.5
+			shininess 0.8
+			transparency 0
+		}
+	}
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.763007 2.72484 2.45201,
+				-0.123007 2.72484 2.45201,
+				-0.123007 2.72484 1.81201,
+				-0.763007 2.72484 1.81201
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.763007 -2.97516 1.81201,
+				-0.763007 -2.97516 2.45201,
+				-0.763007 -0.275163 2.45201,
+				-0.763007 -0.275163 1.81201
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.123007 -2.97516 1.81201,
+				-0.763007 -2.97516 1.81201,
+				-0.763007 -0.275163 1.81201,
+				-0.123007 -0.275163 1.81201
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.211171 -3.47516 1.90017,
+				-0.211171 -3.47516 2.36384,
+				-0.674844 -3.47516 2.36384,
+				-0.674844 -3.47516 1.90017
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.123007 -2.97516 2.45201,
+				-0.123007 -2.97516 1.81201,
+				-0.123007 -0.275163 1.81201,
+				-0.123007 -0.275163 2.45201
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 -0,
+				1 0 -0,
+				1 0 -0,
+				1 0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.763007 -2.97516 2.45201,
+				-0.123007 -2.97516 2.45201,
+				-0.123007 -0.275163 2.45201,
+				-0.763007 -0.275163 2.45201
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.211171 -3.47516 2.36384,
+				-0.123007 -2.97516 2.45201,
+				-0.763007 -2.97516 2.45201,
+				-0.674844 -3.47516 2.36384
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.763007 -2.97516 1.81201,
+				-0.674844 -3.47516 1.90017,
+				-0.674844 -3.47516 2.36384,
+				-0.763007 -2.97516 2.45201
+			]
+		}
+		normal Normal {
+			vector [
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.123007 -2.97516 1.81201,
+				-0.211171 -3.47516 1.90017,
+				-0.674844 -3.47516 1.90017,
+				-0.763007 -2.97516 1.81201
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				-0.123007 -2.97516 1.81201,
+				-0.123007 -2.97516 2.45201,
+				-0.211171 -3.47516 2.36384,
+				-0.211171 -3.47516 1.90017
+			]
+		}
+		normal Normal {
+			vector [
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.827242 -0.775009 2.61436,
+				3.36724 -0.775009 2.61436,
+				3.36724 -0.775009 3.40552,
+				0.827242 -0.775009 3.40552
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.827242 -0.775009 3.40552,
+				3.36724 -0.775009 3.40552,
+				3.36724 7.62499 3.40552,
+				0.827242 7.62499 3.40552
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36724 -0.775009 0.865524,
+				0.827242 -0.775009 0.865524,
+				0.827242 7.62499 0.865524,
+				3.36724 7.62499 0.865524
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36724 -0.775009 2.61436,
+				3.36724 -0.275009 2.61436,
+				3.36724 -0.275009 1.65735,
+				3.36724 -0.775009 1.65735,
+				3.36724 -0.775009 0.865524,
+				3.36724 7.62499 0.865524,
+				3.36724 7.62499 3.40552,
+				3.36724 -0.775009 3.40552
+			]
+		}
+		normal Normal {
+			vector [
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0
+			]
+		}
+		coordIndex [
+			7,	0,	6,	-1,
+			6,	0,	1,	-1,
+			6,	1,	5,	-1,
+			5,	1,	2,	-1,
+			5,	2,	4,	-1,
+			4,	2,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36724 -0.775009 1.65735,
+				0.827242 -0.775009 1.65735,
+				0.827242 -0.775009 0.865524,
+				3.36724 -0.775009 0.865524
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.827242 -0.275009 2.61436,
+				0.827242 -0.775009 2.61436,
+				0.827242 -0.775009 3.40552,
+				0.827242 7.62499 3.40552,
+				0.827242 7.62499 0.865524,
+				0.827242 -0.775009 0.865524,
+				0.827242 -0.775009 1.65735,
+				0.827242 -0.275009 1.65735
+			]
+		}
+		normal Normal {
+			vector [
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0
+			]
+		}
+		coordIndex [
+			1,	2,	0,	-1,
+			0,	2,	3,	-1,
+			0,	3,	7,	-1,
+			7,	3,	4,	-1,
+			7,	4,	6,	-1,
+			6,	4,	5,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36724 7.62499 0.865524,
+				0.827242 7.62499 0.865524,
+				0.827242 7.62499 3.40552,
+				3.36724 7.62499 3.40552,
+				1.30009 7.62499 1.33817,
+				2.90009 7.62499 1.33817,
+				2.90009 7.62499 2.93817,
+				1.30009 7.62499 2.93817
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			6,	7,	2,	-1,
+			2,	7,	1,	-1,
+			1,	7,	4,	-1,
+			1,	4,	0,	-1,
+			0,	4,	5,	-1,
+			0,	5,	3,	-1,
+			3,	5,	6,	-1,
+			3,	6,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.90009 7.62499 1.33817,
+				1.30009 7.62499 1.33817,
+				1.624 7.22499 1.66208,
+				2.57617 7.22499 1.66208
+			]
+		}
+		normal Normal {
+			vector [
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				1.30009 7.62499 2.93817,
+				2.90009 7.62499 2.93817,
+				2.57617 7.22499 2.61425,
+				1.624 7.22499 2.61425
+			]
+		}
+		normal Normal {
+			vector [
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.57617 7.22499 1.66208,
+				1.624 7.22499 1.66208,
+				1.624 7.22499 2.61425,
+				2.57617 7.22499 2.61425,
+				2.41724 7.22499 2.45202,
+				1.77724 7.22499 2.45202,
+				1.77724 7.22499 1.81202,
+				2.41724 7.22499 1.81202
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			4,	5,	2,	-1,
+			2,	5,	1,	-1,
+			1,	5,	6,	-1,
+			1,	6,	0,	-1,
+			0,	6,	7,	-1,
+			0,	7,	3,	-1,
+			3,	7,	4,	-1,
+			3,	4,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				1.30009 7.62499 1.33817,
+				1.30009 7.62499 2.93817,
+				1.624 7.22499 2.61425,
+				1.624 7.22499 1.66208
+			]
+		}
+		normal Normal {
+			vector [
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.90009 7.62499 2.93817,
+				2.90009 7.62499 1.33817,
+				2.57617 7.22499 1.66208,
+				2.57617 7.22499 2.61425
+			]
+		}
+		normal Normal {
+			vector [
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				1.77724 2.72499 1.81202,
+				2.41724 2.72499 1.81202,
+				2.41724 7.22499 1.81202,
+				1.77724 7.22499 1.81202
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.41724 2.72499 2.45202,
+				1.77724 2.72499 2.45202,
+				1.77724 7.22499 2.45202,
+				2.41724 7.22499 2.45202
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.41724 2.72499 1.81202,
+				2.41724 2.72499 2.45202,
+				2.41724 7.22499 2.45202,
+				2.41724 7.22499 1.81202
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				1.77724 2.72499 2.45202,
+				1.77724 2.72499 1.81202,
+				1.77724 7.22499 1.81202,
+				1.77724 7.22499 2.45202
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 0,
+				1 0 0,
+				1 0 0,
+				1 0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				0.827242 -0.775009 1.65735,
+				3.36724 -0.775009 1.65735,
+				3.36724 -0.275009 1.65735,
+				0.827242 -0.275009 1.65735
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36724 -0.275009 1.65735,
+				3.36724 -0.275009 2.61436,
+				0.827242 -0.275009 2.61436,
+				0.827242 -0.275009 1.65735,
+				1.77724 -0.275009 2.45202,
+				2.41724 -0.275009 2.45202,
+				2.41724 -0.275009 1.81202,
+				1.77724 -0.275009 1.81202
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			6,	7,	3,	-1,
+			3,	7,	2,	-1,
+			2,	7,	4,	-1,
+			2,	4,	1,	-1,
+			1,	4,	5,	-1,
+			1,	5,	0,	-1,
+			0,	5,	6,	-1,
+			0,	6,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36724 -0.775009 2.61436,
+				0.827242 -0.775009 2.61436,
+				0.827242 -0.275009 2.61436,
+				3.36724 -0.275009 2.61436
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				1.77724 2.72499 2.45202,
+				2.41724 2.72499 2.45202,
+				2.41724 2.72499 1.81202,
+				1.77724 2.72499 1.81202
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				1.77724 -2.97501 1.81202,
+				1.77724 -2.97501 2.45202,
+				1.77724 -0.275009 2.45202,
+				1.77724 -0.275009 1.81202
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.41724 -2.97501 1.81202,
+				1.77724 -2.97501 1.81202,
+				1.77724 -0.275009 1.81202,
+				2.41724 -0.275009 1.81202
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.32908 -3.47501 1.90019,
+				2.32908 -3.47501 2.36386,
+				1.86541 -3.47501 2.36386,
+				1.86541 -3.47501 1.90019
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.41724 -2.97501 2.45202,
+				2.41724 -2.97501 1.81202,
+				2.41724 -0.275009 1.81202,
+				2.41724 -0.275009 2.45202
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 -0,
+				1 0 -0,
+				1 0 -0,
+				1 0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				1.77724 -2.97501 2.45202,
+				2.41724 -2.97501 2.45202,
+				2.41724 -0.275009 2.45202,
+				1.77724 -0.275009 2.45202
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.32908 -3.47501 2.36386,
+				2.41724 -2.97501 2.45202,
+				1.77724 -2.97501 2.45202,
+				1.86541 -3.47501 2.36386
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				1.77724 -2.97501 1.81202,
+				1.86541 -3.47501 1.90019,
+				1.86541 -3.47501 2.36386,
+				1.77724 -2.97501 2.45202
+			]
+		}
+		normal Normal {
+			vector [
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.41724 -2.97501 1.81202,
+				2.32908 -3.47501 1.90019,
+				1.86541 -3.47501 1.90019,
+				1.77724 -2.97501 1.81202
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				2.41724 -2.97501 1.81202,
+				2.41724 -2.97501 2.45202,
+				2.32908 -3.47501 2.36386,
+				2.32908 -3.47501 1.90019
+			]
+		}
+		normal Normal {
+			vector [
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36834 -0.775602 2.614,
+				5.90834 -0.775602 2.614,
+				5.90834 -0.775602 3.40516,
+				3.36834 -0.775602 3.40516
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36834 -0.775602 3.40516,
+				5.90834 -0.775602 3.40516,
+				5.90834 7.6244 3.40516,
+				3.36834 7.6244 3.40516
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90834 -0.775602 0.865165,
+				3.36834 -0.775602 0.865165,
+				3.36834 7.6244 0.865165,
+				5.90834 7.6244 0.865165
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90834 -0.775602 2.614,
+				5.90834 -0.275602 2.614,
+				5.90834 -0.275602 1.65699,
+				5.90834 -0.775602 1.65699,
+				5.90834 -0.775602 0.865165,
+				5.90834 7.6244 0.865165,
+				5.90834 7.6244 3.40516,
+				5.90834 -0.775602 3.40516
+			]
+		}
+		normal Normal {
+			vector [
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0
+			]
+		}
+		coordIndex [
+			7,	0,	6,	-1,
+			6,	0,	1,	-1,
+			6,	1,	5,	-1,
+			5,	1,	2,	-1,
+			5,	2,	4,	-1,
+			4,	2,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90834 -0.775602 1.65699,
+				3.36834 -0.775602 1.65699,
+				3.36834 -0.775602 0.865165,
+				5.90834 -0.775602 0.865165
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36834 -0.275602 2.614,
+				3.36834 -0.775602 2.614,
+				3.36834 -0.775602 3.40516,
+				3.36834 7.6244 3.40516,
+				3.36834 7.6244 0.865165,
+				3.36834 -0.775602 0.865165,
+				3.36834 -0.775602 1.65699,
+				3.36834 -0.275602 1.65699
+			]
+		}
+		normal Normal {
+			vector [
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0
+			]
+		}
+		coordIndex [
+			1,	2,	0,	-1,
+			0,	2,	3,	-1,
+			0,	3,	7,	-1,
+			7,	3,	4,	-1,
+			7,	4,	6,	-1,
+			6,	4,	5,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90834 7.6244 0.865165,
+				3.36834 7.6244 0.865165,
+				3.36834 7.6244 3.40516,
+				5.90834 7.6244 3.40516,
+				3.84118 7.6244 1.33781,
+				5.44118 7.6244 1.33781,
+				5.44118 7.6244 2.93781,
+				3.84118 7.6244 2.93781
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			6,	7,	2,	-1,
+			2,	7,	1,	-1,
+			1,	7,	4,	-1,
+			1,	4,	0,	-1,
+			0,	4,	5,	-1,
+			0,	5,	3,	-1,
+			3,	5,	6,	-1,
+			3,	6,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.44118 7.6244 1.33781,
+				3.84118 7.6244 1.33781,
+				4.16509 7.2244 1.66172,
+				5.11727 7.2244 1.66172
+			]
+		}
+		normal Normal {
+			vector [
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.84118 7.6244 2.93781,
+				5.44118 7.6244 2.93781,
+				5.11727 7.2244 2.61389,
+				4.16509 7.2244 2.61389
+			]
+		}
+		normal Normal {
+			vector [
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.11727 7.2244 1.66172,
+				4.16509 7.2244 1.66172,
+				4.16509 7.2244 2.61389,
+				5.11727 7.2244 2.61389,
+				4.95834 7.2244 2.45166,
+				4.31834 7.2244 2.45166,
+				4.31834 7.2244 1.81166,
+				4.95834 7.2244 1.81166
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			4,	5,	2,	-1,
+			2,	5,	1,	-1,
+			1,	5,	6,	-1,
+			1,	6,	0,	-1,
+			0,	6,	7,	-1,
+			0,	7,	3,	-1,
+			3,	7,	4,	-1,
+			3,	4,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.84118 7.6244 1.33781,
+				3.84118 7.6244 2.93781,
+				4.16509 7.2244 2.61389,
+				4.16509 7.2244 1.66172
+			]
+		}
+		normal Normal {
+			vector [
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.44118 7.6244 2.93781,
+				5.44118 7.6244 1.33781,
+				5.11727 7.2244 1.66172,
+				5.11727 7.2244 2.61389
+			]
+		}
+		normal Normal {
+			vector [
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.31834 2.7244 1.81166,
+				4.95834 2.7244 1.81166,
+				4.95834 7.2244 1.81166,
+				4.31834 7.2244 1.81166
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.95834 2.7244 2.45166,
+				4.31834 2.7244 2.45166,
+				4.31834 7.2244 2.45166,
+				4.95834 7.2244 2.45166
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.95834 2.7244 1.81166,
+				4.95834 2.7244 2.45166,
+				4.95834 7.2244 2.45166,
+				4.95834 7.2244 1.81166
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.31834 2.7244 2.45166,
+				4.31834 2.7244 1.81166,
+				4.31834 7.2244 1.81166,
+				4.31834 7.2244 2.45166
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 0,
+				1 0 0,
+				1 0 0,
+				1 0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				3.36834 -0.775602 1.65699,
+				5.90834 -0.775602 1.65699,
+				5.90834 -0.275602 1.65699,
+				3.36834 -0.275602 1.65699
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90834 -0.275602 1.65699,
+				5.90834 -0.275602 2.614,
+				3.36834 -0.275602 2.614,
+				3.36834 -0.275602 1.65699,
+				4.31834 -0.275602 2.45166,
+				4.95834 -0.275602 2.45166,
+				4.95834 -0.275602 1.81166,
+				4.31834 -0.275602 1.81166
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			6,	7,	3,	-1,
+			3,	7,	2,	-1,
+			2,	7,	4,	-1,
+			2,	4,	1,	-1,
+			1,	4,	5,	-1,
+			1,	5,	0,	-1,
+			0,	5,	6,	-1,
+			0,	6,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90834 -0.775602 2.614,
+				3.36834 -0.775602 2.614,
+				3.36834 -0.275602 2.614,
+				5.90834 -0.275602 2.614
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.31834 2.7244 2.45166,
+				4.95834 2.7244 2.45166,
+				4.95834 2.7244 1.81166,
+				4.31834 2.7244 1.81166
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.31834 -2.9756 1.81166,
+				4.31834 -2.9756 2.45166,
+				4.31834 -0.275602 2.45166,
+				4.31834 -0.275602 1.81166
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.95834 -2.9756 1.81166,
+				4.31834 -2.9756 1.81166,
+				4.31834 -0.275602 1.81166,
+				4.95834 -0.275602 1.81166
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.87017 -3.4756 1.89983,
+				4.87017 -3.4756 2.3635,
+				4.4065 -3.4756 2.3635,
+				4.4065 -3.4756 1.89983
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.95834 -2.9756 2.45166,
+				4.95834 -2.9756 1.81166,
+				4.95834 -0.275602 1.81166,
+				4.95834 -0.275602 2.45166
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 -0,
+				1 0 -0,
+				1 0 -0,
+				1 0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.31834 -2.9756 2.45166,
+				4.95834 -2.9756 2.45166,
+				4.95834 -0.275602 2.45166,
+				4.31834 -0.275602 2.45166
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.87017 -3.4756 2.3635,
+				4.95834 -2.9756 2.45166,
+				4.31834 -2.9756 2.45166,
+				4.4065 -3.4756 2.3635
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.31834 -2.9756 1.81166,
+				4.4065 -3.4756 1.89983,
+				4.4065 -3.4756 2.3635,
+				4.31834 -2.9756 2.45166
+			]
+		}
+		normal Normal {
+			vector [
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.95834 -2.9756 1.81166,
+				4.87017 -3.4756 1.89983,
+				4.4065 -3.4756 1.89983,
+				4.31834 -2.9756 1.81166
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				4.95834 -2.9756 1.81166,
+				4.95834 -2.9756 2.45166,
+				4.87017 -3.4756 2.3635,
+				4.87017 -3.4756 1.89983
+			]
+		}
+		normal Normal {
+			vector [
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90861 -0.775624 2.61397,
+				8.44861 -0.775624 2.61397,
+				8.44861 -0.775624 3.40514,
+				5.90861 -0.775624 3.40514
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90861 -0.775624 3.40514,
+				8.44861 -0.775624 3.40514,
+				8.44861 7.62438 3.40514,
+				5.90861 7.62438 3.40514
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44861 -0.775624 0.865139,
+				5.90861 -0.775624 0.865139,
+				5.90861 7.62438 0.865139,
+				8.44861 7.62438 0.865139
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44861 -0.775624 2.61397,
+				8.44861 -0.275624 2.61397,
+				8.44861 -0.275624 1.65696,
+				8.44861 -0.775624 1.65696,
+				8.44861 -0.775624 0.865139,
+				8.44861 7.62438 0.865139,
+				8.44861 7.62438 3.40514,
+				8.44861 -0.775624 3.40514
+			]
+		}
+		normal Normal {
+			vector [
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0
+			]
+		}
+		coordIndex [
+			7,	0,	6,	-1,
+			6,	0,	1,	-1,
+			6,	1,	5,	-1,
+			5,	1,	2,	-1,
+			5,	2,	4,	-1,
+			4,	2,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44861 -0.775624 1.65696,
+				5.90861 -0.775624 1.65696,
+				5.90861 -0.775624 0.865139,
+				8.44861 -0.775624 0.865139
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90861 -0.275624 2.61397,
+				5.90861 -0.775624 2.61397,
+				5.90861 -0.775624 3.40514,
+				5.90861 7.62438 3.40514,
+				5.90861 7.62438 0.865139,
+				5.90861 -0.775624 0.865139,
+				5.90861 -0.775624 1.65696,
+				5.90861 -0.275624 1.65696
+			]
+		}
+		normal Normal {
+			vector [
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0
+			]
+		}
+		coordIndex [
+			1,	2,	0,	-1,
+			0,	2,	3,	-1,
+			0,	3,	7,	-1,
+			7,	3,	4,	-1,
+			7,	4,	6,	-1,
+			6,	4,	5,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44861 7.62438 0.865139,
+				5.90861 7.62438 0.865139,
+				5.90861 7.62438 3.40514,
+				8.44861 7.62438 3.40514,
+				6.38146 7.62438 1.33778,
+				7.98146 7.62438 1.33778,
+				7.98146 7.62438 2.93778,
+				6.38146 7.62438 2.93778
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			6,	7,	2,	-1,
+			2,	7,	1,	-1,
+			1,	7,	4,	-1,
+			1,	4,	0,	-1,
+			0,	4,	5,	-1,
+			0,	5,	3,	-1,
+			3,	5,	6,	-1,
+			3,	6,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.98146 7.62438 1.33778,
+				6.38146 7.62438 1.33778,
+				6.70537 7.22438 1.6617,
+				7.65754 7.22438 1.6617
+			]
+		}
+		normal Normal {
+			vector [
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				6.38146 7.62438 2.93778,
+				7.98146 7.62438 2.93778,
+				7.65754 7.22438 2.61387,
+				6.70537 7.22438 2.61387
+			]
+		}
+		normal Normal {
+			vector [
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.65754 7.22438 1.6617,
+				6.70537 7.22438 1.6617,
+				6.70537 7.22438 2.61387,
+				7.65754 7.22438 2.61387,
+				7.49861 7.22438 2.45164,
+				6.85861 7.22438 2.45164,
+				6.85861 7.22438 1.81164,
+				7.49861 7.22438 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			4,	5,	2,	-1,
+			2,	5,	1,	-1,
+			1,	5,	6,	-1,
+			1,	6,	0,	-1,
+			0,	6,	7,	-1,
+			0,	7,	3,	-1,
+			3,	7,	4,	-1,
+			3,	4,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				6.38146 7.62438 1.33778,
+				6.38146 7.62438 2.93778,
+				6.70537 7.22438 2.61387,
+				6.70537 7.22438 1.6617
+			]
+		}
+		normal Normal {
+			vector [
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.98146 7.62438 2.93778,
+				7.98146 7.62438 1.33778,
+				7.65754 7.22438 1.6617,
+				7.65754 7.22438 2.61387
+			]
+		}
+		normal Normal {
+			vector [
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				6.85861 2.72438 1.81164,
+				7.49861 2.72438 1.81164,
+				7.49861 7.22438 1.81164,
+				6.85861 7.22438 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.49861 2.72438 2.45164,
+				6.85861 2.72438 2.45164,
+				6.85861 7.22438 2.45164,
+				7.49861 7.22438 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.49861 2.72438 1.81164,
+				7.49861 2.72438 2.45164,
+				7.49861 7.22438 2.45164,
+				7.49861 7.22438 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				6.85861 2.72438 2.45164,
+				6.85861 2.72438 1.81164,
+				6.85861 7.22438 1.81164,
+				6.85861 7.22438 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 0,
+				1 0 0,
+				1 0 0,
+				1 0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				5.90861 -0.775624 1.65696,
+				8.44861 -0.775624 1.65696,
+				8.44861 -0.275624 1.65696,
+				5.90861 -0.275624 1.65696
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44861 -0.275624 1.65696,
+				8.44861 -0.275624 2.61397,
+				5.90861 -0.275624 2.61397,
+				5.90861 -0.275624 1.65696,
+				6.85861 -0.275624 2.45164,
+				7.49861 -0.275624 2.45164,
+				7.49861 -0.275624 1.81164,
+				6.85861 -0.275624 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			6,	7,	3,	-1,
+			3,	7,	2,	-1,
+			2,	7,	4,	-1,
+			2,	4,	1,	-1,
+			1,	4,	5,	-1,
+			1,	5,	0,	-1,
+			0,	5,	6,	-1,
+			0,	6,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1987873689
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44861 -0.775624 2.61397,
+				5.90861 -0.775624 2.61397,
+				5.90861 -0.275624 2.61397,
+				8.44861 -0.275624 2.61397
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				6.85861 2.72438 2.45164,
+				7.49861 2.72438 2.45164,
+				7.49861 2.72438 1.81164,
+				6.85861 2.72438 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				6.85861 -2.97562 1.81164,
+				6.85861 -2.97562 2.45164,
+				6.85861 -0.275624 2.45164,
+				6.85861 -0.275624 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.49861 -2.97562 1.81164,
+				6.85861 -2.97562 1.81164,
+				6.85861 -0.275624 1.81164,
+				7.49861 -0.275624 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.41045 -3.47562 1.8998,
+				7.41045 -3.47562 2.36347,
+				6.94678 -3.47562 2.36347,
+				6.94678 -3.47562 1.8998
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.49861 -2.97562 2.45164,
+				7.49861 -2.97562 1.81164,
+				7.49861 -0.275624 1.81164,
+				7.49861 -0.275624 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 -0,
+				1 0 -0,
+				1 0 -0,
+				1 0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				6.85861 -2.97562 2.45164,
+				7.49861 -2.97562 2.45164,
+				7.49861 -0.275624 2.45164,
+				6.85861 -0.275624 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.41045 -3.47562 2.36347,
+				7.49861 -2.97562 2.45164,
+				6.85861 -2.97562 2.45164,
+				6.94678 -3.47562 2.36347
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				6.85861 -2.97562 1.81164,
+				6.94678 -3.47562 1.8998,
+				6.94678 -3.47562 2.36347,
+				6.85861 -2.97562 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.49861 -2.97562 1.81164,
+				7.41045 -3.47562 1.8998,
+				6.94678 -3.47562 1.8998,
+				6.85861 -2.97562 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A2080865081
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				7.49861 -2.97562 1.81164,
+				7.49861 -2.97562 2.45164,
+				7.41045 -3.47562 2.36347,
+				7.41045 -3.47562 1.8998
+			]
+		}
+		normal Normal {
+			vector [
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44862 -0.775338 2.61397,
+				10.9886 -0.775338 2.61397,
+				10.9886 -0.775338 3.40514,
+				8.44862 -0.775338 3.40514
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44862 -0.775338 3.40514,
+				10.9886 -0.775338 3.40514,
+				10.9886 7.62466 3.40514,
+				8.44862 7.62466 3.40514
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.9886 -0.775338 0.865141,
+				8.44862 -0.775338 0.865141,
+				8.44862 7.62466 0.865141,
+				10.9886 7.62466 0.865141
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.9886 -0.775338 2.61397,
+				10.9886 -0.275338 2.61397,
+				10.9886 -0.275338 1.65696,
+				10.9886 -0.775338 1.65696,
+				10.9886 -0.775338 0.865141,
+				10.9886 7.62466 0.865141,
+				10.9886 7.62466 3.40514,
+				10.9886 -0.775338 3.40514
+			]
+		}
+		normal Normal {
+			vector [
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0,
+				1 -0 0
+			]
+		}
+		coordIndex [
+			7,	0,	6,	-1,
+			6,	0,	1,	-1,
+			6,	1,	5,	-1,
+			5,	1,	2,	-1,
+			5,	2,	4,	-1,
+			4,	2,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.9886 -0.775338 1.65696,
+				8.44862 -0.775338 1.65696,
+				8.44862 -0.775338 0.865141,
+				10.9886 -0.775338 0.865141
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44862 -0.275338 2.61397,
+				8.44862 -0.775338 2.61397,
+				8.44862 -0.775338 3.40514,
+				8.44862 7.62466 3.40514,
+				8.44862 7.62466 0.865141,
+				8.44862 -0.775338 0.865141,
+				8.44862 -0.775338 1.65696,
+				8.44862 -0.275338 1.65696
+			]
+		}
+		normal Normal {
+			vector [
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0,
+				-1 0 0
+			]
+		}
+		coordIndex [
+			1,	2,	0,	-1,
+			0,	2,	3,	-1,
+			0,	3,	7,	-1,
+			7,	3,	4,	-1,
+			7,	4,	6,	-1,
+			6,	4,	5,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.9886 7.62466 0.865141,
+				8.44862 7.62466 0.865141,
+				8.44862 7.62466 3.40514,
+				10.9886 7.62466 3.40514,
+				8.92147 7.62466 1.33778,
+				10.5215 7.62466 1.33778,
+				10.5215 7.62466 2.93778,
+				8.92147 7.62466 2.93778
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			6,	7,	2,	-1,
+			2,	7,	1,	-1,
+			1,	7,	4,	-1,
+			1,	4,	0,	-1,
+			0,	4,	5,	-1,
+			0,	5,	3,	-1,
+			3,	5,	6,	-1,
+			3,	6,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.5215 7.62466 1.33778,
+				8.92147 7.62466 1.33778,
+				9.24538 7.22466 1.6617,
+				10.1976 7.22466 1.6617
+			]
+		}
+		normal Normal {
+			vector [
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146,
+				-7.24915e-016 0.62932 0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.92147 7.62466 2.93778,
+				10.5215 7.62466 2.93778,
+				10.1976 7.22466 2.61387,
+				9.24538 7.22466 2.61387
+			]
+		}
+		normal Normal {
+			vector [
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146,
+				-0 0.62932 -0.777146
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.1976 7.22466 1.6617,
+				9.24538 7.22466 1.6617,
+				9.24538 7.22466 2.61387,
+				10.1976 7.22466 2.61387,
+				10.0386 7.22466 2.45164,
+				9.39862 7.22466 2.45164,
+				9.39862 7.22466 1.81164,
+				10.0386 7.22466 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			4,	5,	2,	-1,
+			2,	5,	1,	-1,
+			1,	5,	6,	-1,
+			1,	6,	0,	-1,
+			0,	6,	7,	-1,
+			0,	7,	3,	-1,
+			3,	7,	4,	-1,
+			3,	4,	2,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.92147 7.62466 1.33778,
+				8.92147 7.62466 2.93778,
+				9.24538 7.22466 2.61387,
+				9.24538 7.22466 1.6617
+			]
+		}
+		normal Normal {
+			vector [
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0,
+				0.777146 0.62932 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.5215 7.62466 2.93778,
+				10.5215 7.62466 1.33778,
+				10.1976 7.22466 1.6617,
+				10.1976 7.22466 2.61387
+			]
+		}
+		normal Normal {
+			vector [
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017,
+				-0.777146 0.62932 9.06144e-017
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				9.39862 2.72466 1.81164,
+				10.0386 2.72466 1.81164,
+				10.0386 7.22466 1.81164,
+				9.39862 7.22466 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.0386 2.72466 2.45164,
+				9.39862 2.72466 2.45164,
+				9.39862 7.22466 2.45164,
+				10.0386 7.22466 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.0386 2.72466 1.81164,
+				10.0386 2.72466 2.45164,
+				10.0386 7.22466 2.45164,
+				10.0386 7.22466 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0,
+				-1 -0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				9.39862 2.72466 2.45164,
+				9.39862 2.72466 1.81164,
+				9.39862 7.22466 1.81164,
+				9.39862 7.22466 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 0,
+				1 0 0,
+				1 0 0,
+				1 0 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				8.44862 -0.775338 1.65696,
+				10.9886 -0.775338 1.65696,
+				10.9886 -0.275338 1.65696,
+				8.44862 -0.275338 1.65696
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1,
+				-0 -0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.9886 -0.275338 1.65696,
+				10.9886 -0.275338 2.61397,
+				8.44862 -0.275338 2.61397,
+				8.44862 -0.275338 1.65696,
+				9.39862 -0.275338 2.45164,
+				10.0386 -0.275338 2.45164,
+				10.0386 -0.275338 1.81164,
+				9.39862 -0.275338 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			6,	7,	3,	-1,
+			3,	7,	2,	-1,
+			2,	7,	4,	-1,
+			2,	4,	1,	-1,
+			1,	4,	5,	-1,
+			1,	5,	0,	-1,
+			0,	5,	6,	-1,
+			0,	6,	3,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A3514637472
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.9886 -0.775338 2.61397,
+				8.44862 -0.775338 2.61397,
+				8.44862 -0.275338 2.61397,
+				10.9886 -0.275338 2.61397
+			]
+		}
+		normal Normal {
+			vector [
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1,
+				-0 -0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				9.39862 2.72466 2.45164,
+				10.0386 2.72466 2.45164,
+				10.0386 2.72466 1.81164,
+				9.39862 2.72466 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-0 1 0,
+				-0 1 0,
+				-0 1 0,
+				-0 1 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				9.39862 -2.97534 1.81164,
+				9.39862 -2.97534 2.45164,
+				9.39862 -0.275338 2.45164,
+				9.39862 -0.275338 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0,
+				-1 -0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.0386 -2.97534 1.81164,
+				9.39862 -2.97534 1.81164,
+				9.39862 -0.275338 1.81164,
+				10.0386 -0.275338 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 -1,
+				0 0 -1,
+				0 0 -1,
+				0 0 -1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				9.95046 -3.47534 1.8998,
+				9.95046 -3.47534 2.36348,
+				9.48679 -3.47534 2.36348,
+				9.48679 -3.47534 1.8998
+			]
+		}
+		normal Normal {
+			vector [
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0,
+				0 -1 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.0386 -2.97534 2.45164,
+				10.0386 -2.97534 1.81164,
+				10.0386 -0.275338 1.81164,
+				10.0386 -0.275338 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				1 0 -0,
+				1 0 -0,
+				1 0 -0,
+				1 0 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				9.39862 -2.97534 2.45164,
+				10.0386 -2.97534 2.45164,
+				10.0386 -0.275338 2.45164,
+				9.39862 -0.275338 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				0 0 1,
+				0 0 1,
+				0 0 1,
+				0 0 1
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				9.95046 -3.47534 2.36348,
+				10.0386 -2.97534 2.45164,
+				9.39862 -2.97534 2.45164,
+				9.48679 -3.47534 2.36348
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808,
+				0 -0.173648 0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				9.39862 -2.97534 1.81164,
+				9.48679 -3.47534 1.8998,
+				9.48679 -3.47534 2.36348,
+				9.39862 -2.97534 2.45164
+			]
+		}
+		normal Normal {
+			vector [
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0,
+				-0.984808 -0.173648 -0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.0386 -2.97534 1.81164,
+				9.95046 -3.47534 1.8998,
+				9.48679 -3.47534 1.8998,
+				9.39862 -2.97534 1.81164
+			]
+		}
+		normal Normal {
+			vector [
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808,
+				0 -0.173648 -0.984808
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
+Shape {
+	appearance USE A1422001343
+	geometry IndexedFaceSet {
+		creaseAngle 2
+		coord Coordinate {
+			point [
+				10.0386 -2.97534 1.81164,
+				10.0386 -2.97534 2.45164,
+				9.95046 -3.47534 2.36348,
+				9.95046 -3.47534 1.8998
+			]
+		}
+		normal Normal {
+			vector [
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0,
+				0.984808 -0.173648 0
+			]
+		}
+		coordIndex [
+			3,	0,	2,	-1,
+			2,	0,	1,	-1
+		]
+	}
+}
