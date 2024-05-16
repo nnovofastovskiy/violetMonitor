@@ -12,13 +12,19 @@
 #include <ArduinoJson.h> //https://github.com/bblanchon/ArduinoJson
 #include <Preferences.h>
 // #include <display.h>
-#include <GxEPD.h>
+#include <GxEPD2.h>
+#include <GxEPD2_BW.h>
+#include "GxEPD2_display_selection_new_style.h"
+#include <FontsRus/FreeMonoBold18.h>
+#include <FontsRus/FreeSerif10.h>
+
+// #define GxEPD2_DRIVER_CLASS GxEPD2_290_T94_V2
 #include <Adafruit_NeoPixel.h>
 // #include <display.h>
 
-#include <GxDEPG0290BS/GxDEPG0290BS.h> // 2.9" b/w Waveshare variant, TTGO T5 V2.4.1 2.9"
+// #include <GxDEPG0290BS/GxDEPG0290BS.h> // 2.9" b/w Waveshare variant, TTGO T5 V2.4.1 2.9"
 
-#include GxEPD_BitmapExamples
+// #include GxEPD_BitmapExamples
 
 // FreeFonts from Adafruit_GFX
 // #include <Fonts/FreeMonoBold9pt7b.h>
@@ -27,11 +33,9 @@
 // #include <Fonts/FreeMonoBold24pt7b.h>
 // #include <Fonts/FreeMono9pt7b.h>
 // #include <Fonts/FreeSerif9pt7b.h>
-#include <FontsRus/FreeMonoBold18.h>
-#include <FontsRus/FreeSerif10.h>
 
-#include <GxIO/GxIO_SPI/GxIO_SPI.h>
-#include <GxIO/GxIO.h>
+// #include <GxIO/GxIO_SPI/GxIO_SPI.h>
+// #include <GxIO/GxIO.h>
 
 // #define TRIGGER_PIN 0
 #define OPTIONS_PIN GPIO_NUM_33
@@ -40,7 +44,7 @@
 #define ASIDE_WIDTH 100
 #define DISPLAY_PADDING 4
 
-#define LED_PIN 23
+#define LED_PIN 19
 #define BRIGHTNESS 40
 
 #define WAKEUP_PINS_BITMAP 0x300000000
@@ -64,7 +68,14 @@ String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
 JsonDocument doc;
 
 bool optionsBtnPressed = false;
-RTC_DATA_ATTR bool powerBtnPressed = false;
+RTC_DATA_ATTR volatile bool turnOffFlag = false;
+RTC_DATA_ATTR volatile bool powerBtnPushed = false;
+
+// // BUSY -> 4, RST -> 16, DC -> 17, CS -> SS(5), CLK -> SCK(18), DIN -> MOSI(23), GND -> GND, 3.3V -> 3.3V
+// GxIO_Class io(SPI, /*CS=5*/ SS, /*DC=*/17, /*RST=*/16); // arbitrary selection of 17, 16
+// GxEPD_Class display(io, /*RST=*/16, /*BUSY=*/4);        // arbitrary selection of (16), 4
+
+Adafruit_NeoPixel pixels(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 void IRAM_ATTR optionsIsr()
 {
@@ -72,32 +83,76 @@ void IRAM_ATTR optionsIsr()
   optionsBtnPressed = true;
 }
 
-GxIO_Class io(SPI, /*CS=5*/ SS, /*DC=*/17, /*RST=*/16); // arbitrary selection of 17, 16
-GxEPD_Class display(io, /*RST=*/16, /*BUSY=*/4);        // arbitrary selection of (16), 4
+void IRAM_ATTR powerIsr()
+{
+  if (digitalRead(POWER_PIN))
+  {
+    // Serial.print("========powerBtnPushed = ");
+    // Serial.println(powerBtnPushed);
+    turnOffFlag = !turnOffFlag;
+    esp_sleep_enable_timer_wakeup(1);
+    esp_deep_sleep_start();
+  }
+  else
+  {
 
-Adafruit_NeoPixel pixels(1, LED_PIN, NEO_GRB + NEO_KHZ800);
+    // Serial.print("========powerBtnPressed = ");
+    // Serial.println(powerBtnPressed);
+    // if (powerBtnPushed)
+    // {
+    //   powerBtnPushed = false;
+    //   if (turnOffFlag)
+    //   {
+    //     turnOffFlag = false;
+    //   } else
+    //   {
+    //     turnOffFlag = true;
+    //     esp_sleep_enable_timer_wakeup(1);
+    //     esp_deep_sleep_start();
+    //     // esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
+    //   }
+    // }
+    // powerBtnPushed = false;
+  }
+}
 
+void IRAM_ATTR powerIsrPush()
+{
+  Serial.print("========powerBtnPushed = ");
+  Serial.println(powerBtnPushed);
+  powerBtnPushed = true;
+}
 
 void setup()
 {
   // pixels.clear(); // Set all pixel colors to 'off'
   // pinMode(TRIGGER_PIN, INPUT_PULLUP);
-  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
-  
-  // esp_sleep_enable_ext0_wakeup(OPTIONS_PIN, 1); // 1 = High, 0 = Low
-
-  Serial.begin(115200);
-  delay(3000);
-  attachInterrupt(OPTIONS_PIN, optionsIsr, RISING);
   check_wakeup_reason();
-
-  if (powerBtnPressed)
+  attachInterrupt(POWER_PIN, powerIsr, RISING);
+  if (turnOffFlag)
   {
+    Serial.println("TURNING OFF BY powerBtnPressed");
     pixels.clear();
     pixels.show();
+    display.init(115200); // enable diagnostic output on Serial
+    display.flush();
+    drawTurnOff();
+    // display.update();
+    // display.updateWindow(0, 0, display.width(), display.height());
+    // display.update();
+    display.powerOff();
     esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
     esp_deep_sleep_start();
   }
+  attachInterrupt(OPTIONS_PIN, optionsIsr, RISING);
+  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+
+  // esp_sleep_enable_ext0_wakeup(OPTIONS_PIN, 1); // 1 = High, 0 = Low
+
+  Serial.begin(115200);
+  // delay(3000);
+  // attachInterrupt(POWER_PIN, powerIsrOff, FALLING);
+  // while(powerBtnPushed);
 
   esp_sleep_enable_ext1_wakeup(WAKEUP_PINS_BITMAP, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
   esp_sleep_enable_timer_wakeup(15e6);
@@ -221,21 +276,27 @@ void setup()
       if (!strcmp(status, "good"))
       {
         pixels.setPixelColor(0, pixels.Color(0, BRIGHTNESS, 0));
-      } else if (!strcmp(status, "bad"))
+      }
+      else if (!strcmp(status, "bad"))
       {
         pixels.setPixelColor(0, pixels.Color(BRIGHTNESS, 0, 0));
-      } else if (!strcmp(status, "neutral"))
+      }
+      else if (!strcmp(status, "neutral"))
       {
         pixels.setPixelColor(0, pixels.Color(0, 0, BRIGHTNESS));
       }
       pixels.show(); // Send the updated pixel colors to the hardware.
 
-      drawAsideText(aside);
-      drawTimeText(timeString);
-      drawLine1(line1);
-      drawLine2(line2);
-      display.update();
-      display.powerDown();
+      display.setFullWindow();
+      display.firstPage();
+      do
+      {
+        drawAsideText(aside);
+        drawTimeText(timeString);
+        drawLine1(line1);
+        drawLine2(line2);
+      } while (display.nextPage());
+      display.powerOff();
     }
     else
     {
@@ -270,52 +331,6 @@ void saveParamCallback()
   preferences.end();
 }
 
-void checkButton()
-{
-  // check for button press
-  if (digitalRead(OPTIONS_PIN) == HIGH)
-  {
-    // poor mans debounce/press-hold, code not ideal for production
-    delayMicroseconds(50e3);
-    if (digitalRead(OPTIONS_PIN) == HIGH)
-    {
-      Serial.println("Button Pressed");
-      // still holding button for 3000 ms, reset settings, code not ideaa for production
-      // delayMicroseconds(3000e3); // reset delay hold
-      // if (digitalRead(OPTIONS_PIN) == HIGH)
-      // {
-      //   Serial.println("Button Held");
-      //   Serial.println("Erasing Config, restarting");
-      //   wm.resetSettings();
-      //   preferences.begin("preferences", false);
-      //   preferences.putString("url", "");
-      //   preferences.end();
-      //   ESP.restart();
-      // }
-
-      // start portal w delay
-      Serial.println("Starting config portal");
-      wm.setConfigPortalTimeout(120);
-
-      bool res;
-      // res = wm.autoConnect(); // auto generated AP name from chipid
-      // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
-      res = wm.startConfigPortal("VioletMonitor", "");
-
-      if (!res)
-      {
-        Serial.println("Failed to connect or hit timeout");
-        // ESP.restart();
-      }
-      else
-      {
-        // if you get here you have connected to the WiFi
-        Serial.println("connected...yeey :)");
-      }
-    }
-  }
-}
-
 void loop()
 {
   if (wm_nonblocking)
@@ -323,28 +338,8 @@ void loop()
   if (optionsBtnPressed)
   {
     Serial.println("FROM LOOP BUTTON PRESSED");
-    checkButton();
     optionsBtnPressed = false;
   }
-  // for (int i = 0; i < 3; i++)
-  // {
-  //   Serial.println("i = " + i);
-  //   switch (i)
-  //   {
-  //   case 0:
-  //     pixels.setPixelColor(0, pixels.Color(40, 0, 0));
-  //     break;
-  //   case 1:
-  //     pixels.setPixelColor(0, pixels.Color(0, 40, 0));
-  //     break;
-  //   case 2:
-  //     pixels.setPixelColor(0, pixels.Color(0, 0, 40));
-  //     break;
-  //   }
-  //   pixels.show(); // Send the updated pixel colors to the hardware.
-  //   delay(2000);
-  // }
-  // esp_deep_sleep_start();
 }
 
 void check_wakeup_reason()
@@ -353,25 +348,28 @@ void check_wakeup_reason()
   uint64_t wake_pin;
   wakeup_reason = esp_sleep_get_wakeup_cause();
 
+  Serial.println("===========WAKE UP");
   switch (wakeup_reason)
   {
   case ESP_SLEEP_WAKEUP_EXT0:
-  {
     Serial.println("Wakeup caused by external signal using RTC_IO");
-    checkButton();
+    // checkButton();
     break;
-  }
+
   case ESP_SLEEP_WAKEUP_EXT1:
     wake_pin = esp_sleep_get_ext1_wakeup_status();
-    wake_pin = log(wake_pin)/log(2);
+    wake_pin = log(wake_pin) / log(2);
     Serial.print("GPIO ");
     Serial.println(wake_pin);
     Serial.println("Wakeup caused by external signal using RTC_CNTL");
     if (wake_pin == 32)
     {
-      powerBtnPressed = !powerBtnPressed;
-      Serial.print("powerBtnPressed ");
-      Serial.println(powerBtnPressed);
+      turnOffFlag = !turnOffFlag;
+      // powerBtnPushed = true;
+      // powerBtnPressed = false;
+      // powerBtnPressed = !powerBtnPressed;
+      // Serial.print("powerBtnPressed ");
+      // Serial.println(powerBtnPressed);
     }
     break;
   case ESP_SLEEP_WAKEUP_TIMER:
@@ -468,5 +466,58 @@ void drawLine2(const char *string)
   // display.fillRect(0, 0, ASIDE_WIDTH, display.height(), GxEPD_BLACK);
   display.setCursor(x, y);
   display.print(string);
+  // Serial.println("drawHelloWorld done");
+}
+
+// void drawInfo(const char *aside, const char *timeString, const char *line1, const char *line2)
+// {
+//   display.setRotation(1);
+//   display.setFont(&FreeMonoBold18pt8b);
+//   display.setTextColor(GxEPD_WHITE);
+//   int16_t tbx, tby;
+//   uint16_t tbw, tbh;
+
+//   display.getTextBounds(aside, 0, 0, &tbx, &tby, &tbw, &tbh);
+//   uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
+//   uint16_t y = display.height() - tbh - DISPLAY_PADDING;
+// }
+
+void drawTurnOff()
+{
+  const char text[] = "Выключено";
+  display.setRotation(1);
+  display.setFont(&FreeSerif10pt8b);
+  display.setTextColor(GxEPD_BLACK);
+  int16_t tbx, tby;
+  uint16_t tbw, tbh;
+  display.getTextBounds(text, 0, 0, &tbx, &tby, &tbw, &tbh);
+  // center bounding box by transposition of origin:
+  uint16_t x = ((display.width() - tbw) / 2) - tbx;
+  uint16_t y = ((display.height() - tbh) / 2) - tby;
+  display.setFullWindow();
+  // here we use paged drawing, even if the processor has enough RAM for full buffer
+  // so this can be used with any supported processor board.
+  // the cost in code overhead and execution time penalty is marginal
+  // tell the graphics class to use paged drawing mode
+  display.firstPage();
+  do
+  {
+    // this part of code is executed multiple times, as many as needed,
+    // in case of full buffer it is executed once
+    // IMPORTANT: each iteration needs to draw the same, to avoid strange effects
+    // use a copy of values that might change, don't read e.g. from analog or pins in the loop!
+    display.fillScreen(GxEPD_WHITE); // set the background to white (fill the buffer with value for white)
+    display.setCursor(x, y);         // set the postition to start printing text
+    display.print(text);             // print some text
+    // end of part executed multiple times
+  }
+  // tell the graphics class to transfer the buffer content (page) to the controller buffer
+  // the graphics class will command the controller to refresh to the screen when the last page has been transferred
+  // returns true if more pages need be drawn and transferred
+  // returns false if the last page has been transferred and the screen refreshed for panels without fast partial update
+  // returns false for panels with fast partial update when the controller buffer has been written once more, to make the differential buffers equal
+  // (for full buffered with fast partial update the (full) buffer is just transferred again, and false returned)
+  while (display.nextPage());
+  // Serial.println("helloWorld done");
   // Serial.println("drawHelloWorld done");
 }
