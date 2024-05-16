@@ -6,17 +6,17 @@
 // #include <FS.h>
 #include <Arduino.h>
 #include <main.h>
-#include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
-#include <HTTPClient.h>
 // #include <SPIFFS.h>
 #include <ArduinoJson.h> //https://github.com/bblanchon/ArduinoJson
 #include <Preferences.h>
 // #include <display.h>
 #include <GxEPD2.h>
 #include <GxEPD2_BW.h>
-#include "GxEPD2_display_selection_new_style.h"
+#include <GxEPD2_display_selection_new_style.h>
 #include <FontsRus/FreeMonoBold18.h>
 #include <FontsRus/FreeSerif10.h>
+#include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
+#include <HTTPClient.h>
 
 // #define GxEPD2_DRIVER_CLASS GxEPD2_290_T94_V2
 #include <Adafruit_NeoPixel.h>
