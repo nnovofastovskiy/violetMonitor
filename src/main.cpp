@@ -89,7 +89,7 @@ void IRAM_ATTR powerIsr()
   {
     // Serial.print("========powerBtnPushed = ");
     // Serial.println(powerBtnPushed);
-    turnOffFlag = !turnOffFlag;
+    turnOffFlag = true;
     esp_sleep_enable_timer_wakeup(1);
     esp_deep_sleep_start();
   }
@@ -128,7 +128,6 @@ void setup()
   // pixels.clear(); // Set all pixel colors to 'off'
   // pinMode(TRIGGER_PIN, INPUT_PULLUP);
   check_wakeup_reason();
-  attachInterrupt(POWER_PIN, powerIsr, RISING);
   if (turnOffFlag)
   {
     Serial.println("TURNING OFF BY powerBtnPressed");
@@ -144,6 +143,7 @@ void setup()
     esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
     esp_deep_sleep_start();
   }
+  attachInterrupt(POWER_PIN, powerIsr, RISING);
   attachInterrupt(OPTIONS_PIN, optionsIsr, RISING);
   pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
 
@@ -240,6 +240,8 @@ void setup()
     int httpResponseCode = http.GET();
     if (httpResponseCode == 200)
     {
+      // wm.disconnect();
+      WiFi.mode(WIFI_OFF);
       Serial.print("HTTP ");
       Serial.println(httpResponseCode);
       String payload = http.getString();
