@@ -44,11 +44,14 @@
 #define ASIDE_WIDTH 100
 #define DISPLAY_PADDING 4
 
-#define LED_PIN 19
+#define LED_PIN GPIO_NUM_19
 #define BRIGHTNESS 40
 
-#define WAKEUP_PINS_BITMAP 0x300000000
+#define CHARGER_PIN GPIO_NUM_25
+#define BAT_LEVEL_PIN GPIO_NUM_26
 
+#define WAKEUP_PINS_BITMAP 0x302000000
+// long WAKEUP_PINS_BITMAP = 1 << OPTIONS_PIN | 1 << POWER_PIN | 1 << CHARGER_PIN;
 bool shouldSaveConfig = false;
 
 // wifimanager can run in a blocking mode or a non blocking mode
@@ -69,7 +72,14 @@ JsonDocument doc;
 
 bool optionsBtnPressed = false;
 RTC_DATA_ATTR volatile bool turnOffFlag = false;
-RTC_DATA_ATTR volatile bool powerBtnPushed = false;
+RTC_DATA_ATTR volatile int chargerOn = false;
+
+int startTime = 0;
+int batLevel = 0;
+int levelFronts = 0;
+bool chargeDone = false;
+bool prevBatLevel;
+// RTC_DATA_ATTR volatile bool powerBtnPushed = false;
 
 // // BUSY -> 4, RST -> 16, DC -> 17, CS -> SS(5), CLK -> SCK(18), DIN -> MOSI(23), GND -> GND, 3.3V -> 3.3V
 // GxIO_Class io(SPI, /*CS=5*/ SS, /*DC=*/17, /*RST=*/16); // arbitrary selection of 17, 16
@@ -93,40 +103,34 @@ void IRAM_ATTR powerIsr()
     esp_sleep_enable_timer_wakeup(1);
     esp_deep_sleep_start();
   }
+}
+
+void IRAM_ATTR chargerIsr()
+{
+  if (digitalRead(CHARGER_PIN))
+  {
+    chargerOn = true;
+  }
   else
   {
-
-    // Serial.print("========powerBtnPressed = ");
-    // Serial.println(powerBtnPressed);
-    // if (powerBtnPushed)
-    // {
-    //   powerBtnPushed = false;
-    //   if (turnOffFlag)
-    //   {
-    //     turnOffFlag = false;
-    //   } else
-    //   {
-    //     turnOffFlag = true;
-    //     esp_sleep_enable_timer_wakeup(1);
-    //     esp_deep_sleep_start();
-    //     // esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
-    //   }
-    // }
-    // powerBtnPushed = false;
+    chargerOn = false;
+    esp_sleep_enable_timer_wakeup(1);
+    esp_deep_sleep_start();
   }
 }
 
-void IRAM_ATTR powerIsrPush()
-{
-  Serial.print("========powerBtnPushed = ");
-  Serial.println(powerBtnPushed);
-  powerBtnPushed = true;
-}
+// void IRAM_ATTR powerIsrPush()
+// {
+//   Serial.print("========powerBtnPushed = ");
+//   Serial.println(powerBtnPushed);
+//   powerBtnPushed = true;
+// }
 
 void setup()
 {
   // pixels.clear(); // Set all pixel colors to 'off'
   // pinMode(TRIGGER_PIN, INPUT_PULLUP);
+  Serial.begin(115200);
   check_wakeup_reason();
   if (turnOffFlag)
   {
@@ -143,13 +147,20 @@ void setup()
     esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
     esp_deep_sleep_start();
   }
+  pinMode(CHARGER_PIN, INPUT);
+  pinMode(BAT_LEVEL_PIN, INPUT);
   attachInterrupt(POWER_PIN, powerIsr, RISING);
   attachInterrupt(OPTIONS_PIN, optionsIsr, RISING);
+  attachInterrupt(CHARGER_PIN, chargerIsr, CHANGE);
   pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
 
   // esp_sleep_enable_ext0_wakeup(OPTIONS_PIN, 1); // 1 = High, 0 = Low
-
-  Serial.begin(115200);
+  chargerOn = digitalRead(CHARGER_PIN);
+  Serial.print("chargerOn = ");
+  Serial.print(digitalRead(CHARGER_PIN));
+  Serial.print("   ");
+  Serial.println(chargerOn);
+  startTime = millis();
   // delay(3000);
   // attachInterrupt(POWER_PIN, powerIsrOff, FALLING);
   // while(powerBtnPushed);
@@ -307,9 +318,61 @@ void setup()
       Serial.println(":-(");
     }
     http.end();
+  }
+  prevBatLevel = digitalRead(BAT_LEVEL_PIN);
+}
 
+bool ledFlag = false;
+void loop()
+{
+  // if (wm_nonblocking)
+  //   wm.process(); // avoid delays() in loop when non-blocking and other long running code
+  if (!chargerOn && (batLevel > 0))
+  {
+    Serial.println("======== GO TO DEEP SLEEP");
     esp_deep_sleep_start();
   }
+  // Serial.println("=====CHARGER ON");
+  int time = millis() - startTime;
+  bool curBatLevel = digitalRead(BAT_LEVEL_PIN);
+
+  if (!ledFlag)
+  {
+
+    if ((prevBatLevel == true) && (curBatLevel == true))
+    {
+      if (time > 1000)
+      {
+        Serial.println("ledFlag");
+        ledFlag = true;
+        startTime = millis();
+      }
+    }
+    else
+    {
+      ledFlag = false;
+      startTime = millis();
+    }
+  }
+  if (ledFlag)
+  {
+    if ((prevBatLevel == true) && (curBatLevel == false))
+    {
+      levelFronts++;
+    }
+    if (time > 3000)
+    {
+      batLevel = levelFronts;
+      levelFronts = 0;
+      startTime = millis();
+      Serial.print("================================== BAT LEVEL = ");
+      Serial.println(batLevel);
+    }
+  }
+  // Serial.print(prevBatLevel);
+  // Serial.print("    ");
+  // Serial.println(curBatLevel);
+  prevBatLevel = curBatLevel;
 }
 
 String getParam(String name)
@@ -333,17 +396,6 @@ void saveParamCallback()
   preferences.end();
 }
 
-void loop()
-{
-  if (wm_nonblocking)
-    wm.process(); // avoid delays() in loop when non-blocking and other long running code
-  if (optionsBtnPressed)
-  {
-    Serial.println("FROM LOOP BUTTON PRESSED");
-    optionsBtnPressed = false;
-  }
-}
-
 void check_wakeup_reason()
 {
   esp_sleep_wakeup_cause_t wakeup_reason;
@@ -364,14 +416,13 @@ void check_wakeup_reason()
     Serial.print("GPIO ");
     Serial.println(wake_pin);
     Serial.println("Wakeup caused by external signal using RTC_CNTL");
-    if (wake_pin == 32)
+    if (wake_pin == POWER_PIN)
     {
       turnOffFlag = !turnOffFlag;
-      // powerBtnPushed = true;
-      // powerBtnPressed = false;
-      // powerBtnPressed = !powerBtnPressed;
-      // Serial.print("powerBtnPressed ");
-      // Serial.println(powerBtnPressed);
+    }
+    if (wake_pin == CHARGER_PIN)
+    {
+      chargerOn = true;
     }
     break;
   case ESP_SLEEP_WAKEUP_TIMER:
