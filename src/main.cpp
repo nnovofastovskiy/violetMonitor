@@ -327,7 +327,7 @@ void loop()
 {
   // if (wm_nonblocking)
   //   wm.process(); // avoid delays() in loop when non-blocking and other long running code
-  if (!chargerOn && (batLevel > 0))
+  if (!chargerOn)
   {
     Serial.println("======== GO TO DEEP SLEEP");
     esp_deep_sleep_start();
