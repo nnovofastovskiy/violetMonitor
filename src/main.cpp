@@ -13,13 +13,18 @@
 #include <GxEPD2.h>
 #include <GxEPD2_BW.h>
 #include <GxEPD2_display_selection_new_style.h>
-#include <FontsRus/FreeMonoBold18.h>
-#include <FontsRus/FreeSerif10.h>
+// #include <FontsRus/FreeMonoBold18.h>
+// #include <FontsRus/FreeSerif10.h>
+// #include <FontsRus/TimesNRCyr10.h>
 #include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
 #include <HTTPClient.h>
+#include <FontsRus/MSSansSerif14.h>
+#include <FontsRus/MSSansSerif18.h>
 
 // #define GxEPD2_DRIVER_CLASS GxEPD2_290_T94_V2
 #include <Adafruit_NeoPixel.h>
+
+#define STANDALONE true
 // #include <display.h>
 
 // #include <GxDEPG0290BS/GxDEPG0290BS.h> // 2.9" b/w Waveshare variant, TTGO T5 V2.4.1 2.9"
@@ -131,6 +136,7 @@ void setup()
   // pixels.clear(); // Set all pixel colors to 'off'
   // pinMode(TRIGGER_PIN, INPUT_PULLUP);
   Serial.begin(115200);
+#ifndef STANDALONE
   check_wakeup_reason();
   if (turnOffFlag)
   {
@@ -152,6 +158,7 @@ void setup()
   attachInterrupt(POWER_PIN, powerIsr, RISING);
   attachInterrupt(OPTIONS_PIN, optionsIsr, RISING);
   attachInterrupt(CHARGER_PIN, chargerIsr, CHANGE);
+#endif
   pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
 
   // esp_sleep_enable_ext0_wakeup(OPTIONS_PIN, 1); // 1 = High, 0 = Low
@@ -270,10 +277,10 @@ void setup()
         Serial.println(error.f_str());
         return;
       }
-      const char *timeString = doc["timeString"];
-      const char *aside = doc["aside"];
-      const char *line1 = doc["line1"];
-      const char *line2 = doc["line2"];
+      const char *timeString = strToChar(utf8rus(doc["timeString"].as<String>()));
+      const char *aside = strToChar(utf8rus(doc["aside"].as<String>()));
+      const char *line1 = strToChar(utf8rus(doc["line1"].as<String>()));
+      const char *line2 = strToChar(utf8rus(doc["line2"].as<String>()));
       const char *status = doc["status"];
       Serial.print("timeString = ");
       Serial.println(timeString);
@@ -443,8 +450,8 @@ void check_wakeup_reason()
 void drawAsideText(const char *string)
 {
   // Serial.println("drawHelloWorld");
-  display.setRotation(1);
-  display.setFont(&FreeMonoBold18pt8b);
+  display.setRotation(3);
+  display.setFont(&MSSansSerif18);
   display.setTextColor(GxEPD_WHITE);
   int16_t tbx, tby;
   uint16_t tbw, tbh;
@@ -463,9 +470,10 @@ void drawAsideText(const char *string)
 void drawTimeText(const char *string)
 {
   // Serial.println("drawHelloWorld");
-  display.setRotation(1);
+  display.setRotation(3);
   // display.setFont(&FreeMono10pt8b);
-  display.setFont(&FreeSerif10pt8b);
+  // display.setFont(&FreeSerif10pt8b);
+  display.setFont(&MSSansSerif14);
   display.setTextColor(GxEPD_BLACK);
   int16_t tbx, tby;
   uint16_t tbw, tbh;
@@ -484,8 +492,9 @@ void drawTimeText(const char *string)
 void drawLine1(const char *string)
 {
   // Serial.println("drawHelloWorld");
-  display.setRotation(1);
-  display.setFont(&FreeSerif10pt8b);
+  display.setRotation(3);
+  // display.setFont(&FreeSerif10pt8b);
+  display.setFont(&MSSansSerif14);
   display.setTextColor(GxEPD_BLACK);
   int16_t tbx, tby;
   uint16_t tbw, tbh;
@@ -504,8 +513,9 @@ void drawLine1(const char *string)
 void drawLine2(const char *string)
 {
   // Serial.println("drawHelloWorld");
-  display.setRotation(1);
-  display.setFont(&FreeSerif10pt8b);
+  display.setRotation(3);
+  // display.setFont(&FreeSerif10pt8b);
+  display.setFont(&MSSansSerif14);
   display.setTextColor(GxEPD_BLACK);
   int16_t tbx, tby;
   uint16_t tbw, tbh;
@@ -524,7 +534,7 @@ void drawLine2(const char *string)
 
 // void drawInfo(const char *aside, const char *timeString, const char *line1, const char *line2)
 // {
-//   display.setRotation(1);
+//   display.setRotation(3);
 //   display.setFont(&FreeMonoBold18pt8b);
 //   display.setTextColor(GxEPD_WHITE);
 //   int16_t tbx, tby;
@@ -538,8 +548,9 @@ void drawLine2(const char *string)
 void drawTurnOff()
 {
   const char text[] = "Выключено";
-  display.setRotation(1);
-  display.setFont(&FreeSerif10pt8b);
+  display.setRotation(3);
+  // display.setFont(&FreeSerif10pt8b);
+  display.setFont(&MSSansSerif14);
   display.setTextColor(GxEPD_BLACK);
   int16_t tbx, tby;
   uint16_t tbw, tbh;
@@ -573,4 +584,66 @@ void drawTurnOff()
   while (display.nextPage());
   // Serial.println("helloWorld done");
   // Serial.println("drawHelloWorld done");
+}
+
+String utf8rus(String source)
+{
+  int i, k;
+  String target;
+  unsigned char n;
+  char m[2] = {'0', '\0'};
+  k = source.length();
+  i = 0;
+  while (i < k)
+  {
+    n = source[i];
+    i++;
+    if (n >= 0xC0)
+    {
+      switch (n)
+      {
+      case 0xD0:
+      {
+        n = source[i];
+        i++;
+        if (n == 0x81)
+        {
+          n = 0xA8;
+          break;
+        }
+        if (n >= 0x90 && n <= 0xBF)
+          n = n + 0x30;
+        break;
+      }
+      case 0xD1:
+      {
+        n = source[i];
+        i++;
+        if (n == 0x91)
+        {
+          n = 0xB8;
+          break;
+        }
+        if (n >= 0x80 && n <= 0x8F)
+          n = n + 0x70;
+        break;
+      }
+      }
+    }
+    m[0] = n;
+    target = target + String(m);
+  }
+  return target;
+}
+
+const char *strToChar(String str)
+{
+  const int length = str.length();
+  char *char_array = new char[length + 1];
+
+  // copying the contents of the
+  // string to char array
+  strcpy(char_array, str.c_str());
+  const char *out = char_array;
+  return out;
 }
