@@ -28,7 +28,8 @@ void drawTimeText(GxDEPG0290BS *display, const char *string, const GFXfont *font
     int16_t tbx, tby;
     uint16_t tbw, tbh;
     display->getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
-    uint16_t x = display->width() - tbw - DISPLAY_PADDING;
+    // uint16_t x = display->width() - tbw - DISPLAY_PADDING;
+    uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
     uint16_t y = tbh + DISPLAY_PADDING;
     display->setCursor(x, y);
     display->print(string);
@@ -81,4 +82,28 @@ void drawTurnOff(GxDEPG0290BS *display, const char *string, const GFXfont *font)
     uint16_t y = ((display->height() - tbh) / 2) - tby;
     display->update();
     display->powerDown();
+}
+
+void drawBat(GxDEPG0290BS *display, const char *string, const GFXfont *font, bool partial = false)
+{
+    display->setRotation(3);
+    display->setFont(font);
+    display->setTextColor(GxEPD_BLACK);
+    int16_t tbx, tby;
+    uint16_t tbw, tbh;
+    display->getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
+    uint16_t x = display->width() - tbw - DISPLAY_PADDING;
+    // uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
+    uint16_t y = tbh + DISPLAY_PADDING;
+    display->setCursor(x, y);
+    display->print(string);
+    if (partial)
+    {
+        display->updateWindow(x, y - tbh, tbw, tbh, true);
+    }
+    // display->powerDown();
+    // Serial.println(x);
+    // Serial.println(y);
+    // Serial.println(tbw);
+    // Serial.println(tbh);
 }

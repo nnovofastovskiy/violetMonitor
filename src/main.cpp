@@ -24,6 +24,7 @@
 #include <FontsRus/MSSansSerif14.h>
 #include <FontsRus/MSSansSerif18.h>
 #include <FontsRus/MSSansSerif30.h>
+#include <FontsRus/BatFont.h>
 
 // #define GxEPD2_DRIVER_CLASS GxEPD2_290_T94_V2
 #include <Adafruit_NeoPixel.h>
@@ -32,16 +33,6 @@
 // #include <display.h>
 
 #include <GxDEPG0290BS/GxDEPG0290BS.h> // 2.9" b/w Waveshare variant, TTGO T5 V2.4.1 2.9"
-
-// #include GxEPD_BitmapExamples
-
-// FreeFonts from Adafruit_GFX
-// #include <Fonts/FreeMonoBold9pt7b.h>
-// #include <Fonts/FreeMonoBold12pt7b.h>
-// #include <Fonts/FreeMonoBold18pt7b.h>
-// #include <Fonts/FreeMonoBold24pt7b.h>
-// #include <Fonts/FreeMono9pt7b.h>
-// #include <Fonts/FreeSerif9pt7b.h>
 
 #include <GxIO/GxIO_SPI/GxIO_SPI.h>
 #include <GxIO/GxIO.h>
@@ -311,9 +302,10 @@ void setup()
       }
       pixels.show(); // Send the updated pixel colors to the hardware.
       drawAsideText(&display, aside, &MSSansSerif30);
-      drawTimeText(&display, timeString, &MSSansSerif30);
-      drawLine1(&display, line1, &MSSansSerif30);
-      drawLine2(&display, line2, &MSSansSerif30);
+      drawTimeText(&display, timeString, &MSSansSerif14);
+      drawLine1(&display, line1, &MSSansSerif14);
+      drawLine2(&display, line2, &MSSansSerif14);
+      drawBat(&display, "5", &BatFont, false);
       display.update();
       display.powerDown();
       // display.setFullWindow();
@@ -341,6 +333,12 @@ void setup()
 bool ledFlag = false;
 void loop()
 {
+  display.init(115200); // enable diagnostic output on Serial
+  // display.flush();
+  drawBat(&display, "2", &BatFont, true);
+  display.powerDown();
+  // display.update();
+  // display.powerDown();
   // if (wm_nonblocking)
   //   wm.process(); // avoid delays() in loop when non-blocking and other long running code
   if (!chargerOn)
@@ -348,7 +346,7 @@ void loop()
     Serial.println("======== GO TO DEEP SLEEP");
     esp_deep_sleep_start();
   }
-  // Serial.println("=====CHARGER ON");
+  Serial.println("=====CHARGER ON");
   int time = millis() - startTime;
   bool curBatLevel = digitalRead(BAT_LEVEL_PIN);
 
