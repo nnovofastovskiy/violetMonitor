@@ -663,6 +663,7 @@ protected:
     // webserver handlers
 public:
     void handleNotFound();
+    void handleExit();
 
 protected:
     void HTTPSend(const String &content);
@@ -672,7 +673,6 @@ protected:
     void handleInfo();
     void handleReset();
 
-    void handleExit();
     void handleClose();
     // void          handleErase();
     void handleErase(boolean opt);

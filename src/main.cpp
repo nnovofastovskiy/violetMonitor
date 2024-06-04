@@ -126,6 +126,66 @@ void IRAM_ATTR chargerIsr()
 //   powerBtnPushed = true;
 // }
 
+// void handleClose()
+// {
+//   Serial.println("========= Web portal CLOSE");
+//   wm.handleClose();
+// }
+
+void saveWifiCallback()
+{
+  Serial.println("[CALLBACK] saveCallback fired");
+}
+
+void timeoutCallback()
+{
+  Serial.println("TURNING OFF BY timeout");
+  pixels.clear();
+  pixels.show();
+  String text = "Выключено";
+  drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+  esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
+  esp_deep_sleep_start();
+}
+
+void handleExit()
+{
+  Serial.println("========= Web portal CLOSE");
+  wm.handleExit();
+  wm.stopWebPortal();
+  esp_restart();
+}
+
+void configModeCallback(WiFiManager *myWiFiManager)
+{
+  String text = "Точка доступа";
+  drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+  Serial.println("[CALLBACK] configModeCallback fired");
+  // myWiFiManager->setAPStaticIPConfig(IPAddress(10,0,1,1), IPAddress(10,0,1,1), IPAddress(255,255,255,0));
+  // Serial.println(WiFi.softAPIP());
+  // if you used auto generated SSID, print it
+  // Serial.println(myWiFiManager->getConfigPortalSSID());
+  //
+  // esp_wifi_set_bandwidth(WIFI_IF_AP, WIFI_BW_HT20);
+}
+
+// void saveParamCallback()
+// {
+//   Serial.println("[CALLBACK] saveParamCallback fired");
+//   // wm.stopConfigPortal();
+// }
+
+void bindServerCallback()
+{
+  // wm.server->on("/custom",handleRoute);
+
+  // you can override wm route endpoints, I have not found a way to remove handlers, but this would let you disable them or add auth etc.
+  // wm.server->on("/info",handleNotFound);
+  // wm.server->on("/update",handleNotFound);
+  // wm.server->on("/erase",handleNotFound); // disable erase
+  wm.server->on("/exit", handleExit);
+}
+
 void setup()
 {
   // pixels.clear(); // Set all pixel colors to 'off'
@@ -169,8 +229,14 @@ void setup()
 
   esp_sleep_enable_ext1_wakeup(WAKEUP_PINS_BITMAP, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
   esp_sleep_enable_timer_wakeup(15e6);
-
   Serial.println("\n Starting");
+
+  wm.setWebServerCallback(bindServerCallback);
+  wm.setSaveConfigCallback(saveWifiCallback);
+  wm.setAPCallback(configModeCallback);
+  wm.setSaveConfigCallback(saveWifiCallback);
+  wm.setConfigPortalTimeoutCallback(timeoutCallback);
+
   preferences.begin("preferences", false);
   url = preferences.getString("url");
   preferences.end();
@@ -230,6 +296,8 @@ void setup()
   // wm.setScanDispPerc(true);       // show RSSI as percentage not graph icons
 
   // wm.setBreakAfterConfig(true);   // always exit configportal even if wifi save fails
+  bool isSaved = wm.getWiFiIsSaved();
+  String savedSSID = wm.getWiFiSSID(true);
 
   bool res;
   // res = wm.autoConnect(); // auto generated AP name from chipid
@@ -302,9 +370,9 @@ void setup()
       }
       pixels.show(); // Send the updated pixel colors to the hardware.
       drawAsideText(&display, aside, &MSSansSerif30);
-      drawTimeText(&display, timeString, &MSSansSerif14);
-      drawLine1(&display, line1, &MSSansSerif14);
-      drawLine2(&display, line2, &MSSansSerif14);
+      drawTimeText(&display, timeString, &MSSansSerif14, false);
+      drawLine1(&display, line1, &MSSansSerif14, false);
+      drawLine2(&display, line2, &MSSansSerif14, false);
       drawBat(&display, "5", &BatFont, false);
       display.update();
       display.powerDown();
