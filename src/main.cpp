@@ -600,7 +600,7 @@ void configWM()
   // set dark theme
   wm.setClass("invert");
 
-  // wm.setConnectTimeout(20); // how long to try to connect for before continuing
+  wm.setConnectTimeout(20);      // how long to try to connect for before continuing
   wm.setConfigPortalTimeout(90); // auto close configportal after n seconds
   // wm.setCaptivePortalEnable(false); // disable captive portal redirection
   wm.setAPClientCheck(true); // avoid timeout if client connected to softap
