@@ -196,17 +196,7 @@ void setup()
   if (turnOffFlag)
   {
     Serial.println("TURNING OFF BY powerBtnPressed");
-    pixels.clear();
-    pixels.show();
-    display.init(115200); // enable diagnostic output on Serial
-    display.flush();
-    drawTurnOff();
-    // display.update();
-    // display.updateWindow(0, 0, display.width(), display.height());
-    // display.update();
-    display.powerOff();
-    esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
-    esp_deep_sleep_start();
+    turningOff();
   }
   pinMode(CHARGER_PIN, INPUT);
   pinMode(BAT_LEVEL_PIN, INPUT);
@@ -231,73 +221,22 @@ void setup()
   esp_sleep_enable_timer_wakeup(15e6);
   Serial.println("\n Starting");
 
-  wm.setWebServerCallback(bindServerCallback);
-  wm.setSaveConfigCallback(saveWifiCallback);
-  wm.setAPCallback(configModeCallback);
-  wm.setSaveConfigCallback(saveWifiCallback);
-  wm.setConfigPortalTimeoutCallback(timeoutCallback);
+  configWM();
 
   preferences.begin("preferences", false);
   url = preferences.getString("url");
+  if (url == "")
+  {
+    String text = "URL пуст";
+    drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+    if (!wm.startConfigPortal("VioletMonitor", ""))
+    {
+      turningOff();
+    }
+    ESP.restart();
+  }
   preferences.end();
   Serial.println("URL = " + url);
-  wm.setTitle("Violet monitor");
-  // wm.setCustomMenuHTML("<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url'/>");
-
-  WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
-  Serial.setDebugOutput(true);
-
-  // pinMode(TRIGGER_PIN, INPUT);
-
-  // wm.resetSettings(); // wipe settings
-
-  if (wm_nonblocking)
-    wm.setConfigPortalBlocking(false);
-
-  // add a custom input field
-  int customFieldLength = 40;
-
-  // new (&custom_field) WiFiManagerParameter("customfieldid", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\"");
-
-  // test custom html input type(checkbox)
-  // new (&custom_field) WiFiManagerParameter("customfieldid", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\" type=\"checkbox\""); // custom html type
-
-  // test custom html(radio)
-  // const char *custom_input_str = "<br/><label for='customfieldid'>Custom Field Label</label><input type='radio' name='customfieldid' value='1' checked> One<br><input type='radio' name='customfieldid' value='2'> Two<br><input type='radio' name='customfieldid' value='3'> Three";
-  const String input_html = "<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url' name='custom_url' value='" + (url ? url : "") + "'/>";
-  unsigned int l = input_html.length();
-  char *custom_input_str = new char[l + 1];
-  strcpy(custom_input_str, input_html.c_str());
-  new (&custom_field) WiFiManagerParameter(custom_input_str); // custom html input
-
-  wm.addParameter(&custom_field);
-  wm.setSaveParamsCallback(saveParamCallback);
-
-  // custom menu via array or vector
-  //
-  // menu tokens, "wifi","wifinoscan","info","param","close","sep","erase","restart","exit" (sep is seperator) (if param is in menu, params will not show up in wifi page!)
-  // const char* menu[] = {"wifi","info","param","sep","restart","exit"};
-  // wm.setMenu(menu,6);
-  std::vector<const char *> menu = {"wifi", "param", "sep", "restart", "exit", "custom"};
-  wm.setMenu(menu);
-
-  // set dark theme
-  wm.setClass("invert");
-
-  // wm.setConnectTimeout(20); // how long to try to connect for before continuing
-  wm.setConfigPortalTimeout(90); // auto close configportal after n seconds
-  // wm.setCaptivePortalEnable(false); // disable captive portal redirection
-  wm.setAPClientCheck(true); // avoid timeout if client connected to softap
-
-  // wifi scan settings
-  // wm.setRemoveDuplicateAPs(false); // do not remove duplicate ap names (true)
-  // wm.setMinimumSignalQuality(20);  // set min RSSI (percentage) to show in scans, null = 8%
-  // wm.setShowInfoErase(false);      // do not show erase button on info page
-  // wm.setScanDispPerc(true);       // show RSSI as percentage not graph icons
-
-  // wm.setBreakAfterConfig(true);   // always exit configportal even if wifi save fails
-  bool isSaved = wm.getWiFiIsSaved();
-  String savedSSID = wm.getWiFiSSID(true);
 
   bool res;
   // res = wm.autoConnect(); // auto generated AP name from chipid
@@ -582,4 +521,79 @@ const char *strToChar(String str)
   strcpy(char_array, str.c_str());
   const char *out = char_array;
   return out;
+}
+
+void configWM()
+{
+  wm.setWebServerCallback(bindServerCallback);
+  wm.setSaveConfigCallback(saveWifiCallback);
+  wm.setAPCallback(configModeCallback);
+  wm.setSaveConfigCallback(saveWifiCallback);
+  wm.setConfigPortalTimeoutCallback(timeoutCallback);
+  wm.setTitle("Violet monitor");
+  // wm.setCustomMenuHTML("<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url'/>");
+
+  WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
+  Serial.setDebugOutput(true);
+
+  // pinMode(TRIGGER_PIN, INPUT);
+
+  // wm.resetSettings(); // wipe settings
+
+  if (wm_nonblocking)
+    wm.setConfigPortalBlocking(false);
+
+  // add a custom input field
+  int customFieldLength = 40;
+
+  // new (&custom_field) WiFiManagerParameter("customfieldid", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\"");
+
+  // test custom html input type(checkbox)
+  // new (&custom_field) WiFiManagerParameter("customfieldid", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\" type=\"checkbox\""); // custom html type
+
+  // test custom html(radio)
+  // const char *custom_input_str = "<br/><label for='customfieldid'>Custom Field Label</label><input type='radio' name='customfieldid' value='1' checked> One<br><input type='radio' name='customfieldid' value='2'> Two<br><input type='radio' name='customfieldid' value='3'> Three";
+  const String input_html = "<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url' name='custom_url' value='" + (url ? url : "") + "'/>";
+  unsigned int l = input_html.length();
+  char *custom_input_str = new char[l + 1];
+  strcpy(custom_input_str, input_html.c_str());
+  new (&custom_field) WiFiManagerParameter(custom_input_str); // custom html input
+
+  wm.addParameter(&custom_field);
+  wm.setSaveParamsCallback(saveParamCallback);
+
+  // custom menu via array or vector
+  //
+  // menu tokens, "wifi","wifinoscan","info","param","close","sep","erase","restart","exit" (sep is seperator) (if param is in menu, params will not show up in wifi page!)
+  // const char* menu[] = {"wifi","info","param","sep","restart","exit"};
+  // wm.setMenu(menu,6);
+  std::vector<const char *> menu = {"wifi", "param", "sep", "restart", "exit", "custom"};
+  wm.setMenu(menu);
+
+  // set dark theme
+  wm.setClass("invert");
+
+  // wm.setConnectTimeout(20); // how long to try to connect for before continuing
+  wm.setConfigPortalTimeout(90); // auto close configportal after n seconds
+  // wm.setCaptivePortalEnable(false); // disable captive portal redirection
+  wm.setAPClientCheck(true); // avoid timeout if client connected to softap
+
+  // wifi scan settings
+  // wm.setRemoveDuplicateAPs(false); // do not remove duplicate ap names (true)
+  // wm.setMinimumSignalQuality(20);  // set min RSSI (percentage) to show in scans, null = 8%
+  // wm.setShowInfoErase(false);      // do not show erase button on info page
+  // wm.setScanDispPerc(true);       // show RSSI as percentage not graph icons
+
+  // wm.setBreakAfterConfig(true);   // always exit configportal even if wifi save fails
+  // bool isSaved = wm.getWiFiIsSaved();
+  // String savedSSID = wm.getWiFiSSID(true);
+}
+
+void turningOff()
+{
+  pixels.clear();
+  pixels.show();
+  drawTurnOff(&display, &MSSansSerif14);
+  esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
+  esp_deep_sleep_start();
 }
