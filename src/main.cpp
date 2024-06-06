@@ -77,8 +77,14 @@ RTC_DATA_ATTR volatile int chargerOn = false;
 int startTime = 0;
 int batLevel = 0;
 int levelFronts = 0;
+int betweenFronts = 0;
+int prevMillis = 0;
+bool levelReady = false;
+bool levelDone = false;
+
 bool chargeDone = false;
 bool prevBatLevel;
+char *batLevelStr[6] = {"0", "1", "2", "3", "4", "5"};
 // RTC_DATA_ATTR volatile bool powerBtnPushed = false;
 
 // BUSY -> 4, RST -> 16, DC -> 17, CS -> SS(5), CLK -> SCK(18), DIN -> MOSI(23), GND -> GND, 3.3V -> 3.3V
@@ -116,6 +122,56 @@ void IRAM_ATTR chargerIsr()
     chargerOn = false;
     esp_sleep_enable_timer_wakeup(1);
     esp_deep_sleep_start();
+  }
+}
+
+void IRAM_ATTR batLeverIsr()
+{
+  // delay(10);
+  if (digitalRead(BAT_LEVEL_PIN) == 0)
+  {
+
+    int time = millis();
+    int dt = time - prevMillis;
+    if (!levelDone)
+    {
+
+      if (levelFronts == 0)
+      {
+        levelFronts++;
+      }
+      else
+      {
+        if (dt > 1000)
+        {
+          if (levelReady)
+          {
+            levelDone = true;
+            batLevel = levelFronts;
+            detachInterrupt(BAT_LEVEL_PIN);
+          }
+          else
+          {
+            levelReady = true;
+            levelFronts = 1;
+          }
+        }
+        else
+        {
+          if (levelReady)
+            levelFronts++;
+        }
+      }
+      prevMillis = time;
+      Serial.print("**************** levelFronts = ");
+      Serial.println(levelFronts);
+      Serial.print("**************** levelReady = ");
+      Serial.println(levelReady);
+      Serial.print("**************** levelDone = ");
+      Serial.println(levelDone);
+      Serial.print("**************** dt = ");
+      Serial.println(dt);
+    }
   }
 }
 
@@ -204,6 +260,23 @@ void setup()
   attachInterrupt(OPTIONS_PIN, optionsIsr, RISING);
   attachInterrupt(CHARGER_PIN, chargerIsr, CHANGE);
 #endif
+
+  attachInterrupt(BAT_LEVEL_PIN, batLeverIsr, FALLING);
+
+  while (!levelDone)
+  {
+    delay(1);
+  }
+  Serial.print("========= batLevel = ");
+  Serial.println(batLevel);
+  // while (!levelDone)
+  // {
+  //   Serial.println("level measure");
+  //   delay(500);
+  // }
+  // Serial.print("========= batLevel = ");
+  // Serial.println(batLevel);
+
   pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
 
   // esp_sleep_enable_ext0_wakeup(OPTIONS_PIN, 1); // 1 = High, 0 = Low
@@ -312,19 +385,27 @@ void setup()
       drawTimeText(&display, timeString, &MSSansSerif14, false);
       drawLine1(&display, line1, &MSSansSerif14, false);
       drawLine2(&display, line2, &MSSansSerif14, false);
-      drawBat(&display, "5", &BatFont, false);
+      drawBat(&display, batLevelStr[batLevel], &BatFont, false);
+      // switch (batLevel)
+      // {
+      // case 1:
+      //   drawBat(&display, "1", &BatFont, false);
+      //   break;
+      // case 2:
+      //   drawBat(&display, "2", &BatFont, false);
+      //   break;
+      // case 3:
+      //   drawBat(&display, "3", &BatFont, false);
+      //   break;
+      // case 4:
+      //   drawBat(&display, "4", &BatFont, false);
+      //   break;
+
+      // default:
+      //   break;
+      // }
       display.update();
       display.powerDown();
-      // display.setFullWindow();
-      // display.firstPage();
-      // do
-      // {
-      //   drawAsideText(aside);
-      //   drawTimeText(timeString);
-      //   drawLine1(line1);
-      //   drawLine2(line2);
-      // } while (display.nextPage());
-      // display.powerOff();
     }
     else
     {
@@ -334,66 +415,12 @@ void setup()
     }
     http.end();
   }
-  prevBatLevel = digitalRead(BAT_LEVEL_PIN);
+
+  esp_deep_sleep_start();
 }
 
-bool ledFlag = false;
 void loop()
 {
-  display.init(115200); // enable diagnostic output on Serial
-  // display.flush();
-  drawBat(&display, "2", &BatFont, true);
-  display.powerDown();
-  // display.update();
-  // display.powerDown();
-  // if (wm_nonblocking)
-  //   wm.process(); // avoid delays() in loop when non-blocking and other long running code
-  if (!chargerOn)
-  {
-    Serial.println("======== GO TO DEEP SLEEP");
-    esp_deep_sleep_start();
-  }
-  Serial.println("=====CHARGER ON");
-  int time = millis() - startTime;
-  bool curBatLevel = digitalRead(BAT_LEVEL_PIN);
-
-  if (!ledFlag)
-  {
-
-    if ((prevBatLevel == true) && (curBatLevel == true))
-    {
-      if (time > 1000)
-      {
-        Serial.println("ledFlag");
-        ledFlag = true;
-        startTime = millis();
-      }
-    }
-    else
-    {
-      ledFlag = false;
-      startTime = millis();
-    }
-  }
-  if (ledFlag)
-  {
-    if ((prevBatLevel == true) && (curBatLevel == false))
-    {
-      levelFronts++;
-    }
-    if (time > 3000)
-    {
-      batLevel = levelFronts;
-      levelFronts = 0;
-      startTime = millis();
-      Serial.print("================================== BAT LEVEL = ");
-      Serial.println(batLevel);
-    }
-  }
-  // Serial.print(prevBatLevel);
-  // Serial.print("    ");
-  // Serial.println(curBatLevel);
-  prevBatLevel = curBatLevel;
 }
 
 String getParam(String name)
