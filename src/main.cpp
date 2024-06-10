@@ -29,8 +29,7 @@
 // #define GxEPD2_DRIVER_CLASS GxEPD2_290_T94_V2
 #include <Adafruit_NeoPixel.h>
 
-#define STANDALONE true
-// #include <display.h>
+// #define STANDALONE
 
 #include <GxDEPG0290BS/GxDEPG0290BS.h> // 2.9" b/w Waveshare variant, TTGO T5 V2.4.1 2.9"
 
@@ -72,7 +71,7 @@ JsonDocument doc;
 
 bool optionsBtnPressed = false;
 RTC_DATA_ATTR volatile bool turnOffFlag = false;
-RTC_DATA_ATTR volatile int chargerOn = false;
+int chargerOn = false;
 
 int startTime = 0;
 int batLevel = 0;
@@ -260,7 +259,7 @@ void setup()
   attachInterrupt(OPTIONS_PIN, optionsIsr, RISING);
   attachInterrupt(CHARGER_PIN, chargerIsr, CHANGE);
 #endif
-
+  drawBat(&display, batLevelStr[5], &BatFont, false);
   attachInterrupt(BAT_LEVEL_PIN, batLeverIsr, FALLING);
 
   while (!levelDone)
@@ -285,7 +284,6 @@ void setup()
   Serial.print(digitalRead(CHARGER_PIN));
   Serial.print("   ");
   Serial.println(chargerOn);
-  startTime = millis();
   // delay(3000);
   // attachInterrupt(POWER_PIN, powerIsrOff, FALLING);
   // while(powerBtnPushed);
@@ -385,7 +383,14 @@ void setup()
       drawTimeText(&display, timeString, &MSSansSerif14, false);
       drawLine1(&display, line1, &MSSansSerif14, false);
       drawLine2(&display, line2, &MSSansSerif14, false);
-      drawBat(&display, batLevelStr[batLevel], &BatFont, false);
+      if (chargerOn)
+      {
+        drawBat(&display, batLevelStr[5], &BatFont, false);
+      }
+      else
+      {
+        drawBat(&display, batLevelStr[batLevel], &BatFont, false);
+      }
       // switch (batLevel)
       // {
       // case 1:
@@ -415,8 +420,15 @@ void setup()
     }
     http.end();
   }
-
-  esp_deep_sleep_start();
+  if (!chargerOn)
+  {
+    esp_deep_sleep_start();
+  }
+  else
+  {
+    delay(15000);
+    esp_restart();
+  }
 }
 
 void loop()
