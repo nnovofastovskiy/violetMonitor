@@ -44,7 +44,7 @@
 #define DISPLAY_PADDING 4
 
 #define LED_PIN GPIO_NUM_19
-#define BRIGHTNESS 40
+#define BRIGHTNESS 40 // 0 - 255
 
 #define CHARGER_PIN GPIO_NUM_25
 #define BAT_LEVEL_PIN GPIO_NUM_26
@@ -100,6 +100,8 @@ void IRAM_ATTR optionsIsr()
 
 void IRAM_ATTR powerIsr()
 {
+  Serial.print("POWER_PIN = ");
+  Serial.println(digitalRead(POWER_PIN));
   if (digitalRead(POWER_PIN))
   {
     // Serial.print("========powerBtnPushed = ");
@@ -124,10 +126,16 @@ void IRAM_ATTR chargerIsr()
   }
 }
 
+// hw_timer_t
+
 void IRAM_ATTR batLeverIsr()
 {
-  // delay(10);
-  if (digitalRead(BAT_LEVEL_PIN) == 0)
+  delayMicroseconds(100);
+  int level = digitalRead(BAT_LEVEL_PIN);
+  // Serial.print("********** batLeverIsr______");
+  // Serial.println(digitalRead(BAT_LEVEL_PIN));
+  // delay(1);
+  if (level == 0)
   {
 
     int time = millis();
@@ -162,14 +170,14 @@ void IRAM_ATTR batLeverIsr()
         }
       }
       prevMillis = time;
-      Serial.print("**************** levelFronts = ");
-      Serial.println(levelFronts);
-      Serial.print("**************** levelReady = ");
-      Serial.println(levelReady);
-      Serial.print("**************** levelDone = ");
-      Serial.println(levelDone);
-      Serial.print("**************** dt = ");
-      Serial.println(dt);
+      // Serial.print("**************** levelFronts = ");
+      // Serial.println(levelFronts);
+      // Serial.print("**************** levelReady = ");
+      // Serial.println(levelReady);
+      // Serial.print("**************** levelDone = ");
+      // Serial.println(levelDone);
+      // Serial.print("**************** dt = ");
+      // Serial.println(dt);
     }
   }
 }
@@ -195,12 +203,13 @@ void saveWifiCallback()
 void timeoutCallback()
 {
   Serial.println("TURNING OFF BY timeout");
-  pixels.clear();
-  pixels.show();
-  String text = "Выключено";
-  drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
-  esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
-  esp_deep_sleep_start();
+  turningOff();
+  // pixels.clear();
+  // pixels.show();
+  // String text = "Выключено";
+  // drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+  // esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
+  // esp_deep_sleep_start();
 }
 
 void handleExit()
@@ -243,11 +252,13 @@ void bindServerCallback()
 
 void setup()
 {
-  // pixels.clear(); // Set all pixel colors to 'off'
-  // pinMode(TRIGGER_PIN, INPUT_PULLUP);
   Serial.begin(115200);
+  Serial.println("_____START_____");
 #ifndef STANDALONE
   check_wakeup_reason();
+  delay(100);
+  Serial.print(" +++++++++++++++++ turnOffFlag = ");
+  Serial.println(turnOffFlag);
   if (turnOffFlag)
   {
     Serial.println("TURNING OFF BY powerBtnPressed");
@@ -255,23 +266,16 @@ void setup()
   }
   pinMode(CHARGER_PIN, INPUT);
   pinMode(BAT_LEVEL_PIN, INPUT);
-  attachInterrupt(POWER_PIN, powerIsr, RISING);
-  attachInterrupt(OPTIONS_PIN, optionsIsr, RISING);
-  attachInterrupt(CHARGER_PIN, chargerIsr, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(POWER_PIN), powerIsr, RISING);
+  attachInterrupt(digitalPinToInterrupt(OPTIONS_PIN), optionsIsr, RISING);
+  attachInterrupt(digitalPinToInterrupt(CHARGER_PIN), chargerIsr, CHANGE);
 #endif
-  drawBat(&display, batLevelStr[5], &BatFont, false);
-  attachInterrupt(BAT_LEVEL_PIN, batLeverIsr, FALLING);
+  // drawBat(&display, batLevelStr[5], &BatFont, false);
+  attachInterrupt(BAT_LEVEL_PIN, batLeverIsr, CHANGE);
 
-  while (!levelDone)
-  {
-    delay(1);
-  }
-  Serial.print("========= batLevel = ");
-  Serial.println(batLevel);
   // while (!levelDone)
   // {
-  //   Serial.println("level measure");
-  //   delay(500);
+  //   delay(1);
   // }
   // Serial.print("========= batLevel = ");
   // Serial.println(batLevel);
@@ -337,7 +341,7 @@ void setup()
       Serial.println(httpResponseCode);
       String payload = http.getString();
       Serial.println();
-      Serial.println(payload);
+      // Serial.println(payload);
       display.init(115200); // enable diagnostic output on Serial
       display.flush();
 
@@ -350,6 +354,14 @@ void setup()
         Serial.println(error.f_str());
         return;
       }
+
+      while (!levelDone)
+      {
+        delay(1);
+      }
+      Serial.print("\n========= batLevel = ");
+      Serial.println(batLevel);
+
       const char *timeString = strToChar(utf8rus(doc["timeString"].as<String>()));
       const char *aside = strToChar(utf8rus(doc["aside"].as<String>()));
       const char *line1 = strToChar(utf8rus(doc["line1"].as<String>()));
@@ -465,6 +477,9 @@ void check_wakeup_reason()
   Serial.println("===========WAKE UP");
   switch (wakeup_reason)
   {
+  case ESP_SLEEP_WAKEUP_TIMER:
+    Serial.println("Wakeup caused by timer");
+    break;
   case ESP_SLEEP_WAKEUP_EXT0:
     Serial.println("Wakeup caused by external signal using RTC_IO");
     // checkButton();
@@ -479,14 +494,16 @@ void check_wakeup_reason()
     if (wake_pin == POWER_PIN)
     {
       turnOffFlag = !turnOffFlag;
+      Serial.print("========== turnOffFlag = ");
+      Serial.println(turnOffFlag);
+      while (digitalRead(POWER_PIN))
+      {
+      }
     }
     if (wake_pin == CHARGER_PIN)
     {
       chargerOn = true;
     }
-    break;
-  case ESP_SLEEP_WAKEUP_TIMER:
-    Serial.println("Wakeup caused by timer");
     break;
   case ESP_SLEEP_WAKEUP_TOUCHPAD:
     Serial.println("Wakeup caused by touchpad");
@@ -612,8 +629,8 @@ void configWM()
   // set dark theme
   wm.setClass("invert");
 
-  wm.setConnectTimeout(20);      // how long to try to connect for before continuing
-  wm.setConfigPortalTimeout(90); // auto close configportal after n seconds
+  wm.setConnectTimeout(10);      // how long to try to connect for before continuing
+  wm.setConfigPortalTimeout(30); // auto close configportal after n seconds
   // wm.setCaptivePortalEnable(false); // disable captive portal redirection
   wm.setAPClientCheck(true); // avoid timeout if client connected to softap
 
@@ -630,9 +647,11 @@ void configWM()
 
 void turningOff()
 {
+  turnOffFlag = true;
+  String text = "Выключено";
   pixels.clear();
   pixels.show();
-  drawTurnOff(&display, &MSSansSerif14);
+  drawTurnOff(&display, strToChar(utf8rus(text)), &MSSansSerif14);
   esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
   esp_deep_sleep_start();
 }
