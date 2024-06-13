@@ -550,7 +550,7 @@ protected:
     String _wifissidprefix = FPSTR(S_ssidpre); // auto apname prefix prefix+chipid
     int _cpclosedelay = 2000;                  // delay before wifisave, prevents captive portal from closing to fast.
     bool _cleanConnect = false;                // disconnect before connect in connectwifi, increases stability on connects
-    bool _connectonsave = false;               // connect to wifi when saving creds
+    bool _connectonsave = true;               // connect to wifi when saving creds
     bool _disableSTA = false;                  // disable sta when starting ap, always
     bool _disableSTAConn = true;               // disable sta when starting ap, if sta is not connected ( stability )
     bool _channelSync = false;                 // use same wifi sta channel when starting ap
