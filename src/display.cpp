@@ -57,14 +57,14 @@ void drawLine2(GxDEPG0290BS *display, const char *string, const GFXfont *font, b
     display->getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
     uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
     uint16_t y = display->height() - DISPLAY_PADDING;
-    Serial.print("=============== display height = ");
-    Serial.println(display->height());
-    Serial.print("=============== y = ");
-    Serial.println(y);
-    Serial.print("=============== tby = ");
-    Serial.println(tby);
-    Serial.print("=============== tbh = ");
-    Serial.println(tbh);
+    // Serial.print("=============== display height = ");
+    // Serial.println(display->height());
+    // Serial.print("=============== y = ");
+    // Serial.println(y);
+    // Serial.print("=============== tby = ");
+    // Serial.println(tby);
+    // Serial.print("=============== tbh = ");
+    // Serial.println(tbh);
     display->setCursor(x, y);
     display->print(string);
 }

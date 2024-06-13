@@ -71,7 +71,7 @@ String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
 // Allocate the JSON document
 JsonDocument doc;
 
-bool optionsBtnPressed = false;
+RTC_DATA_ATTR volatile bool optionsBtnPressed = false;
 RTC_DATA_ATTR volatile bool turnOffFlag = false;
 RTC_DATA_ATTR int chargerOn = 0;
 
@@ -97,7 +97,9 @@ Adafruit_NeoPixel pixels(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 void IRAM_ATTR optionsIsr()
 {
   http.end();
-  optionsBtnPressed = true;
+  optionsBtnPressed = !optionsBtnPressed;
+  esp_sleep_enable_timer_wakeup(1);
+  esp_deep_sleep_start();
 }
 
 void IRAM_ATTR powerIsr()
@@ -130,75 +132,6 @@ void IRAM_ATTR chargerIsr()
   }
 }
 
-// hw_timer_t
-
-// void IRAM_ATTR batLeverIsr()
-// {
-//   // delayMicroseconds(100);
-//   int level = digitalRead(BAT_LEVEL_PIN);
-//   // Serial.print("********** batLeverIsr______");
-//   // Serial.println(digitalRead(BAT_LEVEL_PIN));
-//   // delay(1);
-//   if (level == 0)
-//   {
-
-//     int time = millis();
-//     int dt = time - prevMillis;
-//     if (!levelDone)
-//     {
-
-//       if (levelFronts == 0)
-//       {
-//         levelFronts++;
-//       }
-//       else
-//       {
-//         if (dt > 1000)
-//         {
-//           if (levelReady)
-//           {
-//             levelDone = true;
-//             batLevel = levelFronts;
-//             detachInterrupt(digitalPinToInterrupt(BAT_LEVEL_PIN));
-//           }
-//           else
-//           {
-//             levelReady = true;
-//             levelFronts = 1;
-//           }
-//         }
-//         else
-//         {
-//           if (levelReady)
-//             levelFronts++;
-//         }
-//       }
-//       prevMillis = time;
-//       // Serial.print("**************** levelFronts = ");
-//       // Serial.println(levelFronts);
-//       // Serial.print("**************** levelReady = ");
-//       // Serial.println(levelReady);
-//       // Serial.print("**************** levelDone = ");
-//       // Serial.println(levelDone);
-//       // Serial.print("**************** dt = ");
-//       // Serial.println(dt);
-//     }
-//   }
-// }
-
-// void IRAM_ATTR powerIsrPush()
-// {
-//   Serial.print("========powerBtnPushed = ");
-//   Serial.println(powerBtnPushed);
-//   powerBtnPushed = true;
-// }
-
-// void handleClose()
-// {
-//   Serial.println("========= Web portal CLOSE");
-//   wm.handleClose();
-// }
-
 void saveWifiCallback()
 {
   Serial.println("[CALLBACK] saveCallback fired");
@@ -226,6 +159,8 @@ void handleExit()
 
 void configModeCallback(WiFiManager *myWiFiManager)
 {
+  pixels.clear();
+  pixels.show();
   String text = "Точка доступа";
   drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
   Serial.println("[CALLBACK] configModeCallback fired");
@@ -276,13 +211,13 @@ void setup()
   // Serial.println(analogRead(CHARGER_PIN));
   attachInterrupt(digitalPinToInterrupt(CHARGER_PIN), chargerIsr, CHANGE);
 #endif
-  if (chargerOn)
-  {
-    display.init(115200);
-    display.flush();
-    drawBat(&display, batLevelStr[5], &BatFont, true);
-    display.powerDown();
-  }
+  // if (chargerOn)
+  // {
+  //   display.init(115200);
+  //   display.flush();
+  //   drawBat(&display, batLevelStr[5], &BatFont, true);
+  //   display.powerDown();
+  // }
   // drawBat(&display, batLevelStr[5], &BatFont, false);
   // attachInterrupt(digitalPinToInterrupt(BAT_LEVEL_PIN), batLeverIsr, CHANGE);
 
@@ -313,15 +248,22 @@ void setup()
 
   preferences.begin("preferences", false);
   url = preferences.getString("url");
-  if (url == "")
+  if (url == "" || optionsBtnPressed)
   {
-    String text = "URL пуст";
-    drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+    // String text = "Точка доступа";
+    if (url == "")
+    {
+      String text = "URL пуст";
+      drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+    }
+
+    // if (optionsBtnPressed)
+    optionsBtnPressed = false;
     if (!wm.startConfigPortal("VioletMonitor", ""))
     {
       turningOff();
     }
-    ESP.restart();
+    esp_restart();
   }
   preferences.end();
   Serial.println("URL = " + url);
@@ -368,9 +310,10 @@ void setup()
         return;
       }
 
+      int cnt = 0;
       while (1)
       {
-        int impulse = pulseIn(BAT_LEVEL_PIN, LOW, 1e6);
+        int impulse = pulseInLong(BAT_LEVEL_PIN, LOW, 1e6);
         Serial.print("++++++++++++++ pulseIn______");
         Serial.println(impulse);
         if (impulse == 0)
@@ -393,6 +336,13 @@ void setup()
             batLevel++;
           }
         }
+        if (cnt > 20)
+        {
+          chargeDone = true;
+          batLevel = 4;
+          break;
+        }
+        cnt++;
       }
 
       if (batLevel > 4)
@@ -442,24 +392,6 @@ void setup()
       {
         drawBat(&display, batLevelStr[batLevel], &BatFont, false);
       }
-      // switch (batLevel)
-      // {
-      // case 1:
-      //   drawBat(&display, "1", &BatFont, false);
-      //   break;
-      // case 2:
-      //   drawBat(&display, "2", &BatFont, false);
-      //   break;
-      // case 3:
-      //   drawBat(&display, "3", &BatFont, false);
-      //   break;
-      // case 4:
-      //   drawBat(&display, "4", &BatFont, false);
-      //   break;
-
-      // default:
-      //   break;
-      // }
       display.update();
       display.powerDown();
     }
@@ -468,6 +400,9 @@ void setup()
       Serial.print("Error code: ");
       Serial.println(httpResponseCode);
       Serial.println(":-(");
+      String text = "Ошибка " + String(httpResponseCode);
+      drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+      // turningOff();
     }
     http.end();
   }
@@ -477,7 +412,7 @@ void setup()
   }
   else
   {
-    delay(15000);
+    delay(600e3);
     esp_restart();
   }
 }
@@ -536,6 +471,15 @@ void check_wakeup_reason()
       Serial.print("========== turnOffFlag = ");
       Serial.println(turnOffFlag);
       while (digitalRead(POWER_PIN))
+      {
+      }
+    }
+    if (wake_pin == OPTIONS_PIN)
+    {
+      optionsBtnPressed = !optionsBtnPressed;
+      Serial.print("========== optionsBtnPressed = ");
+      Serial.println(optionsBtnPressed);
+      while (digitalRead(OPTIONS_PIN))
       {
       }
     }
@@ -666,10 +610,10 @@ void configWM()
   wm.setMenu(menu);
 
   // set dark theme
-  wm.setClass("invert");
+  // wm.setClass("invert");
 
-  wm.setConnectTimeout(10);      // how long to try to connect for before continuing
-  wm.setConfigPortalTimeout(30); // auto close configportal after n seconds
+  wm.setConnectTimeout(20);      // how long to try to connect for before continuing
+  wm.setConfigPortalTimeout(60); // auto close configportal after n seconds
   // wm.setCaptivePortalEnable(false); // disable captive portal redirection
   wm.setAPClientCheck(true); // avoid timeout if client connected to softap
 
