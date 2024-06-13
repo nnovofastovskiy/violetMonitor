@@ -37,6 +37,8 @@
 #include <GxIO/GxIO.h>
 
 // #define TRIGGER_PIN 0
+#define updateTime 600e6 // us
+
 #define OPTIONS_PIN GPIO_NUM_33
 #define POWER_PIN GPIO_NUM_32
 
@@ -71,7 +73,7 @@ JsonDocument doc;
 
 bool optionsBtnPressed = false;
 RTC_DATA_ATTR volatile bool turnOffFlag = false;
-int chargerOn = false;
+RTC_DATA_ATTR int chargerOn = 0;
 
 int startTime = 0;
 int batLevel = 0;
@@ -116,11 +118,13 @@ void IRAM_ATTR chargerIsr()
 {
   if (digitalRead(CHARGER_PIN))
   {
-    chargerOn = true;
+    chargerOn = 1;
+    // esp_sleep_enable_timer_wakeup(1);
+    // esp_deep_sleep_start();
   }
   else
   {
-    chargerOn = false;
+    chargerOn = 0;
     esp_sleep_enable_timer_wakeup(1);
     esp_deep_sleep_start();
   }
@@ -128,59 +132,59 @@ void IRAM_ATTR chargerIsr()
 
 // hw_timer_t
 
-void IRAM_ATTR batLeverIsr()
-{
-  delayMicroseconds(100);
-  int level = digitalRead(BAT_LEVEL_PIN);
-  // Serial.print("********** batLeverIsr______");
-  // Serial.println(digitalRead(BAT_LEVEL_PIN));
-  // delay(1);
-  if (level == 0)
-  {
+// void IRAM_ATTR batLeverIsr()
+// {
+//   // delayMicroseconds(100);
+//   int level = digitalRead(BAT_LEVEL_PIN);
+//   // Serial.print("********** batLeverIsr______");
+//   // Serial.println(digitalRead(BAT_LEVEL_PIN));
+//   // delay(1);
+//   if (level == 0)
+//   {
 
-    int time = millis();
-    int dt = time - prevMillis;
-    if (!levelDone)
-    {
+//     int time = millis();
+//     int dt = time - prevMillis;
+//     if (!levelDone)
+//     {
 
-      if (levelFronts == 0)
-      {
-        levelFronts++;
-      }
-      else
-      {
-        if (dt > 1000)
-        {
-          if (levelReady)
-          {
-            levelDone = true;
-            batLevel = levelFronts;
-            detachInterrupt(BAT_LEVEL_PIN);
-          }
-          else
-          {
-            levelReady = true;
-            levelFronts = 1;
-          }
-        }
-        else
-        {
-          if (levelReady)
-            levelFronts++;
-        }
-      }
-      prevMillis = time;
-      // Serial.print("**************** levelFronts = ");
-      // Serial.println(levelFronts);
-      // Serial.print("**************** levelReady = ");
-      // Serial.println(levelReady);
-      // Serial.print("**************** levelDone = ");
-      // Serial.println(levelDone);
-      // Serial.print("**************** dt = ");
-      // Serial.println(dt);
-    }
-  }
-}
+//       if (levelFronts == 0)
+//       {
+//         levelFronts++;
+//       }
+//       else
+//       {
+//         if (dt > 1000)
+//         {
+//           if (levelReady)
+//           {
+//             levelDone = true;
+//             batLevel = levelFronts;
+//             detachInterrupt(digitalPinToInterrupt(BAT_LEVEL_PIN));
+//           }
+//           else
+//           {
+//             levelReady = true;
+//             levelFronts = 1;
+//           }
+//         }
+//         else
+//         {
+//           if (levelReady)
+//             levelFronts++;
+//         }
+//       }
+//       prevMillis = time;
+//       // Serial.print("**************** levelFronts = ");
+//       // Serial.println(levelFronts);
+//       // Serial.print("**************** levelReady = ");
+//       // Serial.println(levelReady);
+//       // Serial.print("**************** levelDone = ");
+//       // Serial.println(levelDone);
+//       // Serial.print("**************** dt = ");
+//       // Serial.println(dt);
+//     }
+//   }
+// }
 
 // void IRAM_ATTR powerIsrPush()
 // {
@@ -268,10 +272,19 @@ void setup()
   pinMode(BAT_LEVEL_PIN, INPUT);
   attachInterrupt(digitalPinToInterrupt(POWER_PIN), powerIsr, RISING);
   attachInterrupt(digitalPinToInterrupt(OPTIONS_PIN), optionsIsr, RISING);
+  // Serial.print("+++++++++++++ analogRead(CHARGER) = ");
+  // Serial.println(analogRead(CHARGER_PIN));
   attachInterrupt(digitalPinToInterrupt(CHARGER_PIN), chargerIsr, CHANGE);
 #endif
+  if (chargerOn)
+  {
+    display.init(115200);
+    display.flush();
+    drawBat(&display, batLevelStr[5], &BatFont, true);
+    display.powerDown();
+  }
   // drawBat(&display, batLevelStr[5], &BatFont, false);
-  attachInterrupt(BAT_LEVEL_PIN, batLeverIsr, CHANGE);
+  // attachInterrupt(digitalPinToInterrupt(BAT_LEVEL_PIN), batLeverIsr, CHANGE);
 
   // while (!levelDone)
   // {
@@ -284,8 +297,8 @@ void setup()
 
   // esp_sleep_enable_ext0_wakeup(OPTIONS_PIN, 1); // 1 = High, 0 = Low
   chargerOn = digitalRead(CHARGER_PIN);
-  Serial.print("chargerOn = ");
-  Serial.print(digitalRead(CHARGER_PIN));
+  Serial.print("+++++++++++++++++++ chargerOn = ");
+  // Serial.print(digitalRead(CHARGER_PIN));
   Serial.print("   ");
   Serial.println(chargerOn);
   // delay(3000);
@@ -293,7 +306,7 @@ void setup()
   // while(powerBtnPushed);
 
   esp_sleep_enable_ext1_wakeup(WAKEUP_PINS_BITMAP, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
-  esp_sleep_enable_timer_wakeup(15e6);
+  esp_sleep_enable_timer_wakeup(updateTime);
   Serial.println("\n Starting");
 
   configWM();
@@ -355,10 +368,36 @@ void setup()
         return;
       }
 
-      while (!levelDone)
+      while (1)
       {
-        delay(1);
+        int impulse = pulseIn(BAT_LEVEL_PIN, LOW, 1e6);
+        Serial.print("++++++++++++++ pulseIn______");
+        Serial.println(impulse);
+        if (impulse == 0)
+        {
+          if (levelReady)
+          {
+            if (batLevel == 0)
+            {
+              chargeDone = true;
+              batLevel = 4;
+            }
+            break;
+          }
+          levelReady = true;
+        }
+        else
+        {
+          if (levelReady)
+          {
+            batLevel++;
+          }
+        }
       }
+
+      if (batLevel > 4)
+        batLevel = 4;
+
       Serial.print("\n========= batLevel = ");
       Serial.println(batLevel);
 
@@ -395,7 +434,7 @@ void setup()
       drawTimeText(&display, timeString, &MSSansSerif14, false);
       drawLine1(&display, line1, &MSSansSerif14, false);
       drawLine2(&display, line2, &MSSansSerif14, false);
-      if (chargerOn)
+      if (chargerOn && !chargeDone)
       {
         drawBat(&display, batLevelStr[5], &BatFont, false);
       }
