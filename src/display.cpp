@@ -3,6 +3,7 @@
 #include <display.h>
 
 #define DISPLAY_PADDING 4
+#define TEXT_PADDING 10
 #define ASIDE_WIDTH 100
 
 void drawAsideText(GxDEPG0290BS *display, const char *string, const GFXfont *font)
@@ -20,7 +21,7 @@ void drawAsideText(GxDEPG0290BS *display, const char *string, const GFXfont *fon
     display->print(string);
 }
 
-void drawTimeText(GxDEPG0290BS *display, const char *string, const GFXfont *font, bool partial = false)
+void drawLine2(GxDEPG0290BS *display, const char *string, const GFXfont *font, bool partial = false)
 {
     display->setRotation(3);
     display->setFont(font);
@@ -29,8 +30,8 @@ void drawTimeText(GxDEPG0290BS *display, const char *string, const GFXfont *font
     uint16_t tbw, tbh;
     display->getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
     // uint16_t x = display->width() - tbw - DISPLAY_PADDING;
-    uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
-    uint16_t y = tbh + DISPLAY_PADDING;
+    uint16_t x = ASIDE_WIDTH + TEXT_PADDING;
+    uint16_t y = tbh + TEXT_PADDING;
     display->setCursor(x, y);
     display->print(string);
 }
@@ -42,12 +43,12 @@ void drawLine1(GxDEPG0290BS *display, const char *string, const GFXfont *font, b
     int16_t tbx, tby;
     uint16_t tbw, tbh;
     display->getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
-    uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
+    uint16_t x = ASIDE_WIDTH + TEXT_PADDING;
     uint16_t y = ((display->height() - tbh) / 2) - tby;
     display->setCursor(x, y);
     display->print(string);
 }
-void drawLine2(GxDEPG0290BS *display, const char *string, const GFXfont *font, bool partial = false)
+void drawTimeText(GxDEPG0290BS *display, const char *string, const GFXfont *font, bool partial = false)
 {
     display->setRotation(3);
     display->setFont(font);
@@ -55,8 +56,8 @@ void drawLine2(GxDEPG0290BS *display, const char *string, const GFXfont *font, b
     int16_t tbx, tby;
     uint16_t tbw, tbh;
     display->getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
-    uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
-    uint16_t y = display->height() - DISPLAY_PADDING;
+    uint16_t x = ASIDE_WIDTH + TEXT_PADDING;
+    uint16_t y = display->height() - TEXT_PADDING;
     // Serial.print("=============== display height = ");
     // Serial.println(display->height());
     // Serial.print("=============== y = ");
@@ -94,9 +95,11 @@ void drawBat(GxDEPG0290BS *display, const char *string, const GFXfont *font, boo
     int16_t tbx, tby;
     uint16_t tbw, tbh;
     display->getTextBounds(string, 0, 0, &tbx, &tby, &tbw, &tbh);
-    uint16_t x = display->width() - tbw - DISPLAY_PADDING;
+    uint16_t x = display->width() - tbw;
+    // uint16_t x = display->width() - tbw - DISPLAY_PADDING;
     // uint16_t x = ASIDE_WIDTH + DISPLAY_PADDING;
-    uint16_t y = tbh + DISPLAY_PADDING;
+    // uint16_t y = tbh + DISPLAY_PADDING;
+    uint16_t y = tbh;
     display->setCursor(x, y);
     display->print(string);
     if (partial)

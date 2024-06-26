@@ -24,6 +24,12 @@
 #include <FontsRus/MSSansSerif14.h>
 #include <FontsRus/MSSansSerif18.h>
 #include <FontsRus/MSSansSerif30.h>
+#include <FontsRus/JetBrainsMonoThin14.h>
+#include <FontsRus/JetBrainsMonoThin30.h>
+#include <FontsRus/JetBrainsMono12.h>
+#include <FontsRus/JetBrainsMono14.h>
+#include <FontsRus/JetBrainsMono15.h>
+#include <FontsRus/JetBrainsMono30.h>
 #include <FontsRus/BatFont.h>
 
 // #define GxEPD2_DRIVER_CLASS GxEPD2_290_T94_V2
@@ -37,16 +43,20 @@
 #include <GxIO/GxIO.h>
 
 // #define TRIGGER_PIN 0
-#define updateTime 600e6 // us
+#define BIG_FONT &MSSansSerif30
+#define NORM_FONT &MSSansSerif18
+#define MIN_FONT &MSSansSerif14
+
+// #define updateTime 600e6 // us
 
 #define OPTIONS_PIN GPIO_NUM_33
 #define POWER_PIN GPIO_NUM_32
 
-#define ASIDE_WIDTH 100
-#define DISPLAY_PADDING 4
+// #define ASIDE_WIDTH 90
+// #define DISPLAY_PADDING 4
 
 #define LED_PIN GPIO_NUM_19
-#define BRIGHTNESS 40 // 0 - 255
+// #define BRIGHTNESS 40 // 0 - 255
 
 #define CHARGER_PIN GPIO_NUM_25
 #define BAT_LEVEL_PIN GPIO_NUM_26
@@ -66,7 +76,9 @@ HTTPClient http;
 Preferences preferences;
 
 String url;
-String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
+String update_time = "0";
+String brightness = "40";
+// String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
 
 // Allocate the JSON document
 JsonDocument doc;
@@ -74,6 +86,8 @@ JsonDocument doc;
 RTC_DATA_ATTR volatile bool optionsBtnPressed = false;
 RTC_DATA_ATTR volatile bool turnOffFlag = false;
 RTC_DATA_ATTR int chargerOn = 0;
+
+long sleepTimeMs[3] = {60000, 300000, 600000};
 
 int startTime = 0;
 int batLevel = 0;
@@ -162,7 +176,7 @@ void configModeCallback(WiFiManager *myWiFiManager)
   pixels.clear();
   pixels.show();
   String text = "Точка доступа";
-  drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+  drawStatusText(&display, strToChar(utf8rus(text)), NORM_FONT);
   Serial.println("[CALLBACK] configModeCallback fired");
   // myWiFiManager->setAPStaticIPConfig(IPAddress(10,0,1,1), IPAddress(10,0,1,1), IPAddress(255,255,255,0));
   // Serial.println(WiFi.softAPIP());
@@ -241,20 +255,49 @@ void setup()
   // while(powerBtnPushed);
 
   esp_sleep_enable_ext1_wakeup(WAKEUP_PINS_BITMAP, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
-  esp_sleep_enable_timer_wakeup(updateTime);
   Serial.println("\n Starting");
-
-  configWM();
 
   preferences.begin("preferences", false);
   url = preferences.getString("url");
+  update_time = preferences.getString("update_time");
+  brightness = preferences.getString("brightness");
+  preferences.end();
+  Serial.println("URL = " + url);
+  Serial.println("update_time = " + update_time);
+  uint8_t bri = brightness.toInt();
+  Serial.print("brightness = ");
+  Serial.println(bri);
+  Serial.println("====================== sleep time = ");
+
+  Serial.println(sleepTimeMs[update_time.toInt()] * 1000);
+  esp_sleep_enable_timer_wakeup(sleepTimeMs[update_time.toInt()] * 1000);
+  // switch (update_time)
+  // {
+  // case '0':
+  //   sleepTimeMs = 60e3;
+  //   break;
+  // case '1':
+  //   sleepTimeMs = 60e3 * 5;
+  //   break;
+  // case '2':
+  //   sleepTimeMs = 60e3 * 10;
+  //   break;
+
+  // default:
+  //   break;
+  // }
+  uint8_t ut = update_time.toInt();
+  Serial.println("update_time = " + ut);
+
+  configWM();
+
   if (url == "" || optionsBtnPressed)
   {
     // String text = "Точка доступа";
     if (url == "")
     {
       String text = "URL пуст";
-      drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+      drawStatusText(&display, strToChar(utf8rus(text)), NORM_FONT);
     }
 
     // if (optionsBtnPressed)
@@ -265,8 +308,6 @@ void setup()
     }
     esp_restart();
   }
-  preferences.end();
-  Serial.println("URL = " + url);
 
   bool res;
   // res = wm.autoConnect(); // auto generated AP name from chipid
@@ -310,40 +351,94 @@ void setup()
         return;
       }
 
-      int cnt = 0;
-      while (1)
+      int time = millis();
+      int lowPulse = 0;
+      int pulse = 0;
+      int bat_pin_cnt = 0;
+      int bat_pin_state = 0;
+      while ((millis() - time) < 10000)
       {
-        int impulse = pulseInLong(BAT_LEVEL_PIN, LOW, 1e6);
-        Serial.print("++++++++++++++ pulseIn______");
-        Serial.println(impulse);
-        if (impulse == 0)
+        int bat_pin = digitalRead(BAT_LEVEL_PIN);
+        if (bat_pin && bat_pin_cnt < 100)
         {
-          if (levelReady)
-          {
-            if (batLevel == 0)
-            {
-              chargeDone = true;
-              batLevel = 4;
-            }
-            break;
-          }
-          levelReady = true;
+          bat_pin_cnt++;
         }
-        else
+        if (!bat_pin && bat_pin_cnt > 0)
         {
-          if (levelReady)
-          {
-            batLevel++;
-          }
+          bat_pin_cnt--;
         }
-        if (cnt > 20)
+        if (bat_pin_cnt < 20)
         {
-          chargeDone = true;
-          batLevel = 4;
-          break;
+          bat_pin_state = 0;
+          // Serial.print("********************** bat_pin_low = ");
+          // Serial.println(millis());
         }
-        cnt++;
+        if (bat_pin_cnt > 80)
+        {
+          bat_pin_state = 1;
+          // Serial.print("********************** bat_pin_high = ");
+          // Serial.println(millis());
+        }
+
+        // Serial.print("********************** bat_pin_cnt = ");
+        // Serial.println(bat_pin_cnt);
+        // Serial.print("********************** bat_pin_state = ");
+        // Serial.println(bat_pin_state);
+        delay(1);
+        // while (digitalRead(BAT_LEVEL_PIN))
+        // {
+        //   delay(1);
+        // }
+        // lowPulse = millis();
+        // Serial.print("********************** lowPulse = ");
+        // Serial.println(lowPulse);
+        // while (!digitalRead(BAT_LEVEL_PIN))
+        // {
+        //   delay(1);
+        // }
+        // int t = millis();
+        // Serial.print("********************** t = ");
+        // Serial.println(t);
+        // pulse = t - lowPulse;
+        // Serial.print("********************** pulse = ");
+        // Serial.println(pulse);
+        // break;
       }
+
+      // int cnt = 0;
+      // while (1)
+      // {
+      //   int impulse = pulseInLong(BAT_LEVEL_PIN, LOW, 1e6);
+      //   Serial.print("++++++++++++++ pulseIn______");
+      //   Serial.println(impulse);
+      //   if (impulse == 0)
+      //   {
+      //     if (levelReady)
+      //     {
+      //       if (batLevel == 0)
+      //       {
+      //         chargeDone = true;
+      //         batLevel = 4;
+      //       }
+      //       break;
+      //     }
+      //     levelReady = true;
+      //   }
+      //   else
+      //   {
+      //     if (levelReady)
+      //     {
+      //       batLevel++;
+      //     }
+      //   }
+      //   if (cnt > 20)
+      //   {
+      //     chargeDone = true;
+      //     batLevel = 4;
+      //     break;
+      //   }
+      //   cnt++;
+      // }
 
       if (batLevel > 4)
         batLevel = 4;
@@ -369,21 +464,21 @@ void setup()
 
       if (!strcmp(status, "good"))
       {
-        pixels.setPixelColor(0, pixels.Color(0, BRIGHTNESS, 0));
+        pixels.setPixelColor(0, pixels.Color(0, brightness.toInt(), 0));
       }
       else if (!strcmp(status, "bad"))
       {
-        pixels.setPixelColor(0, pixels.Color(BRIGHTNESS, 0, 0));
+        pixels.setPixelColor(0, pixels.Color(brightness.toInt(), 0, 0));
       }
       else if (!strcmp(status, "neutral"))
       {
-        pixels.setPixelColor(0, pixels.Color(0, 0, BRIGHTNESS));
+        pixels.setPixelColor(0, pixels.Color(0, 0, brightness.toInt()));
       }
       pixels.show(); // Send the updated pixel colors to the hardware.
-      drawAsideText(&display, aside, &MSSansSerif30);
-      drawTimeText(&display, timeString, &MSSansSerif14, false);
-      drawLine1(&display, line1, &MSSansSerif14, false);
-      drawLine2(&display, line2, &MSSansSerif14, false);
+      drawAsideText(&display, aside, BIG_FONT);
+      drawTimeText(&display, timeString, MIN_FONT, false);
+      drawLine1(&display, line1, BIG_FONT, false);
+      drawLine2(&display, line2, MIN_FONT, false);
       if (chargerOn && !chargeDone)
       {
         drawBat(&display, batLevelStr[5], &BatFont, false);
@@ -401,7 +496,7 @@ void setup()
       Serial.println(httpResponseCode);
       Serial.println(":-(");
       String text = "Ошибка " + String(httpResponseCode);
-      drawStatusText(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+      drawStatusText(&display, strToChar(utf8rus(text)), NORM_FONT);
       // turningOff();
     }
     http.end();
@@ -412,7 +507,7 @@ void setup()
   }
   else
   {
-    delay(600e3);
+    delay(sleepTimeMs[update_time.toInt()]);
     esp_restart();
   }
 }
@@ -434,11 +529,17 @@ String getParam(String name)
 
 void saveParamCallback()
 {
-  url = getParam("custom_url");
   Serial.println("[CALLBACK] saveParamCallback fired");
+  url = getParam("custom_url");
+  update_time = getParam("update_time");
+  brightness = getParam("brightness");
   Serial.println("PARAM custom_url = " + url);
+  Serial.println("PARAM custom_radio = " + update_time);
+  Serial.println("PARAM brightness = " + brightness);
   preferences.begin("preferences", false);
   preferences.putString("url", url);
+  preferences.putString("update_time", update_time);
+  preferences.putString("brightness", brightness);
   preferences.end();
 }
 
@@ -585,20 +686,23 @@ void configWM()
   // add a custom input field
   int customFieldLength = 40;
 
-  // new (&custom_field) WiFiManagerParameter("customfieldid", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\"");
+  // new (&custom_field) WiFiManagerParameter("update_time", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\"");
 
   // test custom html input type(checkbox)
-  // new (&custom_field) WiFiManagerParameter("customfieldid", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\" type=\"checkbox\""); // custom html type
+  // new (&custom_field) WiFiManagerParameter("update_time", "Custom Field Label", "Custom Field Value", customFieldLength,"placeholder=\"Custom Field Placeholder\" type=\"checkbox\""); // custom html type
 
   // test custom html(radio)
-  // const char *custom_input_str = "<br/><label for='customfieldid'>Custom Field Label</label><input type='radio' name='customfieldid' value='1' checked> One<br><input type='radio' name='customfieldid' value='2'> Two<br><input type='radio' name='customfieldid' value='3'> Three";
-  const String input_html = "<laber for='custom_url'>URL для получения данных</label><br><input type='text' id='custom_url' name='custom_url' value='" + (url ? url : "") + "'/>";
+  // const char *custom_input_str = "<br/><label for='update_time'>Custom Field Label</label><input type='radio' name='update_time' value='1' checked> One<br><input type='radio' name='update_time' value='2'> Two<br><input type='radio' name='update_time' value='3'> Three";
+  Serial.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& OK");
+  const String input_html = "<laber for='custom_url' style='margin-bottom: 18px'>URL для получения данных</label><br><input type='text' id='custom_url' name='custom_url' value='" + (url ? url : "") + "'/><br/><div style='margin-bottom: 18px'><label for='update_time'>Частота обновления данных</label><br/><label for='radio_0'><input type='radio' id='radio_0' name='update_time' value='0' " + (update_time == "0" ? "checked" : "") + ">1 минута</label><br><label for='radio_1'><input type='radio' id='radio_1' name='update_time' value='1' " + (update_time == "1" ? "checked" : "") + ">5 минут</label><br><label for='radio_2'><input type='radio' id='radio_2' name='update_time' value='2' " + (update_time == "2" ? "checked" : "") + ">10 минут</label></div><label for='brightness'>Яркость светодиода<input type='range' name='brightness' min='0' max='255' step='1' value='" + (brightness ? brightness : "40") + "'></label>";
   unsigned int l = input_html.length();
   char *custom_input_str = new char[l + 1];
   strcpy(custom_input_str, input_html.c_str());
   new (&custom_field) WiFiManagerParameter(custom_input_str); // custom html input
-
   wm.addParameter(&custom_field);
+  // const char *custom_radio_str = "<br/><label for='update_time'>Custom Field Label</label><input type='radio' name='update_time' value='1' checked> One<br><input type='radio' name='update_time' value='2'> Two<br><input type='radio' name='update_time' value='3'> Three";
+  // new (&custom_field) WiFiManagerParameter(custom_radio_str); // custom html input
+  // wm.addParameter(&custom_field);
   wm.setSaveParamsCallback(saveParamCallback);
 
   // custom menu via array or vector
@@ -634,7 +738,7 @@ void turningOff()
   String text = "Выключено";
   pixels.clear();
   pixels.show();
-  drawTurnOff(&display, strToChar(utf8rus(text)), &MSSansSerif14);
+  drawTurnOff(&display, strToChar(utf8rus(text)), NORM_FONT);
   esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
   esp_deep_sleep_start();
 }
