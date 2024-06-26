@@ -3,6 +3,10 @@
  * Implements TRIGGEN_PIN button press, press for ondemand configportal, hold for 3 seconds for reset settings.
  */
 
+// Собственное потребление схемы ~1.4мА (при выключенном светодиоде)
+// Потребление при яркости 255 (100%) 9.3мА
+// Оптимальное потребление при яркости 55 3мА
+
 // #include <FS.h>
 #include <Arduino.h>
 #include <main.h>
@@ -76,7 +80,7 @@ HTTPClient http;
 Preferences preferences;
 
 String url;
-String update_time = "0";
+String update_time = "2";
 String brightness = "40";
 // String getHooksUrl = "https://iron-violet.deno.dev/v1/available-webhooks";
 
@@ -87,19 +91,21 @@ RTC_DATA_ATTR volatile bool optionsBtnPressed = false;
 RTC_DATA_ATTR volatile bool turnOffFlag = false;
 RTC_DATA_ATTR int chargerOn = 0;
 
-long sleepTimeMs[3] = {60000, 300000, 600000};
+long sleepTimeMs[4] = {60000, 120000, 300000, 600000};
 
-int startTime = 0;
+// int startTime = 0;
 int batLevel = 0;
-int levelFronts = 0;
-int betweenFronts = 0;
-int prevMillis = 0;
+// int levelFronts = 0;
+// int betweenFronts = 0;
+// int prevMillis = 0;
 bool levelReady = false;
 bool levelDone = false;
 
 bool chargeDone = false;
 bool prevBatLevel;
 char *batLevelStr[6] = {"0", "1", "2", "3", "4", "5"};
+
+// unsigned long start_time;
 // RTC_DATA_ATTR volatile bool powerBtnPushed = false;
 
 // BUSY -> 4, RST -> 16, DC -> 17, CS -> SS(5), CLK -> SCK(18), DIN -> MOSI(23), GND -> GND, 3.3V -> 3.3V
@@ -135,8 +141,8 @@ void IRAM_ATTR chargerIsr()
   if (digitalRead(CHARGER_PIN))
   {
     chargerOn = 1;
-    // esp_sleep_enable_timer_wakeup(1);
-    // esp_deep_sleep_start();
+    esp_sleep_enable_timer_wakeup(1);
+    esp_deep_sleep_start();
   }
   else
   {
@@ -205,6 +211,7 @@ void bindServerCallback()
 
 void setup()
 {
+  // start_time = millis();
   Serial.begin(115200);
   Serial.println("_____START_____");
 #ifndef STANDALONE
@@ -269,8 +276,9 @@ void setup()
   Serial.println(bri);
   Serial.println("====================== sleep time = ");
 
-  Serial.println(sleepTimeMs[update_time.toInt()] * 1000);
-  esp_sleep_enable_timer_wakeup(sleepTimeMs[update_time.toInt()] * 1000);
+  // Serial.println(sleepTimeMs[update_time.toInt()] * 1000);
+  // esp_sleep_enable_timer_wakeup(sleepTimeMs[update_time.toInt()] * 1000);
+
   // switch (update_time)
   // {
   // case '0':
@@ -327,7 +335,6 @@ void setup()
     // Serial.println(url);
 
     http.begin(url);
-
     int httpResponseCode = http.GET();
     if (httpResponseCode == 200)
     {
@@ -352,11 +359,17 @@ void setup()
       }
 
       int time = millis();
+      int tmp = time;
       int lowPulse = 0;
       int pulse = 0;
       int bat_pin_cnt = 0;
+      int prev_bat_pin_state = 0;
       int bat_pin_state = 0;
-      while ((millis() - time) < 10000)
+      int fronts_time = 0;
+      int fronts_cnt = 0;
+      chargeDone = chargerOn;
+
+      while (((millis() - time) < 10000) && !levelDone)
       {
         int bat_pin = digitalRead(BAT_LEVEL_PIN);
         if (bat_pin && bat_pin_cnt < 100)
@@ -379,66 +392,36 @@ void setup()
           // Serial.print("********************** bat_pin_high = ");
           // Serial.println(millis());
         }
-
-        // Serial.print("********************** bat_pin_cnt = ");
-        // Serial.println(bat_pin_cnt);
-        // Serial.print("********************** bat_pin_state = ");
-        // Serial.println(bat_pin_state);
+        if (prev_bat_pin_state == 1 && bat_pin_state == 0)
+        {
+          chargeDone = false;
+          int t = millis();
+          fronts_time = t - tmp;
+          Serial.print("()()()()()()()()()() front_time = ");
+          Serial.println(fronts_time);
+          if (fronts_time > 1000)
+          {
+            if (levelReady)
+            {
+              levelDone = true;
+              batLevel = fronts_cnt;
+            }
+            levelReady = true;
+            fronts_cnt = 1;
+          }
+          if ((fronts_time > 150) && (fronts_time < 1000) && levelReady)
+          {
+            fronts_cnt++;
+          }
+          tmp = t;
+        }
+        if (prev_bat_pin_state == 0 && bat_pin_state == 1)
+        {
+          chargeDone = false;
+        }
+        prev_bat_pin_state = bat_pin_state;
         delay(1);
-        // while (digitalRead(BAT_LEVEL_PIN))
-        // {
-        //   delay(1);
-        // }
-        // lowPulse = millis();
-        // Serial.print("********************** lowPulse = ");
-        // Serial.println(lowPulse);
-        // while (!digitalRead(BAT_LEVEL_PIN))
-        // {
-        //   delay(1);
-        // }
-        // int t = millis();
-        // Serial.print("********************** t = ");
-        // Serial.println(t);
-        // pulse = t - lowPulse;
-        // Serial.print("********************** pulse = ");
-        // Serial.println(pulse);
-        // break;
       }
-
-      // int cnt = 0;
-      // while (1)
-      // {
-      //   int impulse = pulseInLong(BAT_LEVEL_PIN, LOW, 1e6);
-      //   Serial.print("++++++++++++++ pulseIn______");
-      //   Serial.println(impulse);
-      //   if (impulse == 0)
-      //   {
-      //     if (levelReady)
-      //     {
-      //       if (batLevel == 0)
-      //       {
-      //         chargeDone = true;
-      //         batLevel = 4;
-      //       }
-      //       break;
-      //     }
-      //     levelReady = true;
-      //   }
-      //   else
-      //   {
-      //     if (levelReady)
-      //     {
-      //       batLevel++;
-      //     }
-      //   }
-      //   if (cnt > 20)
-      //   {
-      //     chargeDone = true;
-      //     batLevel = 4;
-      //     break;
-      //   }
-      //   cnt++;
-      // }
 
       if (batLevel > 4)
         batLevel = 4;
@@ -475,17 +458,21 @@ void setup()
         pixels.setPixelColor(0, pixels.Color(0, 0, brightness.toInt()));
       }
       pixels.show(); // Send the updated pixel colors to the hardware.
+
       drawAsideText(&display, aside, BIG_FONT);
       drawTimeText(&display, timeString, MIN_FONT, false);
       drawLine1(&display, line1, BIG_FONT, false);
       drawLine2(&display, line2, MIN_FONT, false);
-      if (chargerOn && !chargeDone)
+      if (chargerOn)
       {
-        drawBat(&display, batLevelStr[5], &BatFont, false);
-      }
-      else
-      {
-        drawBat(&display, batLevelStr[batLevel], &BatFont, false);
+        if (chargeDone)
+        {
+          drawBat(&display, batLevelStr[4], &BatFont, false);
+        }
+        else
+        {
+          drawBat(&display, batLevelStr[5], &BatFont, false);
+        }
       }
       display.update();
       display.powerDown();
@@ -496,6 +483,8 @@ void setup()
       Serial.println(httpResponseCode);
       Serial.println(":-(");
       String text = "Ошибка " + String(httpResponseCode);
+      pixels.clear();
+      pixels.show();
       drawStatusText(&display, strToChar(utf8rus(text)), NORM_FONT);
       // turningOff();
     }
@@ -503,11 +492,14 @@ void setup()
   }
   if (!chargerOn)
   {
+    Serial.println(sleepTimeMs[update_time.toInt()] * 1000 - (millis() * 1000));
+    esp_sleep_enable_timer_wakeup(sleepTimeMs[update_time.toInt()] * 1000 - (millis() * 1000));
+
     esp_deep_sleep_start();
   }
   else
   {
-    delay(sleepTimeMs[update_time.toInt()]);
+    delay(sleepTimeMs[update_time.toInt()] - millis());
     esp_restart();
   }
 }
@@ -532,7 +524,7 @@ void saveParamCallback()
   Serial.println("[CALLBACK] saveParamCallback fired");
   url = getParam("custom_url");
   update_time = getParam("update_time");
-  brightness = getParam("brightness");
+  brightness = getParam("brightness_input");
   Serial.println("PARAM custom_url = " + url);
   Serial.println("PARAM custom_radio = " + update_time);
   Serial.println("PARAM brightness = " + brightness);
@@ -694,7 +686,7 @@ void configWM()
   // test custom html(radio)
   // const char *custom_input_str = "<br/><label for='update_time'>Custom Field Label</label><input type='radio' name='update_time' value='1' checked> One<br><input type='radio' name='update_time' value='2'> Two<br><input type='radio' name='update_time' value='3'> Three";
   Serial.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& OK");
-  const String input_html = "<laber for='custom_url' style='margin-bottom: 18px'>URL для получения данных</label><br><input type='text' id='custom_url' name='custom_url' value='" + (url ? url : "") + "'/><br/><div style='margin-bottom: 18px'><label for='update_time'>Частота обновления данных</label><br/><label for='radio_0'><input type='radio' id='radio_0' name='update_time' value='0' " + (update_time == "0" ? "checked" : "") + ">1 минута</label><br><label for='radio_1'><input type='radio' id='radio_1' name='update_time' value='1' " + (update_time == "1" ? "checked" : "") + ">5 минут</label><br><label for='radio_2'><input type='radio' id='radio_2' name='update_time' value='2' " + (update_time == "2" ? "checked" : "") + ">10 минут</label></div><label for='brightness'>Яркость светодиода<input type='range' name='brightness' min='0' max='255' step='1' value='" + (brightness ? brightness : "40") + "'></label>";
+  const String input_html = "<laber for='custom_url' style='margin-bottom: 18px'>URL для получения данных</label><br><input type='text' id='custom_url' name='custom_url' value='" + (url ? url : "") + "'/><br/><div style='margin-bottom: 18px'><label for='update_time'>Частота обновления данных</label><br/><label for='radio_0'><input type='radio' id='radio_0' name='update_time' value='0' " + (update_time == "0" ? "checked" : "") + ">1 минута</label><br><label for='radio_1'><input type='radio' id='radio_1' name='update_time' value='1' " + (update_time == "1" ? "checked" : "") + ">2 минуты</label><br><label for='radio_2'><input type='radio' id='radio_2' name='update_time' value='2' " + (update_time == "2" ? "checked" : "") + ">5 минут</label><br><label for='radio_3'><input type='radio' id='radio_3' name='update_time' value='3' " + (update_time == "3" ? "checked" : "") + ">10 минут</label></div><label for='brightness_input'>Яркость светодиода <output id='brightness_value' name='brightness_value' for='brightness_input'>" + (brightness ? brightness : "40") + "</output><input type='range' id='brightness_input' name='brightness_input' min='0' max='255' step='5' value='" + (brightness ? brightness : "40") + "' oninput=\"brightness_value.value = brightness_input.value\"></label>";
   unsigned int l = input_html.length();
   char *custom_input_str = new char[l + 1];
   strcpy(custom_input_str, input_html.c_str());
@@ -739,6 +731,8 @@ void turningOff()
   pixels.clear();
   pixels.show();
   drawTurnOff(&display, strToChar(utf8rus(text)), NORM_FONT);
+  display.powerDown();
+  // display._PowerOff();
   esp_sleep_enable_ext1_wakeup(0x100000000, ESP_EXT1_WAKEUP_ANY_HIGH); // 1 = High, 0 = Low
   esp_deep_sleep_start();
 }
