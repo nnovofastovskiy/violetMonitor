@@ -474,6 +474,10 @@ void setup()
           drawBat(&display, batLevelStr[5], &BatFont, false);
         }
       }
+      else
+      {
+        drawBat(&display, batLevelStr[batLevel], &BatFont, false);
+      }
       display.update();
       display.powerDown();
     }
